@@ -1,0 +1,355 @@
+﻿@model WebMXH.Models.USERR
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditProfile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+    <!-- Emoji CSS -->
+    <link rel="stylesheet" href="~/Content/assets/css/emojionearea.min.css">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="~/Content/assets/fonts/fontawesome-free-5.15.3-web/css/all.min.css">
+</head>
+<body>
+    <!-- Begin header -->
+    <header>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-success">
+            <a class="navbar-brand" href="@Url.Action("Index","Home")" style="color:white;font-weight: bold;padding-left:30px;">Social Media Greenzone</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" style="color:white;font-weight: bold;font-size:1.6rem;"><i style="margin-right:20px;margin-left:20px;" class="far fa-bell"></i><span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" style="color:white;font-weight: bold;font-size:1.6rem;"><i class="far fa-envelope"></i></a>
+                    </li>
+                </ul>
+                <div class="formSearch">
+                    <i class="icon-formSearch fas fa-search"></i>
+                    <input class="input-formSearch" type="text" placeholder="Tìm kiếm">
+                </div>
+                <div id="accountUser" class="accountUser" style="padding-right: 20px;">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <img class="img-accountUser" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
+                    }
+                </div>
+            </div>
+            <div id="accountUserSetting" class="accountUserSetting">
+                <div class="accountInfoUser">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div>
+                            <img class="img-accountInfoUser" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
+                        </div>
+                    }
+                    <div class="accountInfoNameLink">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <span>@GetUsername(int.Parse(User.Identity.Name))</span>
+                        }
+                        <div>
+                            <a style="text-decoration: none;" href="@Url.Action("Profiles","Home")">Xem trang cá nhân</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="accountActivity">
+                    <ul class="accountActivityList">
+                        <li class="accountActivityListItem">
+                            <a class="accountActivityName" href="#">
+                                <i class="accountIcon fas fa-cog"></i>
+                                Cài đặt
+                            </a>
+                        </li>
+                        <li class="accountActivityListItem">
+                            <a class="accountActivityName" href="#">
+                                <i class="accountIcon fas fa-question-circle"></i>
+                                Giúp đỡ
+                            </a>
+                        </li>
+                        <li class="accountActivityListItem">
+                            <a id="changeBg" class="accountActivityName" href="#">
+                                <i class="accountIcon fas fa-moon"></i>
+                                Giao diện
+                            </a>
+                        </li>
+                        <li class="accountActivityListItem">
+                            <a class="accountActivityName" href="@Url.Action("Logout","Home")">
+                                <i class="accountIcon fas fa-sign-out-alt"></i>
+                                Đăng xuất
+                            </a>
+                        </li>
+                        <li class="accountActivityClose" style="text-align: center;padding:5px 0;font-size: 1.1rem;"><a id="closeSetting" class="accountActivityNameClose" href="#">Đóng</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- End header -->
+    @using (Html.BeginForm("EditProfile","Home",FormMethod.Post,new { enctype="Multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col1" style="width: 760px; height: 1010px; padding-left: 25px; border: 1px solid; position: absolute; top: 15%; left: 20%; border-radius: 40px; ">
+                <div class="user-info" style="display:flex;">
+                    <div style="background-color: #28a745; height: 90px; width: 400px; position: absolute; top: 50px; left: -35px;">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <h3 style=" margin-top: 26px; color: white; text-transform: uppercase; margin-left: 45px;">@GetUsername(int.Parse(User.Identity.Name))</h3>
+                        }
+                    </div>
+                    <div style="position: absolute; border-width: 44px; border-style: solid; border-color: transparent transparent transparent #28a745; left: 364px; top: 51px;"></div>
+                </div>
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div>
+                        <div class="imageUser">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <img style="width: 250px; height: 300px; border-radius: 40px; position: absolute; top: 20%; left: 10%;" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" />
+                            }
+                        </div>
+                        <div class="infoUser" style="position: absolute; top: 55%; left: 10%; width: 300px;">
+                            <h3 style="text-align: center; margin-left: -60px; text-transform: uppercase; margin-bottom: 25px; ">Thông tin cá nhân</h3>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="form-group">
+                                    <i class="fas fa-phone-alt"></i>
+                                    <span style="font-weight:bold;">Số điện thoại: </span>@GetSDT(int.Parse(User.Identity.Name))
+                                </div>
+                                <div class="form-group">
+                                    <i class="fas fa-venus-mars"></i>
+                                    <span style="font-weight:bold;">Giới tính: </span>@GetGioiTinh(int.Parse(User.Identity.Name))
+                                </div>
+                                <div class="form-group">
+                                    <i class="fas fa-envelope"></i>
+                                    <span style="font-weight:bold;">Email: </span>@GetEmail(int.Parse(User.Identity.Name))
+                                </div>
+                                <div class="form-group">
+                                    <i class="fas fa-birthday-cake"></i>
+                                    <span style="font-weight:bold;">Ngày sinh: </span>@GetNgaySinh(int.Parse(User.Identity.Name))
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="form-edit" style="position: absolute; width: 415px; top: 20%; left: 53%; border-left: 2px solid;">
+                        <h3 style=" text-align: center; margin-left: -70px; text-transform: uppercase;">Chỉnh sửa thông tin</h3>
+                        <div class="form-group2">
+                            @*@Html.LabelFor(model => model.USERID, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                            <a style="margin-left:16px;text-transform:uppercase;font-weight:bold;">Mã tài khoản</a>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.USERID, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.USERID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group3">
+                            @*@Html.LabelFor(model => model.USERNAME, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                            <a style="margin-left: 16px; text-transform: uppercase; font-weight: bold; ">Tên đăng nhập</a>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.USERNAME, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.USERNAME, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group4">
+                            @*@Html.LabelFor(model => model.FULLNAME, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                            <a style="margin-left: 16px; text-transform: uppercase; font-weight: bold; ">Họ và tên</a>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.FULLNAME, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.FULLNAME, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group5">
+                            @*@Html.LabelFor(model => model.PASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                            <a style="margin-left: 16px; text-transform: uppercase; font-weight: bold; ">Mật khẩu</a>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.PASSWORD, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.PASSWORD, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group6">
+                            @*@Html.LabelFor(model => model.SDT, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                            <a style="margin-left: 16px; text-transform: uppercase; font-weight: bold; ">Số điện thoại</a>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group7">
+                            @*@Html.LabelFor(model => model.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                            <a style="margin-left: 16px; text-transform: uppercase; font-weight: bold; ">Email</a>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <a style="margin-left: 16px; text-transform: uppercase; font-weight: bold; ">Hình ảnh</a>
+                            <div class="col-md-10">
+                                @*filename này để cho bên HomeController/EditProfile lấy dữ liệu*@
+                                <input type="file" name="filename" />
+                                @Html.ValidationMessageFor(model => model.HINHANH, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group8">
+                            @*@Html.LabelFor(model => model.GIOITINH, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                            <a style="margin-left: 16px; text-transform: uppercase; font-weight: bold; ">Giới tính</a>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.GIOITINH, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.GIOITINH, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group9">
+                            @*@Html.LabelFor(model => model.NGAYSINH, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                            <a style="margin-left: 16px; text-transform: uppercase; font-weight: bold; ">Ngày sinh</a>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.NGAYSINH, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.NGAYSINH, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group10">
+                            @*@Html.LabelFor(model => model.IDTOKEN, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                            <a style="margin-left: 16px; text-transform: uppercase; font-weight: bold; ">ID TOKEN</a>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.IDTOKEN, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.IDTOKEN, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div style=" display: flex; justify-content: space-between; margin-top: 20px; position: absolute; left: -51%;">
+                                <div>
+                                    <input type="submit" value="Lưu lại thông tin đã sửa" style=" height: 40px;" class="button-profile btn btn-success" />
+                                </div>
+                                <div>
+                                    <a href="@Url.Action("Profiles","Home")" style="height: 40px; line-height: 36px; margin-left:20px;" class="button-profile btn btn-primary">Quay về trang cá nhân</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @*<div class="col2" style="height: 1000px; padding-right: 25px; position: absolute; top: 20%; left: 70%;">
+        <div class="infoUser" style="position: absolute; top: 45%; right: 9%; width: 300px;">
+            <h4 style="margin-top:10px;text-align:center;font-size:2rem;">Thông tin cá nhân</h4>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="form-group">
+                    <i class="fas fa-phone-alt"></i>
+                    @GetSDT(int.Parse(User.Identity.Name))
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-venus-mars"></i>
+                    @GetGioiTinh(int.Parse(User.Identity.Name))
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-envelope"></i>
+                    @GetEmail(int.Parse(User.Identity.Name))
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-birthday-cake"></i>
+                    @GetNgaySinh(int.Parse(User.Identity.Name))
+                </div>
+            }
+        </div>
+    </div>*@
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        var opening = document.getElementById('accountUser');
+        var closing = document.getElementById('closeSetting');
+
+        opening.onclick = function () {
+            accountUserSetting.style.display = 'block';
+        }
+        closing.onclick = function () {
+            accountUserSetting.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+
+@functions{
+    MXH_GREENZONEEntities _Context7 = new MXH_GREENZONEEntities();
+    public string GetUserId(int userId)
+    {
+        return _Context7.USERRs.FirstOrDefault(x => x.USERID == userId)?.USERID.ToString();
+    }
+}
+<!--Hàm get tên người dùng khi đăng nhập nó quét userId rồi ra tên người dùng đó -->
+@functions{
+    MXH_GREENZONEEntities _Context = new MXH_GREENZONEEntities();
+    public string GetUsername(int userId)
+    {
+        return _Context.USERRs.FirstOrDefault(x => x.USERID == userId)?.FULLNAME;
+    }
+}
+
+<!--Hàm get hình ảnh người dùng khi đăng nhập nó quét userId rồi ra hình ảnh người dùng đó -->
+@functions{
+    MXH_GREENZONEEntities _Context1 = new MXH_GREENZONEEntities();
+    public string GetImage(int hinhanh)
+    {
+        return _Context1.USERRs.FirstOrDefault(x => x.USERID == hinhanh)?.HINHANH ?? "user.png";
+    }
+}
+
+<!--Hàm get SDT người dùng khi đăng nhập nó quét userId rồi ra hình ảnh người dùng đó -->
+@functions{
+    MXH_GREENZONEEntities _Context2 = new MXH_GREENZONEEntities();
+    public string GetSDT(int sdt)
+    {
+        return _Context2.USERRs.FirstOrDefault(x => x.USERID == sdt)?.SDT;
+    }
+}
+
+<!--Hàm get giới tính người dùng khi đăng nhập nó quét userId rồi ra hình ảnh người dùng đó -->
+@functions{
+    MXH_GREENZONEEntities _Context3 = new MXH_GREENZONEEntities();
+    public string GetGioiTinh(int gioitinh)
+    {
+        return _Context3.USERRs.FirstOrDefault(x => x.USERID == gioitinh)?.GIOITINH;
+    }
+}
+
+<!--Hàm get email người dùng khi đăng nhập nó quét userId rồi ra hình ảnh người dùng đó -->
+@functions{
+    MXH_GREENZONEEntities _Context4 = new MXH_GREENZONEEntities();
+    public string GetEmail(int email)
+    {
+        return _Context4.USERRs.FirstOrDefault(x => x.USERID == email)?.EMAIL;
+    }
+}
+
+<!--Hàm get ngày sinh người dùng khi đăng nhập nó quét userId rồi ra hình ảnh người dùng đó -->
+@functions{
+    MXH_GREENZONEEntities _Context5 = new MXH_GREENZONEEntities();
+    public string GetNgaySinh(int ngaysinh)
+    {
+        return _Context5.USERRs.FirstOrDefault(x => x.USERID == ngaysinh)?.NGAYSINH.Value.ToShortDateString();
+    }
+}
+

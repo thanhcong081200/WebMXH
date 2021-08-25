@@ -1,0 +1,98 @@
+﻿@model WebMXH.Models.USERR
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký - Social Media Greenzone</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+    <link rel="stylesheet" href="~/Content/assets/fonts/fontawesome-free-5.15.3-web/css/all.min.css">
+</head>
+<body style="background-image: url('/Content/assets/img/bg.jpg');background-size: cover;background-repeat: no-repeat;">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="login-title">
+            <span style="color:#28a745;font-size:6rem;font-weight:bold;">Greenzone</span>
+            <p style="font-weight:bold;font-size:1.1rem;color:#fff;">Greenzone helps you connect and share with the people in your life</p>
+        </div>
+        <div class="register-background">
+            <form>
+                <div class="formControlUser">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tên đăng nhập</label>
+                        @Html.EditorFor(model => model.USERNAME, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.USERNAME, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Họ và tên</label>
+                        @Html.EditorFor(model => model.FULLNAME, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FULLNAME, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Số điện thoại</label>
+                        @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Email</label>
+                        <label class="text-danger">@ViewBag.error</label>
+                        @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Mật khẩu</label>
+                        @Html.EditorFor(model => model.PASSWORD, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PASSWORD, "", new { @class = "text-danger" })
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-left:-72px;margin-top:10px;">
+                        <input id="submitCreate" style="color:white;" type="submit" class="btnControlCreate btn-success" value="Tạo mới tài khoản" />
+                        <a style="color:white;" href="@Url.Action("Login","Home")" class="btnBack btn btn-primary">Quay lại</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    }
+    <!-- Script -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+</body>
+
+<!--Begin Modal -->
+<!--End Modal-->
+<script>
+
+      var modalObject = document.getElementById('modal');
+
+      var button1 = document.getElementById('button-openCreate');
+      var button2 = document.getElementById('close');
+      var button3 = document.getElementById('close2');
+    var button4 = document.getElementById('submitCreate');
+
+      button1.onclick = function(){
+        modalObject.style.display='block';
+      }
+      button2.onclick = function(){
+        modalObject.style.display='none';
+      }
+      button3.onclick = function(){
+        modalObject.style.display='none';
+      }
+      button4.onclick = function(){
+          alert('Đăng ký thành công');
+          setTimeout(() => {
+              modalObject.style.display='none'
+          }, 0);
+       }
+</script>
+</html>

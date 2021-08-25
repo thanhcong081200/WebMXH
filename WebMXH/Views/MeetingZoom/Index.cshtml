@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- import the webpage's stylesheet -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+
+    <!-- import the webpage's javascript file -->
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.20.0/dist/axios.min.js"></script>
+    <script src="https://cdn.stringee.com/sdk/web/2.2.1/stringee-web-sdk.min.js"></script>
+  </head>
+  <body style="background-color: black;">
+    <div class="container">
+      <div id="videos"></div>
+    </div>
+    <div class="container has-text-centered" v-cloak id="app">
+        <div>
+          <button class="button is-primary" v-if="!room" click="createRoom">
+            Tạo phòng
+          </button>
+  
+          <button class="button is-info" v-if="!room" click="joinWithId">
+            Tham gia phòng
+          </button>
+  
+          <button class="button is-info" v-if="room" click="publish(true)">
+            Chia sẻ màn hình
+          </button>
+
+          <a href="@Url.Action("Index","Home")" class="button is-info">
+            Quay về trang chủ
+          </a>
+        </div>
+  
+        <div v-if="roomId" class="info">
+          <p>Bạn đang ở trong room <strong>{{roomId}}</strong>.</p>
+          <p>Hoặc bạn cũng có thể copy <code>{{roomId}}</code> để share.</p>
+        </div>
+      </div>
+      <script src="~/Content/assets/js/api.js"></script>
+       <script src="~/Content/assets/js/script.js"></script>
+  </body>
+</html>
+
+

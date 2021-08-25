@@ -1,0 +1,418 @@
+﻿@model IEnumerable<WebMXH.Models.USERR>
+
+@{
+    ViewBag.Title = "Profiles";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Social Media Greenzone</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+    <!-- Emoji CSS -->
+    <link rel="stylesheet" href="~/Content/assets/css/emojionearea.min.css">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="~/Content/assets/fonts/fontawesome-free-5.15.3-web/css/all.min.css">
+</head>
+<body>
+    <!-- Begin header -->
+    <header>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-success">
+            <a class="navbar-brand" href="@Url.Action("Index","Home")" style="color:white;font-weight: bold;padding-left:30px;">Social Media Greenzone</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" style="color:white;font-weight: bold;font-size:1.6rem;"><i style="margin-right:20px;margin-left:20px;" class="far fa-bell"></i><span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" style="color:white;font-weight: bold;font-size:1.6rem;"><i class="far fa-envelope"></i></a>
+                    </li>
+                </ul>
+                <div class="formSearch">
+                    <i class="icon-formSearch fas fa-search"></i>
+                    <input class="input-formSearch" type="text" placeholder="Tìm kiếm">
+                </div>
+                <div id="accountUser" class="accountUser" style="padding-right: 20px;">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <img class="img-accountUser" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
+                    }
+                </div>
+            </div>
+            <div id="accountUserSetting" class="accountUserSetting">
+                <div class="accountInfoUser">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div>
+                            <img class="img-accountInfoUser" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
+                        </div>
+                    }
+                    <div class="accountInfoNameLink">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <span>@GetUsername(int.Parse(User.Identity.Name))</span>
+                        }
+                        <div>
+                            <a style="text-decoration: none;" href="@Url.Action("Proflies","Home")">Xem trang cá nhân</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="accountActivity">
+                    <ul class="accountActivityList">
+                        <li class="accountActivityListItem">
+                            <a class="accountActivityName" href="#">
+                                <i class="accountIcon fas fa-cog"></i>
+                                Cài đặt
+                            </a>
+                        </li>
+                        <li class="accountActivityListItem">
+                            <a class="accountActivityName" href="#">
+                                <i class="accountIcon fas fa-question-circle"></i>
+                                Giúp đỡ
+                            </a>
+                        </li>
+                        <li class="accountActivityListItem">
+                            <a id="changeBg" class="accountActivityName" href="#">
+                                <i class="accountIcon fas fa-moon"></i>
+                                Giao diện
+                            </a>
+                        </li>
+                        <li class="accountActivityListItem">
+                            <a class="accountActivityName" href="@Url.Action("Logout","Home")">
+                                <i class="accountIcon fas fa-sign-out-alt"></i>
+                                Đăng xuất
+                            </a>
+                        </li>
+                        <li class="accountActivityClose" style="text-align: center;padding:5px 0;font-size: 1.1rem;"><a id="closeSetting" class="accountActivityNameClose" href="#">Đóng</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- End header -->
+    <!-- Begin content -->
+
+    <div class="container">
+        <div id="row-profile" class="row">
+            <div class="col-sm">
+            </div>
+            <div class="col-sm">
+            </div>
+            <div class="col-sm">
+            </div>
+        </div>
+    </div>
+    <!-- Lớp hình ảo -->
+    <div class="img-block">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <img class="img-profile" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
+            <div class="img-icon">
+                <i class="fas fa-camera"></i>
+            </div>
+            <div class="img-info">
+                <span>@GetUsername(int.Parse(User.Identity.Name))</span>
+            </div>
+        }
+    </div>
+
+    <div style="margin-top:-260px;" class="container">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="info-profile">
+                        <h4 style="margin-top:10px;">Giới thiệu</h4>
+                        <ul class="list-info-profile">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="list-item-profile">
+                                    <i class="fas fa-phone-alt"></i>
+                                    @GetSDT(int.Parse(User.Identity.Name))
+                                </li>
+                                <li class="list-item-profile">
+                                    <i class="fas fa-venus-mars"></i>
+                                    @GetGioiTinh(int.Parse(User.Identity.Name))
+                                </li>
+                                <li class="list-item-profile">
+                                    <i class="fas fa-envelope"></i>
+                                    @GetEmail(int.Parse(User.Identity.Name))
+                                </li>
+                                <li class="list-item-profile">
+                                    <i class="fas fa-birthday-cake"></i>
+                                    @GetNgaySinh(int.Parse(User.Identity.Name))
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="info-profile">
+                        <div class="info-title-profile">
+                            <h5 style="margin-top:10px;">Ảnh</h5>
+                            <a class="info-title-profile-link" href="#">Xem tất cả</a>
+                        </div>
+                        <ul class="list-info-profile">
+                            <li class="list-item-profile">
+                                <img class="img-item-profile" src="~/Content/assets/img/laptop.jpg" alt="">
+                                <img class="img-item-profile" src="~/Content/assets/img/laptop.jpg" alt="">
+                                <img class="img-item-profile" src="~/Content/assets/img/laptop.jpg" alt="">
+                                <img class="img-item-profile" src="~/Content/assets/img/laptop.jpg" alt="">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="info-profile">
+                        <div class="info-title-profile">
+                            <h5 style="margin-top:10px;">Bạn bè</h5>
+                            <a class="info-title-profile-link" href="#">Xem tất cả</a>
+                        </div>
+
+                        <ul class="list-info-profile">
+                            <li class="list-item-profile">
+                                <img class="img-item-profile" src="~/Content/assets/img/thanhcong.jpg" alt="">
+                                <img class="img-item-profile" src="~/Content/assets/img/hieu.jpg" alt="">
+                                <img class="img-item-profile" src="~/Content/assets/img/phuong.jpg" alt="">
+                                <img class="img-item-profile" src="~/Content/assets/img/phat.jpg" alt="">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Bài viết -->
+            <div class="col">
+                <div class="row">
+                    <div class="info-profile-post">
+                        <div class="info-title-profile-post">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a href="@Url.Action("EditProfile/"+GetUserId(int.Parse(User.Identity.Name)),"Home")" class="profile-btn btn btn-primary">Chỉnh sửa trang cá nhân</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="info-profile-post">
+                        <div class="info-profile-post-title">
+                            <h5 style="margin-top:10px;">Bài viết</h5>
+                            <button class="btn btn-primary">Quản lý bài viết</button>
+                        </div>
+
+                        <!-- Đổ dữ liệu đăng bài viết -->
+                        <div class="profile-posted">
+                            <div class="middle-list-postedUser">
+                                <div class="middle-list-infoUser">
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <div>
+                                            <img class="middle-list-post-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="Card image cap">
+                                        </div>
+                                        <div class="middle-list-infoUserActivity">
+                                            <div>
+                                                <span style="font-weight: bold;">@GetUsername(int.Parse(User.Identity.Name))</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-globe-americas"></i>
+                                                <span>Công khai</span>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="middle-list-body">
+                                    <div class="middle-list-post-text">
+                                        <span>Hôm nay mới mua được laptop này nè hihi</span>
+                                    </div>
+                                    <img class="middle-list-body-post-img" src="~/Content/assets/img/laptop.jpg" alt="">
+                                </div>
+                                <!-- <div class="middle-list-reaction">
+                                    <div class="middle-list-reactItem">
+                                        <ul class="middle-list-reactItemSelect">
+                                            <li class="middle-list-react middle-list-reactLike"><i class="fas fa-thumbs-up"></i></li>
+                                            <li class="middle-list-react middle-list-reactLove"><i class="fas fa-heart"></i></li>
+                                            <li class="middle-list-react middle-list-reactHaha"><i class="fas fa-laugh-squint"></i></li>
+                                            <li class="middle-list-react middle-list-reactSad"><i class="fas fa-sad-tear"></i></li>
+                                            <li class="middle-list-react middle-list-reactWow"><i class="fas fa-surprise"></i></li>
+                                            <li class="middle-list-react middle-list-reactAngry"><i class="fas fa-angry"></i></li>
+                                        </ul>
+                                    </div>
+                                </div> -->
+                                <div class="middle-list-UserContact">
+                                    <div class="middle-list-UserContacted">
+                                        <div class="middle-list-contact">
+                                            <i onclick="Like(this)" class="fas fa-heart"></i>
+                                            <span>Thích</span>
+                                        </div>
+                                        <div class="middle-list-contact">
+                                            <a style="text-decoration: none;" href="#">
+                                                <i class="far fa-comment"></i>
+                                                <span>Bình luận</span>
+                                            </a>
+                                        </div>
+                                        <div class="middle-list-contact">
+                                            <a style="text-decoration: none;" href="#">
+                                                <i class="far fa-share-square"></i>
+                                                <span>Chia sẻ</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-posted">
+                            <div class="middle-list-postedUser">
+                                <div class="middle-list-infoUser">
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <div>
+                                            <img class="middle-list-post-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="Card image cap">
+                                        </div>
+                                        <div class="middle-list-infoUserActivity">
+                                            <div>
+                                                <span style="font-weight: bold;">@GetUsername(int.Parse(User.Identity.Name))</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-globe-americas"></i>
+                                                <span>Công khai</span>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="middle-list-body">
+                                    <div class="middle-list-post-text">
+                                        <span>Hôm nay mới mua được laptop này nè hihi</span>
+                                    </div>
+                                    <img class="middle-list-body-post-img" src="~/Content/assets/img/laptop.jpg" alt="">
+                                </div>
+                                <!-- <div class="middle-list-reaction">
+                                    <div class="middle-list-reactItem">
+                                        <ul class="middle-list-reactItemSelect">
+                                            <li class="middle-list-react middle-list-reactLike"><i class="fas fa-thumbs-up"></i></li>
+                                            <li class="middle-list-react middle-list-reactLove"><i class="fas fa-heart"></i></li>
+                                            <li class="middle-list-react middle-list-reactHaha"><i class="fas fa-laugh-squint"></i></li>
+                                            <li class="middle-list-react middle-list-reactSad"><i class="fas fa-sad-tear"></i></li>
+                                            <li class="middle-list-react middle-list-reactWow"><i class="fas fa-surprise"></i></li>
+                                            <li class="middle-list-react middle-list-reactAngry"><i class="fas fa-angry"></i></li>
+                                        </ul>
+                                    </div>
+                                </div> -->
+                                <div class="middle-list-UserContact">
+                                    <div class="middle-list-UserContacted">
+                                        <div class="middle-list-contact">
+                                            <i onclick="Like(this)" class="fas fa-heart"></i>
+                                            <span>Thích</span>
+                                        </div>
+                                        <div class="middle-list-contact">
+                                            <a style="text-decoration: none;" href="#">
+                                                <i class="far fa-comment"></i>
+                                                <span>Bình luận</span>
+                                            </a>
+                                        </div>
+                                        <div class="middle-list-contact">
+                                            <a style="text-decoration: none;" href="#">
+                                                <i class="far fa-share-square"></i>
+                                                <span>Chia sẻ</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End content -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        var opening = document.getElementById('accountUser');
+        var closing = document.getElementById('closeSetting');
+
+        opening.onclick = function () {
+            accountUserSetting.style.display = 'block';
+        }
+        closing.onclick = function () {
+            accountUserSetting.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+
+@functions{
+    MXH_GREENZONEEntities _Context7 = new MXH_GREENZONEEntities();
+    public string GetUserId(int userId)
+    {
+        return _Context7.USERRs.FirstOrDefault(x => x.USERID == userId)?.USERID.ToString();
+    }
+}
+<!--Hàm get tên người dùng khi đăng nhập nó quét userId rồi ra tên người dùng đó -->
+@functions{
+    MXH_GREENZONEEntities _Context = new MXH_GREENZONEEntities();
+    public string GetUsername(int userId)
+    {
+        return _Context.USERRs.FirstOrDefault(x => x.USERID == userId)?.FULLNAME;
+    }
+}
+
+<!--Hàm get hình ảnh người dùng khi đăng nhập nó quét userId rồi ra hình ảnh người dùng đó -->
+@functions{
+    MXH_GREENZONEEntities _Context1 = new MXH_GREENZONEEntities();
+    public string GetImage(int hinhanh)
+    {
+        return _Context1.USERRs.FirstOrDefault(x => x.USERID == hinhanh)?.HINHANH ?? "user.png";
+    }
+}
+
+<!--Hàm get SDT người dùng khi đăng nhập nó quét userId rồi ra hình ảnh người dùng đó -->
+@functions{
+    MXH_GREENZONEEntities _Context2 = new MXH_GREENZONEEntities();
+    public string GetSDT(int sdt)
+    {
+        return _Context2.USERRs.FirstOrDefault(x => x.USERID == sdt)?.SDT;
+    }
+}
+
+<!--Hàm get giới tính người dùng khi đăng nhập nó quét userId rồi ra hình ảnh người dùng đó -->
+@functions{
+    MXH_GREENZONEEntities _Context3 = new MXH_GREENZONEEntities();
+    public string GetGioiTinh(int gioitinh)
+    {
+        return _Context3.USERRs.FirstOrDefault(x => x.USERID == gioitinh)?.GIOITINH;
+    }
+}
+
+<!--Hàm get email người dùng khi đăng nhập nó quét userId rồi ra hình ảnh người dùng đó -->
+@functions{
+    MXH_GREENZONEEntities _Context4 = new MXH_GREENZONEEntities();
+    public string GetEmail(int email)
+    {
+        return _Context4.USERRs.FirstOrDefault(x => x.USERID == email)?.EMAIL;
+    }
+}
+
+<!--Hàm get ngày sinh người dùng khi đăng nhập nó quét userId rồi ra hình ảnh người dùng đó -->
+@functions{
+    MXH_GREENZONEEntities _Context5 = new MXH_GREENZONEEntities();
+    public string GetNgaySinh(int ngaysinh)
+    {
+        return _Context5.USERRs.FirstOrDefault(x => x.USERID == ngaysinh)?.NGAYSINH.Value.ToShortDateString();
+    }
+}

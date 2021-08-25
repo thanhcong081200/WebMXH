@@ -1,0 +1,1209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MXH_GREENZONEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BAIVIET">
+          <Key>
+            <PropertyRef Name="IDBAIVIET" />
+          </Key>
+          <Property Name="IDBAIVIET" Type="int" Nullable="false" />
+          <Property Name="USERID" Type="int" />
+          <Property Name="NOIDUNG" Type="nvarchar(max)" />
+          <Property Name="HINHANH" Type="nvarchar" MaxLength="50" />
+          <Property Name="VIDEO" Type="nvarchar" MaxLength="50" />
+          <Property Name="CHEDO" Type="nvarchar" MaxLength="50" />
+          <Property Name="NGAYDANG" Type="date" />
+          <Property Name="LUOTLIKE" Type="int" />
+          <Property Name="LUOTCMT" Type="int" />
+          <Property Name="LUOTSHARE" Type="int" />
+        </EntityType>
+        <EntityType Name="BANBE">
+          <Key>
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="USERID" Type="int" Nullable="false" />
+          <Property Name="TRANGTHAI" Type="nvarchar" MaxLength="50" />
+          <Property Name="THOIGIAN" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CALL">
+          <Key>
+            <PropertyRef Name="IDCALL" />
+          </Key>
+          <Property Name="IDCALL" Type="int" Nullable="false" />
+          <Property Name="THOIGIAN_BD" Type="datetime" />
+          <Property Name="THOIGIAN_KT" Type="datetime" />
+          <Property Name="THOILUONG" Type="datetime" />
+          <Property Name="TRANGTHAI" Type="nvarchar" MaxLength="50" />
+          <Property Name="USERID" Type="int" />
+          <Property Name="IDGROUP" Type="int" />
+        </EntityType>
+        <EntityType Name="COMMENT">
+          <Key>
+            <PropertyRef Name="IDCMT" />
+            <PropertyRef Name="IDBAIVIET" />
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="IDCMT" Type="int" Nullable="false" />
+          <Property Name="IDBAIVIET" Type="int" Nullable="false" />
+          <Property Name="USERID" Type="int" Nullable="false" />
+          <Property Name="NOIDUNG" Type="nvarchar(max)" />
+          <Property Name="THOIGIAN" Type="datetime" />
+          <Property Name="TRALOICMT" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="GROUPS">
+          <Key>
+            <PropertyRef Name="IDGROUP" />
+          </Key>
+          <Property Name="IDGROUP" Type="int" Nullable="false" />
+          <Property Name="GROUP_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="THOIGIAN_KHOITAO" Type="datetime" />
+          <Property Name="USERID" Type="int" />
+          <Property Name="ANHNEN" Type="nvarchar" MaxLength="50" />
+          <Property Name="ANHDAIDIEN" Type="nvarchar" MaxLength="50" />
+          <Property Name="SOTHANHVIEN" Type="int" />
+        </EntityType>
+        <EntityType Name="MESSAGE">
+          <Key>
+            <PropertyRef Name="IDMES" />
+          </Key>
+          <Property Name="IDMES" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FROM_USER" Type="int" />
+          <Property Name="TO_USER" Type="int" />
+          <Property Name="MESSAGE" Type="nvarchar(max)" />
+          <Property Name="DATE" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MESSAGE_PHONGHOP">
+          <Key>
+            <PropertyRef Name="IDMES" />
+            <PropertyRef Name="IDPHONGHOP" />
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="IDMES" Type="int" Nullable="false" />
+          <Property Name="IDPHONGHOP" Type="int" Nullable="false" />
+          <Property Name="USERID" Type="int" Nullable="false" />
+          <Property Name="NOIDUNG" Type="nvarchar(max)" />
+          <Property Name="THOIGIAN" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PHONGHOP">
+          <Key>
+            <PropertyRef Name="IDPHONGHOP" />
+          </Key>
+          <Property Name="IDPHONGHOP" Type="int" Nullable="false" />
+          <Property Name="USERID" Type="int" />
+          <Property Name="THOIGIAN_BD" Type="datetime" />
+          <Property Name="THOIGIAN_KT" Type="datetime" />
+          <Property Name="TENPHONGHOP" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SHARE">
+          <Key>
+            <PropertyRef Name="IDBAIVIET" />
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="IDBAIVIET" Type="int" Nullable="false" />
+          <Property Name="USERID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="THICH">
+          <Key>
+            <PropertyRef Name="IDBAIVIET" />
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="IDBAIVIET" Type="int" Nullable="false" />
+          <Property Name="USERID" Type="int" Nullable="false" />
+          <Property Name="THOIGIAN" Type="datetime" />
+        </EntityType>
+        <EntityType Name="USER_CONNECTION">
+          <Key>
+            <PropertyRef Name="IDMES" />
+          </Key>
+          <Property Name="IDMES" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USERID" Type="int" />
+          <Property Name="CONNECTIONID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="USER_GROUP">
+          <Key>
+            <PropertyRef Name="IDGROUP" />
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="IDGROUP" Type="int" Nullable="false" />
+          <Property Name="USERID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USER_TGHOP">
+          <Key>
+            <PropertyRef Name="IDPHONGHOP" />
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="IDPHONGHOP" Type="int" Nullable="false" />
+          <Property Name="USERID" Type="int" Nullable="false" />
+          <Property Name="TRANGTHAI_MIC" Type="bit" />
+          <Property Name="TRANGTHAI_CAMERA" Type="bit" />
+        </EntityType>
+        <EntityType Name="USERR">
+          <Key>
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="USERID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USERNAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="FULLNAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDT" Type="nvarchar" MaxLength="50" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="HINHANH" Type="nvarchar" MaxLength="50" />
+          <Property Name="GIOITINH" Type="nvarchar" MaxLength="50" />
+          <Property Name="NGAYSINH" Type="date" />
+          <Property Name="IDTOKEN" Type="int" />
+        </EntityType>
+        <EntityType Name="VIDEO_CUOCHOP">
+          <Key>
+            <PropertyRef Name="IDVIDEO" />
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="IDVIDEO" Type="int" Nullable="false" />
+          <Property Name="USERID" Type="int" Nullable="false" />
+          <Property Name="VIDEO" Type="nvarchar(max)" />
+          <Property Name="THOIGIANQUAY" Type="datetime" />
+          <Property Name="IDPHONGHOP" Type="int" />
+        </EntityType>
+        <Association Name="FK_BAIVIET_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="0..1" />
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="BAIVIET">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BANBE_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="1" />
+          <End Role="BANBE" Type="Self.BANBE" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="BANBE">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CALL_GROUPS">
+          <End Role="GROUPS" Type="Self.GROUPS" Multiplicity="0..1" />
+          <End Role="CALL" Type="Self.CALL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GROUPS">
+              <PropertyRef Name="IDGROUP" />
+            </Principal>
+            <Dependent Role="CALL">
+              <PropertyRef Name="IDGROUP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CALL_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="0..1" />
+          <End Role="CALL" Type="Self.CALL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="CALL">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMMENT_BAIVIET">
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="1" />
+          <End Role="COMMENT" Type="Self.COMMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BAIVIET">
+              <PropertyRef Name="IDBAIVIET" />
+            </Principal>
+            <Dependent Role="COMMENT">
+              <PropertyRef Name="IDBAIVIET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMMENT_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="1" />
+          <End Role="COMMENT" Type="Self.COMMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="COMMENT">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GROUP_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="0..1" />
+          <End Role="GROUPS" Type="Self.GROUPS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="GROUPS">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MESSAGE_PHONGHOP_PHONGHOP">
+          <End Role="PHONGHOP" Type="Self.PHONGHOP" Multiplicity="1" />
+          <End Role="MESSAGE_PHONGHOP" Type="Self.MESSAGE_PHONGHOP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHONGHOP">
+              <PropertyRef Name="IDPHONGHOP" />
+            </Principal>
+            <Dependent Role="MESSAGE_PHONGHOP">
+              <PropertyRef Name="IDPHONGHOP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MESSAGE_PHONGHOP_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="1" />
+          <End Role="MESSAGE_PHONGHOP" Type="Self.MESSAGE_PHONGHOP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="MESSAGE_PHONGHOP">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHONGHOP_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="0..1" />
+          <End Role="PHONGHOP" Type="Self.PHONGHOP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="PHONGHOP">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SHARE_BAIVIET">
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="1" />
+          <End Role="SHARE" Type="Self.SHARE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BAIVIET">
+              <PropertyRef Name="IDBAIVIET" />
+            </Principal>
+            <Dependent Role="SHARE">
+              <PropertyRef Name="IDBAIVIET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SHARE_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="1" />
+          <End Role="SHARE" Type="Self.SHARE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="SHARE">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_THICH_BAIVIET">
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="1" />
+          <End Role="THICH" Type="Self.THICH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BAIVIET">
+              <PropertyRef Name="IDBAIVIET" />
+            </Principal>
+            <Dependent Role="THICH">
+              <PropertyRef Name="IDBAIVIET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_THICH_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="1" />
+          <End Role="THICH" Type="Self.THICH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="THICH">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_CONNECTION_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="0..1" />
+          <End Role="USER_CONNECTION" Type="Self.USER_CONNECTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="USER_CONNECTION">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_GROUP_GROUPS">
+          <End Role="GROUPS" Type="Self.GROUPS" Multiplicity="1" />
+          <End Role="USER_GROUP" Type="Self.USER_GROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GROUPS">
+              <PropertyRef Name="IDGROUP" />
+            </Principal>
+            <Dependent Role="USER_GROUP">
+              <PropertyRef Name="IDGROUP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_GROUP_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="1" />
+          <End Role="USER_GROUP" Type="Self.USER_GROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="USER_GROUP">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_TGHOP_PHONGHOP">
+          <End Role="PHONGHOP" Type="Self.PHONGHOP" Multiplicity="1" />
+          <End Role="USER_TGHOP" Type="Self.USER_TGHOP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHONGHOP">
+              <PropertyRef Name="IDPHONGHOP" />
+            </Principal>
+            <Dependent Role="USER_TGHOP">
+              <PropertyRef Name="IDPHONGHOP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_TGHOP_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="1" />
+          <End Role="USER_TGHOP" Type="Self.USER_TGHOP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="USER_TGHOP">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VIDEO_CUOCHOP_PHONGHOP">
+          <End Role="PHONGHOP" Type="Self.PHONGHOP" Multiplicity="0..1" />
+          <End Role="VIDEO_CUOCHOP" Type="Self.VIDEO_CUOCHOP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHONGHOP">
+              <PropertyRef Name="IDPHONGHOP" />
+            </Principal>
+            <Dependent Role="VIDEO_CUOCHOP">
+              <PropertyRef Name="IDPHONGHOP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VIDEO_CUOCHOP_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="1" />
+          <End Role="VIDEO_CUOCHOP" Type="Self.VIDEO_CUOCHOP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="VIDEO_CUOCHOP">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MXH_GREENZONEModelStoreContainer">
+          <EntitySet Name="BAIVIET" EntityType="Self.BAIVIET" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BANBE" EntityType="Self.BANBE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CALL" EntityType="Self.CALL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COMMENT" EntityType="Self.COMMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GROUPS" EntityType="Self.GROUPS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MESSAGE" EntityType="Self.MESSAGE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MESSAGE_PHONGHOP" EntityType="Self.MESSAGE_PHONGHOP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PHONGHOP" EntityType="Self.PHONGHOP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SHARE" EntityType="Self.SHARE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="THICH" EntityType="Self.THICH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USER_CONNECTION" EntityType="Self.USER_CONNECTION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USER_GROUP" EntityType="Self.USER_GROUP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USER_TGHOP" EntityType="Self.USER_TGHOP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERR" EntityType="Self.USERR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VIDEO_CUOCHOP" EntityType="Self.VIDEO_CUOCHOP" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BAIVIET_USERR" Association="Self.FK_BAIVIET_USERR">
+            <End Role="USERR" EntitySet="USERR" />
+            <End Role="BAIVIET" EntitySet="BAIVIET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BANBE_USERR" Association="Self.FK_BANBE_USERR">
+            <End Role="USERR" EntitySet="USERR" />
+            <End Role="BANBE" EntitySet="BANBE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CALL_GROUPS" Association="Self.FK_CALL_GROUPS">
+            <End Role="GROUPS" EntitySet="GROUPS" />
+            <End Role="CALL" EntitySet="CALL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CALL_USERR" Association="Self.FK_CALL_USERR">
+            <End Role="USERR" EntitySet="USERR" />
+            <End Role="CALL" EntitySet="CALL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMMENT_BAIVIET" Association="Self.FK_COMMENT_BAIVIET">
+            <End Role="BAIVIET" EntitySet="BAIVIET" />
+            <End Role="COMMENT" EntitySet="COMMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMMENT_USERR" Association="Self.FK_COMMENT_USERR">
+            <End Role="USERR" EntitySet="USERR" />
+            <End Role="COMMENT" EntitySet="COMMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GROUP_USERR" Association="Self.FK_GROUP_USERR">
+            <End Role="USERR" EntitySet="USERR" />
+            <End Role="GROUPS" EntitySet="GROUPS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MESSAGE_PHONGHOP_PHONGHOP" Association="Self.FK_MESSAGE_PHONGHOP_PHONGHOP">
+            <End Role="PHONGHOP" EntitySet="PHONGHOP" />
+            <End Role="MESSAGE_PHONGHOP" EntitySet="MESSAGE_PHONGHOP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MESSAGE_PHONGHOP_USERR" Association="Self.FK_MESSAGE_PHONGHOP_USERR">
+            <End Role="USERR" EntitySet="USERR" />
+            <End Role="MESSAGE_PHONGHOP" EntitySet="MESSAGE_PHONGHOP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHONGHOP_USERR" Association="Self.FK_PHONGHOP_USERR">
+            <End Role="USERR" EntitySet="USERR" />
+            <End Role="PHONGHOP" EntitySet="PHONGHOP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SHARE_BAIVIET" Association="Self.FK_SHARE_BAIVIET">
+            <End Role="BAIVIET" EntitySet="BAIVIET" />
+            <End Role="SHARE" EntitySet="SHARE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SHARE_USERR" Association="Self.FK_SHARE_USERR">
+            <End Role="USERR" EntitySet="USERR" />
+            <End Role="SHARE" EntitySet="SHARE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_THICH_BAIVIET" Association="Self.FK_THICH_BAIVIET">
+            <End Role="BAIVIET" EntitySet="BAIVIET" />
+            <End Role="THICH" EntitySet="THICH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_THICH_USERR" Association="Self.FK_THICH_USERR">
+            <End Role="USERR" EntitySet="USERR" />
+            <End Role="THICH" EntitySet="THICH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_CONNECTION_USERR" Association="Self.FK_USER_CONNECTION_USERR">
+            <End Role="USERR" EntitySet="USERR" />
+            <End Role="USER_CONNECTION" EntitySet="USER_CONNECTION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_GROUP_GROUPS" Association="Self.FK_USER_GROUP_GROUPS">
+            <End Role="GROUPS" EntitySet="GROUPS" />
+            <End Role="USER_GROUP" EntitySet="USER_GROUP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_GROUP_USERR" Association="Self.FK_USER_GROUP_USERR">
+            <End Role="USERR" EntitySet="USERR" />
+            <End Role="USER_GROUP" EntitySet="USER_GROUP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_TGHOP_PHONGHOP" Association="Self.FK_USER_TGHOP_PHONGHOP">
+            <End Role="PHONGHOP" EntitySet="PHONGHOP" />
+            <End Role="USER_TGHOP" EntitySet="USER_TGHOP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_TGHOP_USERR" Association="Self.FK_USER_TGHOP_USERR">
+            <End Role="USERR" EntitySet="USERR" />
+            <End Role="USER_TGHOP" EntitySet="USER_TGHOP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VIDEO_CUOCHOP_PHONGHOP" Association="Self.FK_VIDEO_CUOCHOP_PHONGHOP">
+            <End Role="PHONGHOP" EntitySet="PHONGHOP" />
+            <End Role="VIDEO_CUOCHOP" EntitySet="VIDEO_CUOCHOP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VIDEO_CUOCHOP_USERR" Association="Self.FK_VIDEO_CUOCHOP_USERR">
+            <End Role="USERR" EntitySet="USERR" />
+            <End Role="VIDEO_CUOCHOP" EntitySet="VIDEO_CUOCHOP" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MXH_GREENZONEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BAIVIET">
+          <Key>
+            <PropertyRef Name="IDBAIVIET" />
+          </Key>
+          <Property Name="IDBAIVIET" Type="Int32" Nullable="false" />
+          <Property Name="USERID" Type="Int32" />
+          <Property Name="NOIDUNG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HINHANH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VIDEO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CHEDO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NGAYDANG" Type="DateTime" Precision="0" />
+          <Property Name="LUOTLIKE" Type="Int32" />
+          <Property Name="LUOTCMT" Type="Int32" />
+          <Property Name="LUOTSHARE" Type="Int32" />
+          <NavigationProperty Name="USERR" Relationship="Self.FK_BAIVIET_USERR" FromRole="BAIVIET" ToRole="USERR" />
+          <NavigationProperty Name="COMMENTs" Relationship="Self.FK_COMMENT_BAIVIET" FromRole="BAIVIET" ToRole="COMMENT" />
+          <NavigationProperty Name="THICHes" Relationship="Self.FK_THICH_BAIVIET" FromRole="BAIVIET" ToRole="THICH" />
+          <NavigationProperty Name="USERRs" Relationship="Self.SHARE" FromRole="BAIVIET" ToRole="USERR" />
+        </EntityType>
+        <EntityType Name="BANBE">
+          <Key>
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="USERID" Type="Int32" Nullable="false" />
+          <Property Name="TRANGTHAI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="THOIGIAN" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="USERR" Relationship="Self.FK_BANBE_USERR" FromRole="BANBE" ToRole="USERR" />
+        </EntityType>
+        <EntityType Name="CALL">
+          <Key>
+            <PropertyRef Name="IDCALL" />
+          </Key>
+          <Property Name="IDCALL" Type="Int32" Nullable="false" />
+          <Property Name="THOIGIAN_BD" Type="DateTime" Precision="3" />
+          <Property Name="THOIGIAN_KT" Type="DateTime" Precision="3" />
+          <Property Name="THOILUONG" Type="DateTime" Precision="3" />
+          <Property Name="TRANGTHAI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="USERID" Type="Int32" />
+          <Property Name="IDGROUP" Type="Int32" />
+          <NavigationProperty Name="GROUP" Relationship="Self.FK_CALL_GROUPS" FromRole="CALL" ToRole="GROUPS" />
+          <NavigationProperty Name="USERR" Relationship="Self.FK_CALL_USERR" FromRole="CALL" ToRole="USERR" />
+        </EntityType>
+        <EntityType Name="COMMENT">
+          <Key>
+            <PropertyRef Name="IDCMT" />
+            <PropertyRef Name="IDBAIVIET" />
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="IDCMT" Type="Int32" Nullable="false" />
+          <Property Name="IDBAIVIET" Type="Int32" Nullable="false" />
+          <Property Name="USERID" Type="Int32" Nullable="false" />
+          <Property Name="NOIDUNG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="THOIGIAN" Type="DateTime" Precision="3" />
+          <Property Name="TRALOICMT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BAIVIET" Relationship="Self.FK_COMMENT_BAIVIET" FromRole="COMMENT" ToRole="BAIVIET" />
+          <NavigationProperty Name="USERR" Relationship="Self.FK_COMMENT_USERR" FromRole="COMMENT" ToRole="USERR" />
+        </EntityType>
+        <EntityType Name="GROUP">
+          <Key>
+            <PropertyRef Name="IDGROUP" />
+          </Key>
+          <Property Name="IDGROUP" Type="Int32" Nullable="false" />
+          <Property Name="GROUP_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="THOIGIAN_KHOITAO" Type="DateTime" Precision="3" />
+          <Property Name="USERID" Type="Int32" />
+          <Property Name="ANHNEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ANHDAIDIEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SOTHANHVIEN" Type="Int32" />
+          <NavigationProperty Name="CALLs" Relationship="Self.FK_CALL_GROUPS" FromRole="GROUPS" ToRole="CALL" />
+          <NavigationProperty Name="USERR" Relationship="Self.FK_GROUP_USERR" FromRole="GROUPS" ToRole="USERR" />
+          <NavigationProperty Name="USERRs" Relationship="Self.USER_GROUP" FromRole="GROUPS" ToRole="USERR" />
+        </EntityType>
+        <EntityType Name="MESSAGE">
+          <Key>
+            <PropertyRef Name="IDMES" />
+          </Key>
+          <Property Name="IDMES" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FROM_USER" Type="Int32" />
+          <Property Name="TO_USER" Type="Int32" />
+          <Property Name="MESSAGE1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DATE" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MESSAGE_PHONGHOP">
+          <Key>
+            <PropertyRef Name="IDMES" />
+            <PropertyRef Name="IDPHONGHOP" />
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="IDMES" Type="Int32" Nullable="false" />
+          <Property Name="IDPHONGHOP" Type="Int32" Nullable="false" />
+          <Property Name="USERID" Type="Int32" Nullable="false" />
+          <Property Name="NOIDUNG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="THOIGIAN" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PHONGHOP" Relationship="Self.FK_MESSAGE_PHONGHOP_PHONGHOP" FromRole="MESSAGE_PHONGHOP" ToRole="PHONGHOP" />
+          <NavigationProperty Name="USERR" Relationship="Self.FK_MESSAGE_PHONGHOP_USERR" FromRole="MESSAGE_PHONGHOP" ToRole="USERR" />
+        </EntityType>
+        <EntityType Name="PHONGHOP">
+          <Key>
+            <PropertyRef Name="IDPHONGHOP" />
+          </Key>
+          <Property Name="IDPHONGHOP" Type="Int32" Nullable="false" />
+          <Property Name="USERID" Type="Int32" />
+          <Property Name="THOIGIAN_BD" Type="DateTime" Precision="3" />
+          <Property Name="THOIGIAN_KT" Type="DateTime" Precision="3" />
+          <Property Name="TENPHONGHOP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MESSAGE_PHONGHOP" Relationship="Self.FK_MESSAGE_PHONGHOP_PHONGHOP" FromRole="PHONGHOP" ToRole="MESSAGE_PHONGHOP" />
+          <NavigationProperty Name="USERR" Relationship="Self.FK_PHONGHOP_USERR" FromRole="PHONGHOP" ToRole="USERR" />
+          <NavigationProperty Name="USER_TGHOP" Relationship="Self.FK_USER_TGHOP_PHONGHOP" FromRole="PHONGHOP" ToRole="USER_TGHOP" />
+          <NavigationProperty Name="VIDEO_CUOCHOP" Relationship="Self.FK_VIDEO_CUOCHOP_PHONGHOP" FromRole="PHONGHOP" ToRole="VIDEO_CUOCHOP" />
+        </EntityType>
+        <EntityType Name="THICH">
+          <Key>
+            <PropertyRef Name="IDBAIVIET" />
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="IDBAIVIET" Type="Int32" Nullable="false" />
+          <Property Name="USERID" Type="Int32" Nullable="false" />
+          <Property Name="THOIGIAN" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BAIVIET" Relationship="Self.FK_THICH_BAIVIET" FromRole="THICH" ToRole="BAIVIET" />
+          <NavigationProperty Name="USERR" Relationship="Self.FK_THICH_USERR" FromRole="THICH" ToRole="USERR" />
+        </EntityType>
+        <EntityType Name="USER_CONNECTION">
+          <Key>
+            <PropertyRef Name="IDMES" />
+          </Key>
+          <Property Name="IDMES" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERID" Type="Int32" />
+          <Property Name="CONNECTIONID" Type="Guid" />
+          <NavigationProperty Name="USERR" Relationship="Self.FK_USER_CONNECTION_USERR" FromRole="USER_CONNECTION" ToRole="USERR" />
+        </EntityType>
+        <EntityType Name="USER_TGHOP">
+          <Key>
+            <PropertyRef Name="IDPHONGHOP" />
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="IDPHONGHOP" Type="Int32" Nullable="false" />
+          <Property Name="USERID" Type="Int32" Nullable="false" />
+          <Property Name="TRANGTHAI_MIC" Type="Boolean" />
+          <Property Name="TRANGTHAI_CAMERA" Type="Boolean" />
+          <NavigationProperty Name="PHONGHOP" Relationship="Self.FK_USER_TGHOP_PHONGHOP" FromRole="USER_TGHOP" ToRole="PHONGHOP" />
+          <NavigationProperty Name="USERR" Relationship="Self.FK_USER_TGHOP_USERR" FromRole="USER_TGHOP" ToRole="USERR" />
+        </EntityType>
+        <EntityType Name="USERR">
+          <Key>
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="USERID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FULLNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HINHANH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GIOITINH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NGAYSINH" Type="DateTime" Precision="0" />
+          <Property Name="IDTOKEN" Type="Int32" />
+          <NavigationProperty Name="BAIVIETs" Relationship="Self.FK_BAIVIET_USERR" FromRole="USERR" ToRole="BAIVIET" />
+          <NavigationProperty Name="BANBE" Relationship="Self.FK_BANBE_USERR" FromRole="USERR" ToRole="BANBE" />
+          <NavigationProperty Name="CALLs" Relationship="Self.FK_CALL_USERR" FromRole="USERR" ToRole="CALL" />
+          <NavigationProperty Name="COMMENTs" Relationship="Self.FK_COMMENT_USERR" FromRole="USERR" ToRole="COMMENT" />
+          <NavigationProperty Name="GROUPS" Relationship="Self.FK_GROUP_USERR" FromRole="USERR" ToRole="GROUPS" />
+          <NavigationProperty Name="MESSAGE_PHONGHOP" Relationship="Self.FK_MESSAGE_PHONGHOP_USERR" FromRole="USERR" ToRole="MESSAGE_PHONGHOP" />
+          <NavigationProperty Name="PHONGHOPs" Relationship="Self.FK_PHONGHOP_USERR" FromRole="USERR" ToRole="PHONGHOP" />
+          <NavigationProperty Name="THICHes" Relationship="Self.FK_THICH_USERR" FromRole="USERR" ToRole="THICH" />
+          <NavigationProperty Name="USER_CONNECTION" Relationship="Self.FK_USER_CONNECTION_USERR" FromRole="USERR" ToRole="USER_CONNECTION" />
+          <NavigationProperty Name="USER_TGHOP" Relationship="Self.FK_USER_TGHOP_USERR" FromRole="USERR" ToRole="USER_TGHOP" />
+          <NavigationProperty Name="VIDEO_CUOCHOP" Relationship="Self.FK_VIDEO_CUOCHOP_USERR" FromRole="USERR" ToRole="VIDEO_CUOCHOP" />
+          <NavigationProperty Name="BAIVIETs1" Relationship="Self.SHARE" FromRole="USERR" ToRole="BAIVIET" />
+          <NavigationProperty Name="GROUPS1" Relationship="Self.USER_GROUP" FromRole="USERR" ToRole="GROUPS" />
+        </EntityType>
+        <EntityType Name="VIDEO_CUOCHOP">
+          <Key>
+            <PropertyRef Name="IDVIDEO" />
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="IDVIDEO" Type="Int32" Nullable="false" />
+          <Property Name="USERID" Type="Int32" Nullable="false" />
+          <Property Name="VIDEO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="THOIGIANQUAY" Type="DateTime" Precision="3" />
+          <Property Name="IDPHONGHOP" Type="Int32" />
+          <NavigationProperty Name="PHONGHOP" Relationship="Self.FK_VIDEO_CUOCHOP_PHONGHOP" FromRole="VIDEO_CUOCHOP" ToRole="PHONGHOP" />
+          <NavigationProperty Name="USERR" Relationship="Self.FK_VIDEO_CUOCHOP_USERR" FromRole="VIDEO_CUOCHOP" ToRole="USERR" />
+        </EntityType>
+        <Association Name="FK_BAIVIET_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="0..1" />
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="BAIVIET">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMMENT_BAIVIET">
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="1" />
+          <End Role="COMMENT" Type="Self.COMMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BAIVIET">
+              <PropertyRef Name="IDBAIVIET" />
+            </Principal>
+            <Dependent Role="COMMENT">
+              <PropertyRef Name="IDBAIVIET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_THICH_BAIVIET">
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="1" />
+          <End Role="THICH" Type="Self.THICH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BAIVIET">
+              <PropertyRef Name="IDBAIVIET" />
+            </Principal>
+            <Dependent Role="THICH">
+              <PropertyRef Name="IDBAIVIET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BANBE_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="1" />
+          <End Role="BANBE" Type="Self.BANBE" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="BANBE">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CALL_GROUPS">
+          <End Role="GROUPS" Type="Self.GROUP" Multiplicity="0..1" />
+          <End Role="CALL" Type="Self.CALL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GROUPS">
+              <PropertyRef Name="IDGROUP" />
+            </Principal>
+            <Dependent Role="CALL">
+              <PropertyRef Name="IDGROUP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CALL_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="0..1" />
+          <End Role="CALL" Type="Self.CALL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="CALL">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMMENT_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="1" />
+          <End Role="COMMENT" Type="Self.COMMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="COMMENT">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GROUP_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="0..1" />
+          <End Role="GROUPS" Type="Self.GROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="GROUPS">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MESSAGE_PHONGHOP_PHONGHOP">
+          <End Role="PHONGHOP" Type="Self.PHONGHOP" Multiplicity="1" />
+          <End Role="MESSAGE_PHONGHOP" Type="Self.MESSAGE_PHONGHOP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHONGHOP">
+              <PropertyRef Name="IDPHONGHOP" />
+            </Principal>
+            <Dependent Role="MESSAGE_PHONGHOP">
+              <PropertyRef Name="IDPHONGHOP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MESSAGE_PHONGHOP_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="1" />
+          <End Role="MESSAGE_PHONGHOP" Type="Self.MESSAGE_PHONGHOP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="MESSAGE_PHONGHOP">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PHONGHOP_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="0..1" />
+          <End Role="PHONGHOP" Type="Self.PHONGHOP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="PHONGHOP">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_TGHOP_PHONGHOP">
+          <End Role="PHONGHOP" Type="Self.PHONGHOP" Multiplicity="1" />
+          <End Role="USER_TGHOP" Type="Self.USER_TGHOP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHONGHOP">
+              <PropertyRef Name="IDPHONGHOP" />
+            </Principal>
+            <Dependent Role="USER_TGHOP">
+              <PropertyRef Name="IDPHONGHOP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VIDEO_CUOCHOP_PHONGHOP">
+          <End Role="PHONGHOP" Type="Self.PHONGHOP" Multiplicity="0..1" />
+          <End Role="VIDEO_CUOCHOP" Type="Self.VIDEO_CUOCHOP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PHONGHOP">
+              <PropertyRef Name="IDPHONGHOP" />
+            </Principal>
+            <Dependent Role="VIDEO_CUOCHOP">
+              <PropertyRef Name="IDPHONGHOP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_THICH_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="1" />
+          <End Role="THICH" Type="Self.THICH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="THICH">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_CONNECTION_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="0..1" />
+          <End Role="USER_CONNECTION" Type="Self.USER_CONNECTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="USER_CONNECTION">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_TGHOP_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="1" />
+          <End Role="USER_TGHOP" Type="Self.USER_TGHOP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="USER_TGHOP">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VIDEO_CUOCHOP_USERR">
+          <End Role="USERR" Type="Self.USERR" Multiplicity="1" />
+          <End Role="VIDEO_CUOCHOP" Type="Self.VIDEO_CUOCHOP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERR">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="VIDEO_CUOCHOP">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SHARE">
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="*" />
+          <End Role="USERR" Type="Self.USERR" Multiplicity="*" />
+        </Association>
+        <Association Name="USER_GROUP">
+          <End Role="GROUPS" Type="Self.GROUP" Multiplicity="*" />
+          <End Role="USERR" Type="Self.USERR" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="MXH_GREENZONEEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BAIVIETs" EntityType="Self.BAIVIET" />
+          <EntitySet Name="BANBEs" EntityType="Self.BANBE" />
+          <EntitySet Name="CALLs" EntityType="Self.CALL" />
+          <EntitySet Name="COMMENTs" EntityType="Self.COMMENT" />
+          <EntitySet Name="GROUPS" EntityType="Self.GROUP" />
+          <EntitySet Name="MESSAGEs" EntityType="Self.MESSAGE" />
+          <EntitySet Name="MESSAGE_PHONGHOP" EntityType="Self.MESSAGE_PHONGHOP" />
+          <EntitySet Name="PHONGHOPs" EntityType="Self.PHONGHOP" />
+          <EntitySet Name="THICHes" EntityType="Self.THICH" />
+          <EntitySet Name="USER_CONNECTION" EntityType="Self.USER_CONNECTION" />
+          <EntitySet Name="USER_TGHOP" EntityType="Self.USER_TGHOP" />
+          <EntitySet Name="USERRs" EntityType="Self.USERR" />
+          <EntitySet Name="VIDEO_CUOCHOP" EntityType="Self.VIDEO_CUOCHOP" />
+          <AssociationSet Name="FK_BAIVIET_USERR" Association="Self.FK_BAIVIET_USERR">
+            <End Role="USERR" EntitySet="USERRs" />
+            <End Role="BAIVIET" EntitySet="BAIVIETs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMMENT_BAIVIET" Association="Self.FK_COMMENT_BAIVIET">
+            <End Role="BAIVIET" EntitySet="BAIVIETs" />
+            <End Role="COMMENT" EntitySet="COMMENTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_THICH_BAIVIET" Association="Self.FK_THICH_BAIVIET">
+            <End Role="BAIVIET" EntitySet="BAIVIETs" />
+            <End Role="THICH" EntitySet="THICHes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BANBE_USERR" Association="Self.FK_BANBE_USERR">
+            <End Role="USERR" EntitySet="USERRs" />
+            <End Role="BANBE" EntitySet="BANBEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CALL_GROUPS" Association="Self.FK_CALL_GROUPS">
+            <End Role="GROUPS" EntitySet="GROUPS" />
+            <End Role="CALL" EntitySet="CALLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CALL_USERR" Association="Self.FK_CALL_USERR">
+            <End Role="USERR" EntitySet="USERRs" />
+            <End Role="CALL" EntitySet="CALLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMMENT_USERR" Association="Self.FK_COMMENT_USERR">
+            <End Role="USERR" EntitySet="USERRs" />
+            <End Role="COMMENT" EntitySet="COMMENTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GROUP_USERR" Association="Self.FK_GROUP_USERR">
+            <End Role="USERR" EntitySet="USERRs" />
+            <End Role="GROUPS" EntitySet="GROUPS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MESSAGE_PHONGHOP_PHONGHOP" Association="Self.FK_MESSAGE_PHONGHOP_PHONGHOP">
+            <End Role="PHONGHOP" EntitySet="PHONGHOPs" />
+            <End Role="MESSAGE_PHONGHOP" EntitySet="MESSAGE_PHONGHOP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MESSAGE_PHONGHOP_USERR" Association="Self.FK_MESSAGE_PHONGHOP_USERR">
+            <End Role="USERR" EntitySet="USERRs" />
+            <End Role="MESSAGE_PHONGHOP" EntitySet="MESSAGE_PHONGHOP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PHONGHOP_USERR" Association="Self.FK_PHONGHOP_USERR">
+            <End Role="USERR" EntitySet="USERRs" />
+            <End Role="PHONGHOP" EntitySet="PHONGHOPs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_TGHOP_PHONGHOP" Association="Self.FK_USER_TGHOP_PHONGHOP">
+            <End Role="PHONGHOP" EntitySet="PHONGHOPs" />
+            <End Role="USER_TGHOP" EntitySet="USER_TGHOP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VIDEO_CUOCHOP_PHONGHOP" Association="Self.FK_VIDEO_CUOCHOP_PHONGHOP">
+            <End Role="PHONGHOP" EntitySet="PHONGHOPs" />
+            <End Role="VIDEO_CUOCHOP" EntitySet="VIDEO_CUOCHOP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_THICH_USERR" Association="Self.FK_THICH_USERR">
+            <End Role="USERR" EntitySet="USERRs" />
+            <End Role="THICH" EntitySet="THICHes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_CONNECTION_USERR" Association="Self.FK_USER_CONNECTION_USERR">
+            <End Role="USERR" EntitySet="USERRs" />
+            <End Role="USER_CONNECTION" EntitySet="USER_CONNECTION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_TGHOP_USERR" Association="Self.FK_USER_TGHOP_USERR">
+            <End Role="USERR" EntitySet="USERRs" />
+            <End Role="USER_TGHOP" EntitySet="USER_TGHOP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VIDEO_CUOCHOP_USERR" Association="Self.FK_VIDEO_CUOCHOP_USERR">
+            <End Role="USERR" EntitySet="USERRs" />
+            <End Role="VIDEO_CUOCHOP" EntitySet="VIDEO_CUOCHOP" />
+          </AssociationSet>
+          <AssociationSet Name="SHARE" Association="Self.SHARE">
+            <End Role="BAIVIET" EntitySet="BAIVIETs" />
+            <End Role="USERR" EntitySet="USERRs" />
+          </AssociationSet>
+          <AssociationSet Name="USER_GROUP" Association="Self.USER_GROUP">
+            <End Role="GROUPS" EntitySet="GROUPS" />
+            <End Role="USERR" EntitySet="USERRs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MXH_GREENZONEModelStoreContainer" CdmEntityContainer="MXH_GREENZONEEntities">
+          <EntitySetMapping Name="BAIVIETs">
+            <EntityTypeMapping TypeName="MXH_GREENZONEModel.BAIVIET">
+              <MappingFragment StoreEntitySet="BAIVIET">
+                <ScalarProperty Name="IDBAIVIET" ColumnName="IDBAIVIET" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="NOIDUNG" ColumnName="NOIDUNG" />
+                <ScalarProperty Name="HINHANH" ColumnName="HINHANH" />
+                <ScalarProperty Name="VIDEO" ColumnName="VIDEO" />
+                <ScalarProperty Name="CHEDO" ColumnName="CHEDO" />
+                <ScalarProperty Name="NGAYDANG" ColumnName="NGAYDANG" />
+                <ScalarProperty Name="LUOTLIKE" ColumnName="LUOTLIKE" />
+                <ScalarProperty Name="LUOTCMT" ColumnName="LUOTCMT" />
+                <ScalarProperty Name="LUOTSHARE" ColumnName="LUOTSHARE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BANBEs">
+            <EntityTypeMapping TypeName="MXH_GREENZONEModel.BANBE">
+              <MappingFragment StoreEntitySet="BANBE">
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+                <ScalarProperty Name="THOIGIAN" ColumnName="THOIGIAN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CALLs">
+            <EntityTypeMapping TypeName="MXH_GREENZONEModel.CALL">
+              <MappingFragment StoreEntitySet="CALL">
+                <ScalarProperty Name="IDCALL" ColumnName="IDCALL" />
+                <ScalarProperty Name="THOIGIAN_BD" ColumnName="THOIGIAN_BD" />
+                <ScalarProperty Name="THOIGIAN_KT" ColumnName="THOIGIAN_KT" />
+                <ScalarProperty Name="THOILUONG" ColumnName="THOILUONG" />
+                <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="IDGROUP" ColumnName="IDGROUP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMMENTs">
+            <EntityTypeMapping TypeName="MXH_GREENZONEModel.COMMENT">
+              <MappingFragment StoreEntitySet="COMMENT">
+                <ScalarProperty Name="IDCMT" ColumnName="IDCMT" />
+                <ScalarProperty Name="IDBAIVIET" ColumnName="IDBAIVIET" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="NOIDUNG" ColumnName="NOIDUNG" />
+                <ScalarProperty Name="THOIGIAN" ColumnName="THOIGIAN" />
+                <ScalarProperty Name="TRALOICMT" ColumnName="TRALOICMT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GROUPS">
+            <EntityTypeMapping TypeName="MXH_GREENZONEModel.GROUP">
+              <MappingFragment StoreEntitySet="GROUPS">
+                <ScalarProperty Name="IDGROUP" ColumnName="IDGROUP" />
+                <ScalarProperty Name="GROUP_NAME" ColumnName="GROUP_NAME" />
+                <ScalarProperty Name="THOIGIAN_KHOITAO" ColumnName="THOIGIAN_KHOITAO" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="ANHNEN" ColumnName="ANHNEN" />
+                <ScalarProperty Name="ANHDAIDIEN" ColumnName="ANHDAIDIEN" />
+                <ScalarProperty Name="SOTHANHVIEN" ColumnName="SOTHANHVIEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MESSAGEs">
+            <EntityTypeMapping TypeName="MXH_GREENZONEModel.MESSAGE">
+              <MappingFragment StoreEntitySet="MESSAGE">
+                <ScalarProperty Name="IDMES" ColumnName="IDMES" />
+                <ScalarProperty Name="FROM_USER" ColumnName="FROM_USER" />
+                <ScalarProperty Name="TO_USER" ColumnName="TO_USER" />
+                <ScalarProperty Name="MESSAGE1" ColumnName="MESSAGE" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MESSAGE_PHONGHOP">
+            <EntityTypeMapping TypeName="MXH_GREENZONEModel.MESSAGE_PHONGHOP">
+              <MappingFragment StoreEntitySet="MESSAGE_PHONGHOP">
+                <ScalarProperty Name="IDMES" ColumnName="IDMES" />
+                <ScalarProperty Name="IDPHONGHOP" ColumnName="IDPHONGHOP" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="NOIDUNG" ColumnName="NOIDUNG" />
+                <ScalarProperty Name="THOIGIAN" ColumnName="THOIGIAN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHONGHOPs">
+            <EntityTypeMapping TypeName="MXH_GREENZONEModel.PHONGHOP">
+              <MappingFragment StoreEntitySet="PHONGHOP">
+                <ScalarProperty Name="IDPHONGHOP" ColumnName="IDPHONGHOP" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="THOIGIAN_BD" ColumnName="THOIGIAN_BD" />
+                <ScalarProperty Name="THOIGIAN_KT" ColumnName="THOIGIAN_KT" />
+                <ScalarProperty Name="TENPHONGHOP" ColumnName="TENPHONGHOP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="THICHes">
+            <EntityTypeMapping TypeName="MXH_GREENZONEModel.THICH">
+              <MappingFragment StoreEntitySet="THICH">
+                <ScalarProperty Name="IDBAIVIET" ColumnName="IDBAIVIET" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="THOIGIAN" ColumnName="THOIGIAN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USER_CONNECTION">
+            <EntityTypeMapping TypeName="MXH_GREENZONEModel.USER_CONNECTION">
+              <MappingFragment StoreEntitySet="USER_CONNECTION">
+                <ScalarProperty Name="IDMES" ColumnName="IDMES" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="CONNECTIONID" ColumnName="CONNECTIONID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USER_TGHOP">
+            <EntityTypeMapping TypeName="MXH_GREENZONEModel.USER_TGHOP">
+              <MappingFragment StoreEntitySet="USER_TGHOP">
+                <ScalarProperty Name="IDPHONGHOP" ColumnName="IDPHONGHOP" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="TRANGTHAI_MIC" ColumnName="TRANGTHAI_MIC" />
+                <ScalarProperty Name="TRANGTHAI_CAMERA" ColumnName="TRANGTHAI_CAMERA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERRs">
+            <EntityTypeMapping TypeName="MXH_GREENZONEModel.USERR">
+              <MappingFragment StoreEntitySet="USERR">
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="FULLNAME" ColumnName="FULLNAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="HINHANH" ColumnName="HINHANH" />
+                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+                <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+                <ScalarProperty Name="IDTOKEN" ColumnName="IDTOKEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VIDEO_CUOCHOP">
+            <EntityTypeMapping TypeName="MXH_GREENZONEModel.VIDEO_CUOCHOP">
+              <MappingFragment StoreEntitySet="VIDEO_CUOCHOP">
+                <ScalarProperty Name="IDVIDEO" ColumnName="IDVIDEO" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="VIDEO" ColumnName="VIDEO" />
+                <ScalarProperty Name="THOIGIANQUAY" ColumnName="THOIGIANQUAY" />
+                <ScalarProperty Name="IDPHONGHOP" ColumnName="IDPHONGHOP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="SHARE" TypeName="MXH_GREENZONEModel.SHARE" StoreEntitySet="SHARE">
+            <EndProperty Name="BAIVIET">
+              <ScalarProperty Name="IDBAIVIET" ColumnName="IDBAIVIET" />
+            </EndProperty>
+            <EndProperty Name="USERR">
+              <ScalarProperty Name="USERID" ColumnName="USERID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="USER_GROUP" TypeName="MXH_GREENZONEModel.USER_GROUP" StoreEntitySet="USER_GROUP">
+            <EndProperty Name="GROUPS">
+              <ScalarProperty Name="IDGROUP" ColumnName="IDGROUP" />
+            </EndProperty>
+            <EndProperty Name="USERR">
+              <ScalarProperty Name="USERID" ColumnName="USERID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
