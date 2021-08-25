@@ -237,6 +237,7 @@
     <Compile Include="Models\PHONGHOP.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\test.cs" />
     <Compile Include="Models\THICH.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
