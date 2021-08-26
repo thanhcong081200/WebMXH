@@ -11,7 +11,7 @@
     <title>Home - Social Media Greenzone</title>
     <!--CSS-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+    <link rel="stylesheet" href="~/Content/assets/css/base.css">
     <!-- Emoji CSS -->
     <link rel="stylesheet" href="~/Content/assets/css/emojionearea.min.css">
     <!-- Fontawesome CSS -->
@@ -101,63 +101,77 @@
             <!-- Begin Activity -->
             <div class="left-list">
                 <ul class="left-list-activity">
+                    <li style="background-color: #28a745; margin-left:-5px;color:white;border-radius:40px;margin-right:1px;margin-top:20px;margin-bottom:20px;">
+                        <span style="padding-left:20px;">Các Hoạt Động</span>
+                    </li>
                     <li class="left-list-item">
-                        <a class="link-left-list" href="#">
+                        <a class="link-left-list" href="@Url.Action("Profiles","Home")">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" />
+                                <span>@GetUsername(int.Parse(User.Identity.Name))</span>
+                            }
+                        </a>
+                    </li>
+                    <li class="left-list-item">
+                        <a class="link-left-list">
                             <i class="icon-left-list far fa-newspaper"></i>
                             Tin mới
                         </a>
                     </li>
                     <li class="left-list-item">
-                        <a class="link-left-list" href="#">
+                        <a class="link-left-list">
                             <i class="icon-left-list fas fa-user-friends"></i>
                             Bạn bè
                         </a>
                     </li>
                     <li class="left-list-item">
-                        <a class="link-left-list" href="#">
+                        <a class="link-left-list">
                             <i class="icon-left-list fas fa-users"></i>
                             Nhóm
                         </a>
                     </li>
                     <li class="left-list-item">
-                        <a class="link-left-list" href="#">
+                        <a class="link-left-list">
                             <i class="icon-left-list fas fa-store"></i>
                             MarketPlace
                         </a>
                     </li>
                     <li class="left-list-item">
-                        <a class="link-left-list" href="#">
+                        <a class="link-left-list">
                             <i class="icon-left-list fas fa-history"></i>
                             Kỷ niệm
                         </a>
                     </li>
                     <li class="left-list-item">
-                        <a class="link-left-list" href="#">
+                        <a class="link-left-list">
                             <i class="icon-left-list fas fa-flag"></i>
                             Trang
                         </a>
                     </li>
                     <li class="left-list-item">
-                        <a class="link-left-list" href="#">See More</a>
+                        <a class="link-left-list">See More</a>
                     </li>
                     <br>
                     <!-- Begin Group -->
-                    <li style="border-top: solid 2px rgb(243, 240, 240);" class="left-list-item">Các nhóm</li>
+                    <li style="border-top: solid 2px rgb(243, 240, 240); background-color: #28a745; margin-left:-5px;color:white;border-radius:40px;margin-right:1px;margin-bottom:20px;">
+                        <span style="padding-left:20px;">Các nhóm</span>
+                    </li>
                     <li class="left-list-item">
-                        <img class="img-left-list" src="~/Content/assets/img/laptop.jpg" alt="">
+                        <img class="img-left-list" src="~/Content/assets/img/logofe.jpg" alt="">
                         <span>Lập trình Front-End</span>
                     </li>
                     <li class="left-list-item">
-                        <img class="img-left-list" src="~/Content/assets/img/laptop.jpg" alt="">
+                        <img class="img-left-list" src="~/Content/assets/img/logoc.png" alt="">
                         <span>Lập trình C#</span>
                     </li>
                     <li class="left-list-item">
-                        <img class="img-left-list" src="~/Content/assets/img/laptop.jpg" alt="">
+                        <img class="img-left-list" src="~/Content/assets/img/logobackend.png" alt="">
                         <span>Lập trình Back-End</span>
                     </li>
                     <li class="left-list-item">
-                        <img class="img-left-list" src="~/Content/assets/img/laptop.jpg" alt="">
-                        <span>Lập trình Java</span>
+                        <img class="img-left-list" src="~/Content/assets/img/logoandroid.png" alt="">
+                        <span>Lập trình Android Studio</span>
                     </li>
                     <!-- End Group -->
                 </ul>
@@ -277,8 +291,8 @@
             <div class="right-list">
                 <ul class="right-list-activity">
                     <li class="right-list-title">
-                        <span>Events</span>
-                        <a href="#">See all</a>
+                        <span style="margin-left:10px;color:white;">Events</span>
+                        <a style="margin-right:10px;color:white;" href="#">See all</a>
                     </li>
                     <li class="right-list-item">
                         <div>
@@ -309,15 +323,15 @@
                         </div>
                     </li>
                     <li class="right-list-title">
-                        <span>Advertisement</span>
-                        <a href="#">Close</a>
+                        <span style="margin-left:10px;color:white;">Advertisement</span>
+                        <a style="margin-right:10px;color:white;" href="#">Close</a>
                     </li>
                     <li class="right-list-item">
                         <img class="right-list-advertisement" src="~/Content/assets/img/laptop.jpg" alt="">
                     </li>
                     <li class="right-list-title">
-                        <span>Coversation</span>
-                        <a href="#">Hide chat</a>
+                        <span style="margin-left:10px;color:white;">Coversation</span>
+                        <a style="margin-right:10px;color:white;" href="#">Hide chat</a>
                     </li>
                     <li class="right-list-item">
                         <ul class="list-friend">

@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - Social Media Greenzone</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+    <link rel="stylesheet" href="~/Content/assets/css/base.css">
     <!-- Emoji CSS -->
     <link rel="stylesheet" href="~/Content/assets/css/emojionearea.min.css">
     <!-- Fontawesome CSS -->
@@ -123,38 +123,51 @@
             </div>
         }
     </div>
-
-    <div style="margin-top:-260px;" class="container">
+    <div class="more-activity">
+        <ul class="list-activity">
+            <li class="item-activity">Bài viết</li>
+            <li class="item-activity">Giới thiệu</li>
+            <li class="item-activity">Bạn bè</li>
+            <li class="item-activity">Ảnh</li>
+            <li style="margin-top:7px;">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="@Url.Action("EditProfile/"+GetUserId(int.Parse(User.Identity.Name)),"Home")" class="profile-btn btn btn-primary">Chỉnh sửa trang cá nhân</a>
+                }
+            </li>
+        </ul>
+    </div>
+    <div style="margin-top:-260px;" class="container-fluid">
         <div class="row">
             <div class="col">
                 <div class="row">
                     <div class="info-profile">
-                        <h4 style="margin-top:10px;">Giới thiệu</h4>
+                        <h5 style="margin-top:10px;">Giới thiệu</h5>
                         <ul class="list-info-profile">
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <li class="list-item-profile">
                                     <i class="fas fa-phone-alt"></i>
-                                    @GetSDT(int.Parse(User.Identity.Name))
+                                    <span style="font-weight:bold;">Số điện thoại: </span>@GetSDT(int.Parse(User.Identity.Name))
                                 </li>
                                 <li class="list-item-profile">
                                     <i class="fas fa-venus-mars"></i>
-                                    @GetGioiTinh(int.Parse(User.Identity.Name))
+                                    <span style="font-weight:bold;">Giới tính: </span>@GetGioiTinh(int.Parse(User.Identity.Name))
                                 </li>
                                 <li class="list-item-profile">
                                     <i class="fas fa-envelope"></i>
-                                    @GetEmail(int.Parse(User.Identity.Name))
+                                    <span style="font-weight:bold;">Email: </span>@GetEmail(int.Parse(User.Identity.Name))
                                 </li>
                                 <li class="list-item-profile">
                                     <i class="fas fa-birthday-cake"></i>
-                                    @GetNgaySinh(int.Parse(User.Identity.Name))
+                                    <span style="font-weight:bold;">Ngày sinh: </span>@GetNgaySinh(int.Parse(User.Identity.Name))
                                 </li>
                             }
                         </ul>
                     </div>
-                </div>
+                    </div>
                 <div class="row">
-                    <div class="info-profile">
+                    <div class="info-profile1">
                         <div class="info-title-profile">
                             <h5 style="margin-top:10px;">Ảnh</h5>
                             <a class="info-title-profile-link" href="#">Xem tất cả</a>
@@ -170,7 +183,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="info-profile">
+                    <div class="info-profile2">
                         <div class="info-title-profile">
                             <h5 style="margin-top:10px;">Bạn bè</h5>
                             <a class="info-title-profile-link" href="#">Xem tất cả</a>
@@ -189,16 +202,6 @@
             </div>
             <!-- Bài viết -->
             <div class="col">
-                <div class="row">
-                    <div class="info-profile-post">
-                        <div class="info-title-profile-post">
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <a href="@Url.Action("EditProfile/"+GetUserId(int.Parse(User.Identity.Name)),"Home")" class="profile-btn btn btn-primary">Chỉnh sửa trang cá nhân</a>
-                            }
-                        </div>
-                    </div>
-                </div>
                 <br>
                 <br>
                 <br>
@@ -209,8 +212,8 @@
                 <div class="row">
                     <div class="info-profile-post">
                         <div class="info-profile-post-title">
-                            <h5 style="margin-top:10px;">Bài viết</h5>
-                            <button class="btn btn-primary">Quản lý bài viết</button>
+                            <h5 style="margin-top:7px;margin-left:20px;">Bài viết</h5>
+                            <button style="margin-right:20px;" class="btn btn-primary">Quản lý bài viết</button>
                         </div>
 
                         <!-- Đổ dữ liệu đăng bài viết -->

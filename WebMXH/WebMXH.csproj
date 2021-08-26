@@ -258,8 +258,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\assets\css\base.css" />
     <Content Include="Content\assets\css\emojionearea.min.css" />
-    <Content Include="Content\assets\css\style.css" />
     <Content Include="Content\assets\fonts\fontawesome-free-5.15.3-web\attribution.js" />
     <Content Include="Content\assets\fonts\fontawesome-free-5.15.3-web\css\all.css" />
     <Content Include="Content\assets\fonts\fontawesome-free-5.15.3-web\css\all.min.css" />
@@ -1912,6 +1912,10 @@
     <Content Include="Content\assets\img\hieu.jpg" />
     <Content Include="Content\assets\img\laptop.jpg" />
     <Content Include="Content\assets\img\logo1.png" />
+    <Content Include="Content\assets\img\logoandroid.png" />
+    <Content Include="Content\assets\img\logobackend.png" />
+    <Content Include="Content\assets\img\logoc.png" />
+    <Content Include="Content\assets\img\logofe.jpg" />
     <Content Include="Content\assets\img\minhnhat.jpg" />
     <Content Include="Content\assets\img\phat.jpg" />
     <Content Include="Content\assets\img\phuong.jpg" />

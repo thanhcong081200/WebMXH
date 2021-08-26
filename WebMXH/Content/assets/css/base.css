@@ -126,13 +126,21 @@ body {
 }
 
 .left-list-item {
-    font-size: 17px;
+    font-size: 18px;
     padding: 10px 20px;
 }
-
+.left-list-item:hover {
+    text-decoration: none;
+    color: white;
+    background-color: #28a745;
+    cursor: pointer;  
+}
+.link-left-list{
+    color:black;
+}
 .link-left-list:hover {
     text-decoration: none;
-    color: rgb(5, 202, 5);
+    color: white;
 }
 
 .img-left-list {
@@ -268,8 +276,8 @@ body {
     border-radius: 6px;
     margin-top: 20px;
     background-color: white;
-    margin-left: 26px;
-    width:630px;
+    margin-left: 7px;
+    width: 630px;
 }
 
 .middle-list-post-text {
@@ -353,8 +361,8 @@ body {
     background-color: white;
     width: 320px;
     margin-top: 90px;
-    padding-left: 20px;
-    padding-right: 20px;
+    /* padding-left: 20px; */
+    /* padding-right: 20px; */
     margin-left: 15px;
 }
 
@@ -366,11 +374,15 @@ body {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
+    background-color: #28a745;
     margin-bottom: 15px;
+    border-radius: 30px;
 }
 
 .right-list-item {
     display: flex;
+    padding-left:20px;
+    padding-right:20px;
 }
 
 .img-right-list {
@@ -691,7 +703,41 @@ body {
     /* padding-top:1rem; */
     background-color: white;
 }
-
+.more-activity {
+    position: absolute;
+    left: 9%;
+    top: 74%;
+    /* margin-top: -10px; */
+    /* display: inline-block; */
+    width: 81%;
+    height: 52px;
+    background-color: white;
+    border-radius: 20px;
+    z-index:1;
+}
+.list-activity{
+    display:flex;
+    list-style:none;
+    margin-left:30px;
+}
+.item-activity {
+    margin-top: 4px;
+    width: 150px;
+    height: 45px;
+    color: black;
+    text-align: center;
+    line-height: 40px;
+    margin-right: 62px;
+    border: none;
+    outline: none;
+    font-size: 18px;
+}
+    .item-activity:hover {
+        background-color: #28a745;
+        border-radius: 10px;
+        cursor: pointer;
+        color:white;
+    }
 .img-block {
     position: relative;
     top: -150px;
@@ -745,7 +791,32 @@ body {
 
 .info-profile {
     padding: 0 16px;
-    width: 438px;
+    width: 440px;
+    background-color: white;
+    border-radius: 20px;
+    position: absolute;
+    top: 16%;
+    left: 18%;
+}
+.info-profile1 {
+    padding: 0 16px;
+    width: 440px;
+    background-color: white;
+    border-radius: 20px;
+    margin-top: 15px;
+    position: absolute;
+    top: 32%;
+    left: 18%;
+}
+.info-profile2 {
+    padding: 0 16px;
+    width: 440px;
+    background-color: white;
+    border-radius: 20px;
+    margin-top: 15px;
+    position: absolute;
+    top: 73%;
+    left: 18%;
 }
 
 .list-info-profile {
@@ -775,9 +846,6 @@ body {
     width: 510px;
 }
 
-.profile-btn {
-    margin-top: 10px;
-}
 /* bài viết đã được đăng */
 .profile-posted {
     margin-left: -120px;
@@ -787,9 +855,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: -27px;
-    margin-left: -80px;
+    margin-top: 25px;
+    margin-left: -24%;
     margin-right: -46px;
+    background-color: white;
+    border-radius: 10px;
+    width: 630px;
+    height: 60px;
 }
 /* End Profile */
 
@@ -815,10 +887,12 @@ body {
     height: 1000px;
     padding-right: 25px;
 }
+
 .button-profile {
     padding: 0 16px;
-    width:200px;
+    width: 200px;
 }
+
 .infoUser {
     position: absolute;
     top: 90%;
