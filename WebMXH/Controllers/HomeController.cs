@@ -100,6 +100,9 @@ namespace WebMXH.Controllers
                         db.Entry(user).State = EntityState.Modified;
                         db.SaveChanges();
                         return RedirectToAction("EditProfile");
+
+                    //DropdownList
+
                 }
                 catch
                 {
