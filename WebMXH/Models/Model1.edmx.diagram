@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b4d9c7b5f37e4fdbb8c38b902dfa52f7" Name="Diagram1">
+      <Diagram DiagramId="6a54b7951c9b480cbb17d48997a00de3" Name="Diagram1">
         <EntityTypeShape EntityType="MXH_GREENZONEModel.BAIVIET" Width="1.5" PointX="0.75" PointY="13.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MXH_GREENZONEModel.BANBE" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MXH_GREENZONEModel.CALL" Width="1.5" PointX="10.5" PointY="14.375" IsExpanded="true" />

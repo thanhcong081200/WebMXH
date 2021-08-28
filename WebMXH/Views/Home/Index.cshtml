@@ -1,10 +1,6 @@
 ﻿
 @{
     Layout = null;
-    List<SelectListItem> activity = new List<SelectListItem>();
-    activity.Add(new SelectListItem() { Text = "Công khai", Value = "Công khai" });
-    activity.Add(new SelectListItem() { Text = "Chỉ mình tôi", Value = "Chỉ mình tôi" });
-    activity.Add(new SelectListItem() { Text = "Bạn bè", Value = "Bạn bè" });
 }
 @model List<BAIVIET>
 <!DOCTYPE html>
@@ -409,61 +405,66 @@
     <!-- End Content -->
     <!-- Modal TextArea -->
     <!--Đây là phần để mình đăng bài viết lên và nó insert vào DB -->
-        <div class="modal" id="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Tạo bài viết mới</h5>
-                    <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-list-infoUser">
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <div>
-                                <img class="middle-list-post-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
-                            </div>
-                        }
-                        <div class="middle-list-infoUserActivity">
+     <div class="modal" id="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Tạo bài viết mới</h5>
+                        <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-list-infoUser">
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <div>
-                                    <span style="font-weight: bold;">@GetUsername(int.Parse(User.Identity.Name))</span>
+                                    <img class="middle-list-post-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
                                 </div>
                             }
-                            <div>
-                                @Html.DropDownList("CHEDO", activity)
+                            <div class="middle-list-infoUserActivity">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <div>
+                                        <span style="font-weight: bold;">@GetUsername(int.Parse(User.Identity.Name))</span>
+                                    </div>
+                                }
+                                <div>
+                                    <select id="select">
+                                        <option value="Công khai">Công khai</option>
+                                        <option value="Bạn bè">Bạn bè</option>
+                                        <option value="Chỉ mình tôi">Chỉ mình tôi</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <!-- textArea khi click textArea mặc định -->
+                            <textarea class="modal-list-text" name="" id="textarea1" cols="30" rows="10" placeholder="Hôm nay bạn nghĩ gì"></textarea>
+                        </div>
+                        <div class="modal-list-select">
+                            <h5 class="modal-list-text-select">Thêm bài viết</h5>
+                            <div class="middle-list-selectItem">
+                                <a href="@Url.Action("Index", "MeetingZoom")">
+                                    <i style="color:red;" class="middle-icon fas fa-video" title="Livestream"></i>
+                                </a>
+                            </div>
+                            <div class="middle-list-selectItem">
+                                <i style="color:green;" class="middle-icon fas fa-camera" title="Chụp ảnh/video"></i>
+                            </div>
+                            <div class="middle-list-selectItem">
+                                <i style="color:yellow;" class="middle-icon far fa-laugh-beam" title="Hoạt động của bạn"></i>
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <!-- textArea khi click textArea mặc định -->
-                        <textarea class="modal-list-text" name="" id="textarea1" cols="30" rows="10" placeholder="Hôm nay bạn nghĩ gì"></textarea>
+                    <div class="modal-footer">
+                        <button type="button" id="btn_dangbai" class="btn_dangbai btn btn-primary">Đăng bài viết</button>
+                        <button type="button" id="close2" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
                     </div>
-                    <div class="modal-list-select">
-                        <h5 class="modal-list-text-select">Thêm bài viết</h5>
-                        <div class="middle-list-selectItem">
-                            <a href="@Url.Action("Index","MeetingZoom")">
-                                <i style="color:red;" class="middle-icon fas fa-video" title="Livestream"></i>
-                            </a>
-                        </div>
-                        <div class="middle-list-selectItem">
-                            <i style="color:green;" class="middle-icon fas fa-camera" title="Chụp ảnh/video"></i>
-                        </div>
-                        <div class="middle-list-selectItem">
-                            <i style="color:yellow;" class="middle-icon far fa-laugh-beam" title="Hoạt động của bạn"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="btn_dangbai" class="btn_dangbai btn btn-primary">Đăng bài viết</button>
-                    <button type="button" id="close2" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
                 </div>
             </div>
         </div>
-    </div>
+    }
     <!-- End Modal TextArea -->
     <!--Begin Chat -->
     <div class="chat-container">
@@ -496,12 +497,12 @@
                     let online = listUsers[i].IsOnline ? '<i style="color:lawngreen;" class="fa fa-circle"></i>' : "";
                     $('.list-friend').append(
                         '<li class="list-group-friend-' + listUsers[i].UserId + '")>\
-                                                                            <a class="list-group-friend-name" onclick="openChatBox(' + listUsers[i].UserId + ')">\
-                                                                                <img class="list-group-img" src="/Content/assets/img/'+ listUsers[i].HinhAnh + '" alt="">\
-                                                                                '+ listUsers[i].FullName + '\
-                                                                                <span class="is-online">'+ online + '</span>\
-                                                                            </a>\
-                                                                         </li>');
+                                                                                    <a class="list-group-friend-name" onclick="openChatBox(' + listUsers[i].UserId + ')">\
+                                                                                        <img class="list-group-img" src="/Content/assets/img/'+ listUsers[i].HinhAnh + '" alt="">\
+                                                                                        '+ listUsers[i].FullName + '\
+                                                                                        <span class="is-online">'+ online + '</span>\
+                                                                                    </a>\
+                                                                                 </li>');
                 }
             };
 
@@ -568,13 +569,13 @@
         // Post bài viết
         posrtbaiviet.onclick = function () {
             var emp = $('#textarea1').val();
-
+            var select = $('#select').val();
             $.ajax({
                 url: '/Home/addbaiviet',
                 type: 'POST',
                 datatype: 'JSON',
                 contentType: 'application/json;charset=utf-8;',
-                data: JSON.stringify({ noidung:emp }),
+                data: JSON.stringify({ noidung: emp , chedo: select}),
                 async: true,
                 success: function (res) {
                     if (res == 1)
@@ -583,7 +584,7 @@
                         alert('Thêm  không thành công');
                 }
             });
-            
+
         }
         opening.onclick = function () {
             accountUserSetting.style.display = 'block';

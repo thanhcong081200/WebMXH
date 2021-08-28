@@ -15,7 +15,7 @@
           <Property Name="HINHANH" Type="nvarchar" MaxLength="50" />
           <Property Name="VIDEO" Type="nvarchar" MaxLength="50" />
           <Property Name="CHEDO" Type="nvarchar" MaxLength="50" />
-          <Property Name="NGAYDANG" Type="date" />
+          <Property Name="NGAYDANG" Type="datetime" />
           <Property Name="LUOTLIKE" Type="int" />
           <Property Name="LUOTCMT" Type="int" />
           <Property Name="LUOTSHARE" Type="int" />
@@ -534,7 +534,7 @@
           <Property Name="HINHANH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="VIDEO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CHEDO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NGAYDANG" Type="DateTime" Precision="0" />
+          <Property Name="NGAYDANG" Type="DateTime" Precision="3" />
           <Property Name="LUOTLIKE" Type="Int32" />
           <Property Name="LUOTCMT" Type="Int32" />
           <Property Name="LUOTSHARE" Type="Int32" />

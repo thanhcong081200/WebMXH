@@ -42,15 +42,14 @@ namespace WebMXH.Controllers
         }
 
         [HttpPost]
-        public JsonResult addbaiviet(string noidung)
+        public JsonResult addbaiviet(string noidung,BAIVIET baiviet,string chedo)
         {
-            BAIVIET baiviet = new BAIVIET();
             baiviet.USERID = int.Parse(Session["userid"] as string);
             baiviet.NOIDUNG = noidung;
-            baiviet.NGAYDANG = DateTime.Now;
+            baiviet.NGAYDANG = DateTime.Today;
+            baiviet.CHEDO = chedo;
             try
             {
-                // TODO: Add insert logic here
                 data.BAIVIET.Add(baiviet);
                 data.SaveChanges();
                 return Json(1, JsonRequestBehavior.AllowGet);
@@ -66,7 +65,7 @@ namespace WebMXH.Controllers
             using (MXH_GREENZONEEntities db = new MXH_GREENZONEEntities())
             {
                 return View(db.BAIVIET.Where(x=>x.USERID == id).FirstOrDefault());
-            }
+            } 
         }
 
         [HttpGet]

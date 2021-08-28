@@ -14,7 +14,7 @@ namespace WebMXH.Models
 
         public string SoDienThoai { get; set; }
 
-
         public bool RememberMe { get; set; }
+
     }
 }
