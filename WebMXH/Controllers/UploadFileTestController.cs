@@ -38,7 +38,7 @@ namespace WebMXH.Controllers
 
 
                         user.HINHANH = file;
-                        db.USERRs.Add(user);
+                        db.USERR.Add(user);
                         db.SaveChanges();
 
 

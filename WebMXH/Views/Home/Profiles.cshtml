@@ -363,7 +363,7 @@
     MXH_GREENZONEEntities _Context7 = new MXH_GREENZONEEntities();
     public string GetUserId(int userId)
     {
-        return _Context7.USERRs.FirstOrDefault(x => x.USERID == userId)?.USERID.ToString();
+        return _Context7.USERR.FirstOrDefault(x => x.USERID == userId)?.USERID.ToString();
     }
 }
 <!--Hàm get tên người dùng khi đăng nhập nó quét userId rồi ra tên người dùng đó -->
@@ -371,7 +371,7 @@
     MXH_GREENZONEEntities _Context = new MXH_GREENZONEEntities();
     public string GetUsername(int userId)
     {
-        return _Context.USERRs.FirstOrDefault(x => x.USERID == userId)?.FULLNAME;
+        return _Context.USERR.FirstOrDefault(x => x.USERID == userId)?.FULLNAME;
     }
 }
 
@@ -380,7 +380,7 @@
     MXH_GREENZONEEntities _Context1 = new MXH_GREENZONEEntities();
     public string GetImage(int hinhanh)
     {
-        return _Context1.USERRs.FirstOrDefault(x => x.USERID == hinhanh)?.HINHANH ?? "user.png";
+        return _Context1.USERR.FirstOrDefault(x => x.USERID == hinhanh)?.HINHANH ?? "user.png";
     }
 }
 
@@ -389,7 +389,7 @@
     MXH_GREENZONEEntities _Context2 = new MXH_GREENZONEEntities();
     public string GetSDT(int sdt)
     {
-        return _Context2.USERRs.FirstOrDefault(x => x.USERID == sdt)?.SDT;
+        return _Context2.USERR.FirstOrDefault(x => x.USERID == sdt)?.SDT;
     }
 }
 
@@ -398,7 +398,7 @@
     MXH_GREENZONEEntities _Context3 = new MXH_GREENZONEEntities();
     public string GetGioiTinh(int gioitinh)
     {
-        return _Context3.USERRs.FirstOrDefault(x => x.USERID == gioitinh)?.GIOITINH;
+        return _Context3.USERR.FirstOrDefault(x => x.USERID == gioitinh)?.GIOITINH;
     }
 }
 
@@ -407,7 +407,7 @@
     MXH_GREENZONEEntities _Context4 = new MXH_GREENZONEEntities();
     public string GetEmail(int email)
     {
-        return _Context4.USERRs.FirstOrDefault(x => x.USERID == email)?.EMAIL;
+        return _Context4.USERR.FirstOrDefault(x => x.USERID == email)?.EMAIL;
     }
 }
 
@@ -416,6 +416,6 @@
     MXH_GREENZONEEntities _Context5 = new MXH_GREENZONEEntities();
     public string GetNgaySinh(int ngaysinh)
     {
-        return _Context5.USERRs.FirstOrDefault(x => x.USERID == ngaysinh)?.NGAYSINH.Value.ToShortDateString();
+        return _Context5.USERR.FirstOrDefault(x => x.USERID == ngaysinh)?.NGAYSINH.Value.ToShortDateString();
     }
 }

@@ -1,5 +1,5 @@
 ﻿@model LoginData
-  
+
 @{
     ViewBag.Title = "Login";
     Layout = null;
@@ -59,31 +59,37 @@
 </body>
 
 <!--Begin Modal -->
-
 <!--End Modal-->
 <script>
 
-      var modalObject = document.getElementById('modal');
+    var modalObject = document.getElementById('modal');
 
-      var button1 = document.getElementById('button-openCreate');
-      var button2 = document.getElementById('close');
-      var button3 = document.getElementById('close2');
-      var button4 = document.getElementById('submit');
+    var button1 = document.getElementById('button-openCreate');
+    var button2 = document.getElementById('close');
+    var button3 = document.getElementById('close2');
+    var button4 = document.getElementById('submit');
 
-      button1.onclick = function(){
-        modalObject.style.display='block';
-      }
-      button2.onclick = function(){
-        modalObject.style.display='none';
-      }
-      button3.onclick = function(){
-        modalObject.style.display='none';
-      }
-      button4.onclick = function(){
-          alert('Đăng ký thành công');
-          setTimeout(() => {
-              modalObject.style.display='none'
-          }, 0);
-       }
+    button1.onclick = function () {
+        modalObject.style.display = 'block';
+    }
+    button2.onclick = function () {
+        modalObject.style.display = 'none';
+    }
+    button3.onclick = function () {
+        modalObject.style.display = 'none';
+    }
+    button4.onclick = function () {
+        alert('Đăng ký thành công');
+        setTimeout(() => {
+            modalObject.style.display = 'none'
+        }, 0);
+    }
 </script>
 </html>
+@functions{
+    MXH_GREENZONEEntities _Context1 = new MXH_GREENZONEEntities();
+    public string GetUserId(int userId)
+    {
+        return _Context1.USERR.FirstOrDefault(x => x.USERID == userId)?.USERID.ToString();
+    }
+}

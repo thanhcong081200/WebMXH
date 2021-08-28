@@ -17,9 +17,9 @@ namespace WebMXH.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BAIVIET()
         {
-            this.COMMENTs = new HashSet<COMMENT>();
-            this.THICHes = new HashSet<THICH>();
-            this.USERRs = new HashSet<USERR>();
+            this.COMMENT = new HashSet<COMMENT>();
+            this.THICH = new HashSet<THICH>();
+            this.USERR1 = new HashSet<USERR>();
         }
     
         public int IDBAIVIET { get; set; }
@@ -35,10 +35,10 @@ namespace WebMXH.Models
     
         public virtual USERR USERR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<COMMENT> COMMENTs { get; set; }
+        public virtual ICollection<COMMENT> COMMENT { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<THICH> THICHes { get; set; }
+        public virtual ICollection<THICH> THICH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<USERR> USERRs { get; set; }
+        public virtual ICollection<USERR> USERR1 { get; set; }
     }
 }

@@ -1,7 +1,12 @@
 ﻿
 @{
-    ViewBag.Title = "Home Page";
+    Layout = null;
+    List<SelectListItem> activity = new List<SelectListItem>();
+    activity.Add(new SelectListItem() { Text = "Công khai", Value = "Công khai" });
+    activity.Add(new SelectListItem() { Text = "Chỉ mình tôi", Value = "Chỉ mình tôi" });
+    activity.Add(new SelectListItem() { Text = "Bạn bè", Value = "Bạn bè" });
 }
+@model List<BAIVIET>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -259,7 +264,7 @@
                             </select>
                         </div>
                     </div>
-                    <!-- textArea mặc định -->
+                    <!-- textArea mặc định để click vào -->
                     <div class="middle-list-body">
                         <textarea class="middle-list-text" name="" id="textarea" cols="30" rows="10" placeholder="Hôm nay bạn nghĩ gì"></textarea>
                     </div>
@@ -279,10 +284,63 @@
                     </div>
                 </div>
 
-                <!-- Post bài viết -->
-                <div id="posted" class="middle-list-postedUser">
-                    <!--Js-->
-                </div>
+                <!--Bài viết đã đăng-->
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <!-- Bài viết đã đăng nên phần này chỉ hiển thị lấy từ DB ra hiển thị  -->
+                    foreach (var item in Model)
+                    {
+                        <div id="posted" class="middle-list-postedUser">
+                            <div class="middle-list-infoUser">
+                                <div>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <img class="middle-list-post-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
+                                    }
+                                </div>
+                                <div class="middle-list-infoUserActivity">
+                                    <div>
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <span style="font-weight: bold;">@GetUsername(int.Parse(User.Identity.Name))</span>
+                                        }
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-globe-americas"></i>
+                                        <span>@Html.DisplayFor(model => item.CHEDO)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="middle-list-body">
+                                <div class="middle-list-post-text">
+                                    <span>@Html.DisplayFor(model => item.NOIDUNG)</span>
+                                </div>
+                                @*<img class="middle-list-body-post-img" src="~/Content/assets/img/laptop.jpg" alt="">*@
+                            </div>
+                            <div class="middle-list-UserContact">
+                                <div class="middle-list-UserContacted">
+                                    <div class="middle-list-contact">
+                                        <i onclick="Like(this)" class="fas fa-heart"></i>
+                                        <span>Thích</span>
+                                    </div>
+                                    <div class="middle-list-contact">
+                                        <a style="text-decoration: none;" href="#">
+                                            <i class="far fa-comment"></i>
+                                            <span>Bình luận</span>
+                                        </a>
+                                    </div>
+                                    <div class="middle-list-contact">
+                                        <a style="text-decoration: none;" href="#">
+                                            <i class="far fa-share-square"></i>
+                                            <span>Chia sẻ</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
             </div>
         </middle>
         <!-- End Middle -->
@@ -350,7 +408,8 @@
     </content>
     <!-- End Content -->
     <!-- Modal TextArea -->
-    <div class="modal" id="modal" tabindex="-1" role="dialog">
+    <!--Đây là phần để mình đăng bài viết lên và nó insert vào DB -->
+        <div class="modal" id="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -375,11 +434,7 @@
                                 </div>
                             }
                             <div>
-                                <select>
-                                    <option>Công khai</option>
-                                    <option>Bạn bè</option>
-                                    <option>Chỉ mình tôi</option>
-                                </select>
+                                @Html.DropDownList("CHEDO", activity)
                             </div>
                         </div>
                     </div>
@@ -403,7 +458,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="submit" class="btn btn-primary">Đăng bài viết</button>
+                    <button type="button" id="btn_dangbai" class="btn_dangbai btn btn-primary">Đăng bài viết</button>
                     <button type="button" id="close2" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
                 </div>
             </div>
@@ -414,9 +469,6 @@
     <div class="chat-container">
         <!--Đổ dữ liệu từ bên _ChatBox.cshtml-->
     </div>
-    @*<div>
-            @RenderBody()
-        </div>*@
     <!-- End Chat -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -444,35 +496,35 @@
                     let online = listUsers[i].IsOnline ? '<i style="color:lawngreen;" class="fa fa-circle"></i>' : "";
                     $('.list-friend').append(
                         '<li class="list-group-friend-' + listUsers[i].UserId + '")>\
-                                                <a class="list-group-friend-name" onclick="openChatBox(' + listUsers[i].UserId + ')">\
-                                                    <img class="list-group-img" src="/Content/assets/img/'+ listUsers[i].HinhAnh + '" alt="">\
-                                                    '+ listUsers[i].FullName + '\
-                                                    <span class="is-online">'+ online + '</span>\
-                                                </a>\
-                                             </li>');
-                        }
-                    };
+                                                                            <a class="list-group-friend-name" onclick="openChatBox(' + listUsers[i].UserId + ')">\
+                                                                                <img class="list-group-img" src="/Content/assets/img/'+ listUsers[i].HinhAnh + '" alt="">\
+                                                                                '+ listUsers[i].FullName + '\
+                                                                                <span class="is-online">'+ online + '</span>\
+                                                                            </a>\
+                                                                         </li>');
+                }
+            };
 
-                    hub.client.broadcastOnlineUser = function (userId) {
+            hub.client.broadcastOnlineUser = function (userId) {
                 $('.list-friend').find('#UserBox-' + userId + '').find('span[class="is-online"]').html('<i class="fa fa-circle"></i>');
-                    }
+            }
 
-                    hub.client.broadcastOfflineUser = function (userId) {
+            hub.client.broadcastOfflineUser = function (userId) {
                 $('.list-friend').find('#UserBox-' + userId + '').find('span[class="is-online"]').html('');
-                    }
+            }
 
-                    hub.connection.start().done(function () {
-                        hub.server.getUsersToChat();
-                    });
+            hub.connection.start().done(function () {
+                hub.server.getUsersToChat();
+            });
 
-                    hub.client.broadcastRecieveMessage = function (userId, message) {
-                        if ($('#DVChatBox-' + userId).length === 0) {
-                            openChatBox(userId);
-                        } else {
+            hub.client.broadcastRecieveMessage = function (userId, message) {
+                if ($('#DVChatBox-' + userId).length === 0) {
+                    openChatBox(userId);
+                } else {
                     $('#DVChatBox-' + userId).find('.messages-list').append('<div class="dvmsg dvmsg-to"><span class="msg">' + message + '</span></div>');
-                        }
+                }
                 $('#DVChatBox-' + userId).find('.messages-list').scrollTop(999999999999);
-                    }
+            }
 
         });
 
@@ -506,10 +558,32 @@
         var chatUser = document.getElementById('chatUser')
         var jsChatUser = document.getElementById('js-closechatUser')
         var listGroupFriend = document.getElementById('listGroupFriend')
+        var posrtbaiviet = document.getElementById('btn_dangbai');
 
         // khung chat
         openTextArea.onclick = function () {
             modalObject.style.display = 'block';
+            /*window.open("CreateNewPost", "Home")*/
+        }
+        // Post bài viết
+        posrtbaiviet.onclick = function () {
+            var emp = $('#textarea1').val();
+
+            $.ajax({
+                url: '/Home/addbaiviet',
+                type: 'POST',
+                datatype: 'JSON',
+                contentType: 'application/json;charset=utf-8;',
+                data: JSON.stringify({ noidung:emp }),
+                async: true,
+                success: function (res) {
+                    if (res == 1)
+                        location.reload();
+                    else
+                        alert('Thêm  không thành công');
+                }
+            });
+            
         }
         opening.onclick = function () {
             accountUserSetting.style.display = 'block';
@@ -520,6 +594,9 @@
         button2.onclick = function () {
             modalObject.style.display = 'none';
         }
+        button3.onclick = function () {
+            modalObject.style.display = 'none';
+        }
         // Bấm vào nút x để tắt
         jsChatUser.onclick = function () {
             chatUser.style.display = 'none';
@@ -527,9 +604,6 @@
         // Bấm vào ds bạn bè
         listGroupFriend.onclick = function () {
             chatUser.style.display = 'block';
-        }
-        button3.onclick = function () {
-            modalObject.style.display = 'none';
         }
         // Js emoji
         $(document).ready(function () {
@@ -542,56 +616,6 @@
             x.classList.toggle('middle-list-reactLove');
         }
     </script>
-    <script>
-        var btnSubmit = document.getElementById('submit');
-
-        btnSubmit.addEventListener("click", Addnew);
-        function Addnew(s) {
-            var newPost = document.getElementById('posted');
-            var post = document.querySelector('.middle-list-postedUser');
-            post.append(`<div class="middle-list-infoUser">\
-                            <div>\
-                                <img class="middle-list-post-img" src="~/Content/assets/img/thanhcong.jpg" alt="">\
-                            </div>\
-                        <div class="middle-list-infoUserActivity">\
-                                <div>\
-                                    <span style="font-weight: bold;">Thanh Công</span>\
-                                </div>\
-                            <div>\
-                                <i class="fas fa-globe-americas"></i>\
-                                <span>Công khai</span>\
-                            </div>\
-                        </div>\
-                    </div>\
-                    <div class="middle-list-body">\
-                        <div class="middle-list-post-text">\
-                            <span>Hôm nay mới mua được laptop này nè hihi</span>\
-                        </div>\
-                        <img class="middle-list-body-post-img" src="~/Content/assets/img/laptop.jpg" alt="">\
-                    </div>\
-                    <div class="middle-list-UserContact">\
-                        <div class="middle-list-UserContacted">\
-                            <div class="middle-list-contact">\
-                                <i onclick="Like(this)" class="fas fa-heart"></i>\
-                                <span>Thích</span>\
-                            </div>\
-                            <div class="middle-list-contact">\
-                                <a style="text-decoration: none;" href="#">\
-                                    <i class="far fa-comment"></i>\
-                                    <span>Bình luận</span>\
-                                </a>\
-                            </div>\
-                            <div class="middle-list-contact">\
-                                <a style="text-decoration: none;" href="#">\
-                                    <i class="far fa-share-square"></i>\
-                                    <span>Chia sẻ</span>\
-                                </a>\
-                            </div>\
-                        </div>\
-                    </div>`);
-            newPost.innerHTML = post.join('');
-        }
-    </script>
 </body>
 </html>
 
@@ -600,7 +624,7 @@
     MXH_GREENZONEEntities _Context = new MXH_GREENZONEEntities();
     public string GetUsername(int userId)
     {
-        return _Context.USERRs.FirstOrDefault(x => x.USERID == userId)?.FULLNAME;
+        return _Context.USERR.FirstOrDefault(x => x.USERID == userId)?.FULLNAME;
     }
 }
 
@@ -609,6 +633,14 @@
     MXH_GREENZONEEntities _Context1 = new MXH_GREENZONEEntities();
     public string GetImage(int hinhanh)
     {
-        return _Context1.USERRs.FirstOrDefault(x => x.USERID == hinhanh)?.HINHANH??"user.png";
+        return _Context1.USERR.FirstOrDefault(x => x.USERID == hinhanh)?.HINHANH ?? "user.png";
+    }
 }
+
+@functions{
+    MXH_GREENZONEEntities _Context2 = new MXH_GREENZONEEntities();
+    public string GetUserId(int id)
+    {
+        return _Context1.USERR.FirstOrDefault(x => x.USERID == id)?.USERID.ToString();
+    }
 }

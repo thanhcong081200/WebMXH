@@ -20,7 +20,7 @@ namespace WebMXH.Services
         public bool Login(LoginData loginData, out int userId)
         {
             userId = 0;
-            var currentUser = _Context.USERRs.FirstOrDefault(x => x.SDT == loginData.Username || x.USERNAME==loginData.Username && x.PASSWORD == loginData.Password);
+            var currentUser = _Context.USERR.FirstOrDefault(x => x.SDT == loginData.Username || x.USERNAME == loginData.Username && x.PASSWORD == loginData.Password);
             if (currentUser != null)
             {
                 userId = currentUser.USERID;
@@ -32,7 +32,7 @@ namespace WebMXH.Services
         public List<UserDTO> GetUsersToChat()
         {
             var userId = int.Parse(HttpContext.Current.User.Identity.Name);
-            return _Context.USERRs
+            return _Context.USERR
                 .Include("USER_CONNECTION")
                 .Where(x => x.USERID != userId)
                 .Select(x => new UserDTO
@@ -85,8 +85,8 @@ namespace WebMXH.Services
         internal ChatBoxModel GetChatbox(int toUserId)
         {
             var userId = int.Parse(HttpContext.Current.User.Identity.Name);
-            var toUser = _Context.USERRs.FirstOrDefault(x => x.USERID == toUserId);
-            var messages = _Context.MESSAGEs.Where(x => (x.FROM_USER == userId && x.TO_USER == toUserId) || (x.FROM_USER == toUserId && x.TO_USER == userId))
+            var toUser = _Context.USERR.FirstOrDefault(x => x.USERID == toUserId);
+            var messages = _Context.MESSAGE.Where(x => (x.FROM_USER == userId && x.TO_USER == toUserId) || (x.FROM_USER == toUserId && x.TO_USER == userId))
                 .OrderByDescending(x => x.DATE)
                 .Skip(0)
                 .Take(50)
@@ -112,7 +112,7 @@ namespace WebMXH.Services
             try
             {
                 int USER_ID = int.Parse(HttpContext.Current.User.Identity.Name);
-                _Context.MESSAGEs.Add(new MESSAGE
+                _Context.MESSAGE.Add(new MESSAGE
                 {
                     FROM_USER = USER_ID,
                     TO_USER = toUserId,
@@ -140,7 +140,7 @@ namespace WebMXH.Services
         internal List<MessageDTO> LazyLoadMssages(int toUserId, int skip)
         {
             var userId = int.Parse(HttpContext.Current.User.Identity.Name);
-            var messages = _Context.MESSAGEs.Where(x => (x.FROM_USER == userId && x.TO_USER == toUserId) || (x.FROM_USER == toUserId && x.TO_USER == userId))
+            var messages = _Context.MESSAGE.Where(x => (x.FROM_USER == userId && x.TO_USER == toUserId) || (x.FROM_USER == toUserId && x.TO_USER == userId))
                 .OrderByDescending(x => x.DATE)
                 .Skip(skip)
                 .Take(50)

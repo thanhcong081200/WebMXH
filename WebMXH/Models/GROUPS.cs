@@ -12,13 +12,13 @@ namespace WebMXH.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class GROUP
+    public partial class GROUPS
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public GROUP()
+        public GROUPS()
         {
-            this.CALLs = new HashSet<CALL>();
-            this.USERRs = new HashSet<USERR>();
+            this.CALL = new HashSet<CALL>();
+            this.USERR1 = new HashSet<USERR>();
         }
     
         public int IDGROUP { get; set; }
@@ -30,9 +30,9 @@ namespace WebMXH.Models
         public Nullable<int> SOTHANHVIEN { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CALL> CALLs { get; set; }
+        public virtual ICollection<CALL> CALL { get; set; }
         public virtual USERR USERR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<USERR> USERRs { get; set; }
+        public virtual ICollection<USERR> USERR1 { get; set; }
     }
 }

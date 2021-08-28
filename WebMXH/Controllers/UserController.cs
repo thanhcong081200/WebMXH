@@ -8,13 +8,13 @@ using WebMXH.Models;
 
 namespace WebMXH.Controllers
 {
-    public class UserTestController : Controller
+    public class UserController : Controller
     {
         MXH_GREENZONEEntities db = new MXH_GREENZONEEntities();
         // GET: User
         public ActionResult Index()
         {
-            return View(db.USERRs.ToList());
+            return View(db.BAIVIET.ToList());
         }
 
         // GET: User/Details/5
@@ -31,12 +31,13 @@ namespace WebMXH.Controllers
 
         // POST: User/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(BAIVIET baiviet)
         {
             try
             {
                 // TODO: Add insert logic here
-
+                db.BAIVIET.Add(baiviet);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -48,7 +49,7 @@ namespace WebMXH.Controllers
         // GET: User/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(db.USERRs.Where(x => x.USERID == id).FirstOrDefault());
+            return View(db.USERR.Where(x => x.USERID == id).FirstOrDefault());
         }
 
         // POST: User/Edit/5

@@ -12,16 +12,62 @@ using WebMXH.Services;
 
 namespace WebMXH.Controllers
 {
+    
     //[Authorize]
     public class HomeController : Controller
     {
-        
+        MXH_GREENZONEEntities data = new MXH_GREENZONEEntities();
+
         [HttpGet]
         public ActionResult Index()
+        {
+            using (MXH_GREENZONEEntities db = new MXH_GREENZONEEntities())
+            {
+                List<BAIVIET> lst = new List<BAIVIET>();
+                string iduser = Session["userid"] as string;
+                if (iduser != null)
+                {
+                    int id = int.Parse(iduser);
+                     lst = db.BAIVIET.Where(bv => bv.USERID == id ).ToList();
+                    
+                }
+                return View(lst);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult CreateNewPost()
         {
             return View();
         }
 
+        [HttpPost]
+        public JsonResult addbaiviet(string noidung)
+        {
+            BAIVIET baiviet = new BAIVIET();
+            baiviet.USERID = int.Parse(Session["userid"] as string);
+            baiviet.NOIDUNG = noidung;
+            baiviet.NGAYDANG = DateTime.Now;
+            try
+            {
+                // TODO: Add insert logic here
+                data.BAIVIET.Add(baiviet);
+                data.SaveChanges();
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+            [HttpGet]
+        public ActionResult XemBaiViet(int id)
+        {
+            using (MXH_GREENZONEEntities db = new MXH_GREENZONEEntities())
+            {
+                return View(db.BAIVIET.Where(x=>x.USERID == id).FirstOrDefault());
+            }
+        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -44,6 +90,7 @@ namespace WebMXH.Controllers
                 int userId;
                 if (new AppService().Login(loginData, out userId))
                 {
+                    Session["userid"] = userId.ToString();
                     FormsAuthentication.RedirectFromLoginPage(userId.ToString(), loginData.RememberMe);
                     return RedirectToAction("Index");
                 }
@@ -68,8 +115,7 @@ namespace WebMXH.Controllers
         {
             using (MXH_GREENZONEEntities db = new MXH_GREENZONEEntities())
             {
-
-                return View(db.USERRs.ToList());
+                return View(db.USERR.ToList());
             }
         }
 
@@ -78,7 +124,7 @@ namespace WebMXH.Controllers
         {
             using (MXH_GREENZONEEntities db = new MXH_GREENZONEEntities())
             {
-                return View(db.USERRs.Where(x => x.USERID == id).FirstOrDefault());
+                return View(db.USERR.Where(x => x.USERID == id).FirstOrDefault());
             }
         }
 
@@ -127,11 +173,11 @@ namespace WebMXH.Controllers
             MXH_GREENZONEEntities db = new MXH_GREENZONEEntities();
             if (ModelState.IsValid)
             {
-                var check = db.USERRs.FirstOrDefault(s => s.EMAIL == _user.EMAIL);
+                var check = db.USERR.FirstOrDefault(s => s.EMAIL == _user.EMAIL);
                 if (check == null)
                 {
                     db.Configuration.ValidateOnSaveEnabled = false;
-                    db.USERRs.Add(_user);
+                    db.USERR.Add(_user);
                     db.SaveChanges();
                     return RedirectToAction("Login");
                 }

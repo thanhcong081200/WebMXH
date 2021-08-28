@@ -1,16 +1,22 @@
-﻿@model IEnumerable<WebMXH.Models.USERR>
+﻿@model IEnumerable<WebMXH.Models.BAIVIET>
 
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
-
+<!--CSS-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="~/Content/assets/css/base.css">
+<!-- Emoji CSS -->
+<link rel="stylesheet" href="~/Content/assets/css/emojionearea.min.css">
+<!-- Fontawesome CSS -->
+<link rel="stylesheet" href="~/Content/assets/fonts/fontawesome-free-5.15.3-web/css/all.min.css">
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
+
+@*<tr>
         <th>
             @Html.DisplayNameFor(model => model.USERID)
         </th>
@@ -42,46 +48,83 @@
             @Html.DisplayNameFor(model => model.IDTOKEN)
         </th>
         <th></th>
-    </tr>
+    </tr>*@
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.USERID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.USERNAME)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FULLNAME)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PASSWORD)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SDT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EMAIL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HINHANH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GIOITINH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NGAYSINH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IDTOKEN)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.USERID }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
+@foreach (var item in Model)
+{
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <!-- Bài viết đã đăng nên phần này chỉ hiển thị lấy từ DB ra hiển thị  -->
+        <div id="posted" class="middle-list-postedUser">
+            <div class="middle-list-infoUser">
+                <div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <img class="middle-list-post-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
+                    }
+                </div>
+                <div class="middle-list-infoUserActivity">
+                    <div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <span style="font-weight: bold;">@GetUsername(int.Parse(User.Identity.Name))</span>
+                        }
+                    </div>
+                    <div>
+                        <i class="fas fa-globe-americas"></i>
+                        <span>@Html.DisplayFor(model => item.CHEDO)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="middle-list-body">
+                <div class="middle-list-post-text">
+                    <span>@Html.DisplayFor(model => item.NOIDUNG)</span>
+                </div>
+                @*<img class="middle-list-body-post-img" src="~/Content/assets/img/laptop.jpg" alt="">*@
+            </div>
+            <div class="middle-list-UserContact">
+                <div class="middle-list-UserContacted">
+                    <div class="middle-list-contact">
+                        <i onclick="Like(this)" class="fas fa-heart"></i>
+                        <span>Thích</span>
+                    </div>
+                    <div class="middle-list-contact">
+                        <a style="text-decoration: none;" href="#">
+                            <i class="far fa-comment"></i>
+                            <span>Bình luận</span>
+                        </a>
+                    </div>
+                    <div class="middle-list-contact">
+                        <a style="text-decoration: none;" href="#">
+                            <i class="far fa-share-square"></i>
+                            <span>Chia sẻ</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @*@Html.ActionLink("Edit", "Edit", new { id = item.USERID }) |
+        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }))*@
+}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+@functions{
+    MXH_GREENZONEEntities _Context = new MXH_GREENZONEEntities();
+    public string GetUsername(int userId)
+    {
+        return _Context.USERR.FirstOrDefault(x => x.USERID == userId)?.FULLNAME;
+    }
 }
 
-</table>
+<!--Hàm get hình ảnh người dùng khi đăng nhập nó quét userId rồi ra hình ảnh người dùng đó -->
+@functions{
+    MXH_GREENZONEEntities _Context1 = new MXH_GREENZONEEntities();
+    public string GetImage(int hinhanh)
+    {
+        return _Context1.USERR.FirstOrDefault(x => x.USERID == hinhanh)?.HINHANH ?? "user.png";
+    }
+}

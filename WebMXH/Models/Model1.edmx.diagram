@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f4547c58b2bf4725886b4759f8c8478d" Name="Diagram1">
+      <Diagram DiagramId="b4d9c7b5f37e4fdbb8c38b902dfa52f7" Name="Diagram1">
         <EntityTypeShape EntityType="MXH_GREENZONEModel.BAIVIET" Width="1.5" PointX="0.75" PointY="13.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MXH_GREENZONEModel.BANBE" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MXH_GREENZONEModel.CALL" Width="1.5" PointX="10.5" PointY="14.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MXH_GREENZONEModel.COMMENT" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MXH_GREENZONEModel.GROUP" Width="1.5" PointX="8.25" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MXH_GREENZONEModel.GROUPS" Width="1.5" PointX="8.25" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MXH_GREENZONEModel.MESSAGE" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MXH_GREENZONEModel.MESSAGE_PHONGHOP" Width="1.5" PointX="10.5" PointY="17.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MXH_GREENZONEModel.PHONGHOP" Width="1.5" PointX="8.25" PointY="22.625" IsExpanded="true" />

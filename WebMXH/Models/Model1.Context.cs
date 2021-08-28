@@ -25,18 +25,18 @@ namespace WebMXH.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<BAIVIET> BAIVIETs { get; set; }
-        public virtual DbSet<BANBE> BANBEs { get; set; }
-        public virtual DbSet<CALL> CALLs { get; set; }
-        public virtual DbSet<COMMENT> COMMENTs { get; set; }
-        public virtual DbSet<GROUP> GROUPS { get; set; }
-        public virtual DbSet<MESSAGE> MESSAGEs { get; set; }
+        public virtual DbSet<BAIVIET> BAIVIET { get; set; }
+        public virtual DbSet<BANBE> BANBE { get; set; }
+        public virtual DbSet<CALL> CALL { get; set; }
+        public virtual DbSet<COMMENT> COMMENT { get; set; }
+        public virtual DbSet<GROUPS> GROUPS { get; set; }
+        public virtual DbSet<MESSAGE> MESSAGE { get; set; }
         public virtual DbSet<MESSAGE_PHONGHOP> MESSAGE_PHONGHOP { get; set; }
-        public virtual DbSet<PHONGHOP> PHONGHOPs { get; set; }
-        public virtual DbSet<THICH> THICHes { get; set; }
+        public virtual DbSet<PHONGHOP> PHONGHOP { get; set; }
+        public virtual DbSet<THICH> THICH { get; set; }
         public virtual DbSet<USER_CONNECTION> USER_CONNECTION { get; set; }
         public virtual DbSet<USER_TGHOP> USER_TGHOP { get; set; }
-        public virtual DbSet<USERR> USERRs { get; set; }
+        public virtual DbSet<USERR> USERR { get; set; }
         public virtual DbSet<VIDEO_CUOCHOP> VIDEO_CUOCHOP { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace WebMXH.Models
         public Nullable<int> USERID { get; set; }
         public Nullable<int> IDGROUP { get; set; }
     
-        public virtual GROUP GROUP { get; set; }
+        public virtual GROUPS GROUPS { get; set; }
         public virtual USERR USERR { get; set; }
     }
 }
