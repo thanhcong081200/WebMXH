@@ -19,7 +19,7 @@ namespace WebMXH.Controllers
         MXH_GREENZONEEntities data = new MXH_GREENZONEEntities();
 
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(USERR user)
         {
             using (MXH_GREENZONEEntities db = new MXH_GREENZONEEntities())
             {
@@ -32,6 +32,10 @@ namespace WebMXH.Controllers
                     
                 }
                 return View(lst);
+
+                //db.Entry(user).State = EntityState.Modified;
+                //db.SaveChanges();
+                //return RedirectToAction("Index");
             }
         }
 

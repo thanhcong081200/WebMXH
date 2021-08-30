@@ -7,667 +7,704 @@
     USERR user = Session["user"] as USERR;
 }
 @model List<BAIVIET>
-@if (user.NGAYSINH == null || user.GIOITINH == null){
-    <script>
-        var modalEditInfo = document.querySelector('#modalEditInfo');
-        modalEditInfo.style.display = 'block';
+@if (user.NGAYSINH == null || user.GIOITINH == null)
+{
+    <!--Hàm xác nhận thông tin khi user chưa cung cấp đủ thông tin-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            swal({
+                title: "Thông tin",
+                text: "Thông tin của bạn cung cấp chưa đủ .Bạn có muốn cập nhật thêm không?",
+                type: "info",
+                confirmButtonClass: "btn-primary",
+                showCancelButton: true,
+                confirmButtonText: "Cập nhật",
+                cancelButtonText: "Không cập nhật",
+                closeOnConfirm: true,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        var openModal = document.querySelector("#modalEditInfo");
+                        openModal.style.display = "block";
+                    }
+                    else {
+                        swal("Không cập nhật", "Thông tin bạn hệ thống vẫn giữ lại", "error");
+                    }
+                })
+        })
     </script>
 }
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home - Social Media Greenzone</title>
-        <!--CSS-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="~/Content/assets/css/style.css">
-        <!-- Emoji CSS -->
-        <link rel="stylesheet" href="~/Content/assets/css/emojionearea.min.css">
-        <!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="~/Content/assets/fonts/fontawesome-free-5.15.3-web/css/all.min.css">
-    </head>
-    <body>
-        <!-- Begin Header -->
-        <header>
-            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-success">
-                <a class="navbar-brand" style="color:white;font-weight: bold;padding-left:30px;">Social Media Greenzone</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" style="color:white;font-weight: bold;font-size:1.6rem;"><i style="margin-right:20px;margin-left:20px;" class="far fa-bell"></i><span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" style="color:white;font-weight: bold;font-size:1.6rem;"><i class="far fa-envelope"></i></a>
-                        </li>
-                    </ul>
-                    <div class="formSearch">
-                        <i class="icon-formSearch fas fa-search"></i>
-                        <input class="input-formSearch" type="text" placeholder="Tìm kiếm">
-                    </div>
-                    <div id="accountUser" class="accountUser" style="padding-right: 20px;">
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <img class="img-accountUser" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
-                        }
-                    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Social Media Greenzone</title>
+    <!--CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+    <!-- Emoji CSS -->
+    <link rel="stylesheet" href="~/Content/assets/css/emojionearea.min.css">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="~/Content/assets/fonts/fontawesome-free-5.15.3-web/css/all.min.css">
+</head>
+<body>
+    <!-- Begin Header -->
+    <header>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-success">
+            <a class="navbar-brand" style="color:white;font-weight: bold;padding-left:30px;">Social Media Greenzone</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" style="color:white;font-weight: bold;font-size:1.6rem;"><i style="margin-right:20px;margin-left:20px;" class="far fa-bell"></i><span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" style="color:white;font-weight: bold;font-size:1.6rem;"><i class="far fa-envelope"></i></a>
+                    </li>
+                </ul>
+                <div class="formSearch">
+                    <i class="icon-formSearch fas fa-search"></i>
+                    <input class="input-formSearch" type="text" placeholder="Tìm kiếm">
                 </div>
-                <div id="accountUserSetting" class="accountUserSetting">
-                    <div class="accountInfoUser">
+                <div id="accountUser" class="accountUser" style="padding-right: 20px;">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <img class="img-accountUser" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
+                    }
+                </div>
+            </div>
+            <div id="accountUserSetting" class="accountUserSetting">
+                <div class="accountInfoUser">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div>
+                            <img class="img-accountInfoUser" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
+                        </div>
+                        <div class="accountInfoNameLink">
+                            <span>@GetUsername(int.Parse(User.Identity.Name))</span>
+                            <div>
+                                <a style="text-decoration: none;" href="@Url.Action("Profiles","Home")">Xem trang cá nhân</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="accountActivity">
+                    <ul class="accountActivityList">
+                        <li class="accountActivityListItem">
+                            <a class="accountActivityName" href="#">
+                                <i class="accountIcon fas fa-cog"></i>
+                                Cài đặt
+                            </a>
+                        </li>
+                        <li class="accountActivityListItem">
+                            <a class="accountActivityName" href="#">
+                                <i class="accountIcon fas fa-question-circle"></i>
+                                Giúp đỡ
+                            </a>
+                        </li>
+                        <li class="accountActivityListItem">
+                            <a class="accountActivityName" href="#">
+                                <i class="accountIcon fas fa-moon"></i>
+                                Giao diện
+                            </a>
+                        </li>
+                        <li class="accountActivityListItem">
+                            <a class="accountActivityName" href="@Url.Action("Logout","Home")">
+                                <i class="accountIcon fas fa-sign-out-alt"></i>
+                                Đăng xuất
+                            </a>
+                        </li>
+                        <li class="accountActivityClose" style="text-align: center;padding:5px 0;font-size: 1.1rem;"><a id="closeSetting" class="accountActivityNameClose" href="#">Đóng</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- End Header -->
+    <!-- Begin Content -->
+    <content>
+        <!-- Begin Left -->
+        <left class="left">
+            <!-- Begin Activity -->
+            <div class="left-list">
+                <ul class="left-list-activity">
+                    <li style="background-color: #28a745; margin-left:-5px;color:white;border-radius:40px;margin-right:1px;margin-top:20px;margin-bottom:20px;">
+                        <span style="padding-left:20px;">Các Hoạt Động</span>
+                    </li>
+                    <li class="left-list-item">
+                        <a class="link-left-list" href="@Url.Action("Profiles","Home")">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" />
+                                <span>@GetUsername(int.Parse(User.Identity.Name))</span>
+                            }
+                        </a>
+                    </li>
+                    <li class="left-list-item">
+                        <a class="link-left-list">
+                            <i class="icon-left-list far fa-newspaper"></i>
+                            Tin mới
+                        </a>
+                    </li>
+                    <li class="left-list-item">
+                        <a class="link-left-list">
+                            <i class="icon-left-list fas fa-user-friends"></i>
+                            Bạn bè
+                        </a>
+                    </li>
+                    <li class="left-list-item">
+                        <a class="link-left-list">
+                            <i class="icon-left-list fas fa-users"></i>
+                            Nhóm
+                        </a>
+                    </li>
+                    <li class="left-list-item">
+                        <a class="link-left-list">
+                            <i class="icon-left-list fas fa-store"></i>
+                            MarketPlace
+                        </a>
+                    </li>
+                    <li class="left-list-item">
+                        <a class="link-left-list">
+                            <i class="icon-left-list fas fa-history"></i>
+                            Kỷ niệm
+                        </a>
+                    </li>
+                    <li class="left-list-item">
+                        <a class="link-left-list">
+                            <i class="icon-left-list fas fa-flag"></i>
+                            Trang
+                        </a>
+                    </li>
+                    <li class="left-list-item">
+                        <a class="link-left-list">See More</a>
+                    </li>
+                    <br>
+                    <!-- Begin Group -->
+                    <li style="border-top: solid 2px rgb(243, 240, 240); background-color: #28a745; margin-left:-5px;color:white;border-radius:40px;margin-right:1px;margin-bottom:20px;">
+                        <span style="padding-left:20px;">Các nhóm</span>
+                    </li>
+                    <li class="left-list-item">
+                        <img class="img-left-list" src="~/Content/assets/img/logofe.jpg" alt="">
+                        <span>Lập trình Front-End</span>
+                    </li>
+                    <li class="left-list-item">
+                        <img class="img-left-list" src="~/Content/assets/img/logoc.png" alt="">
+                        <span>Lập trình C#</span>
+                    </li>
+                    <li class="left-list-item">
+                        <img class="img-left-list" src="~/Content/assets/img/logobackend.png" alt="">
+                        <span>Lập trình Back-End</span>
+                    </li>
+                    <li class="left-list-item">
+                        <img class="img-left-list" src="~/Content/assets/img/logoandroid.png" alt="">
+                        <span>Lập trình Android Studio</span>
+                    </li>
+                    <!-- End Group -->
+                </ul>
+            </div>
+            <!-- End Activity -->
+        </left>
+        <!-- End Left -->
+        <!-- Begin Middle -->
+        <middle class="middle">
+            <div class="middle-list">
+                <ul class="middle-list-story">
+                    <li class="middle-list-list-story">
+                        <div class="middle-story-item">
+                            <div class="middle-story-info" style="width: 10rem;">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <img class="middle-story-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="Card image cap">
+                                }
+                                <div class="middle-story-events">
+                                    <i class="middle-story-icon fas fa-plus-circle"></i>
+                                    <br>
+                                    <span class="middle-story-text">Đăng story</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="middle-list-list-story">
+                        <div class="middle-story-item1">
+                            <div class="middle-story-info" style="width: 10rem;">
+                                <img class="middle-story-img" src="~/Content/assets/img/phat.jpg" alt="Card image cap">
+                                <div class="middle-story-events1">
+                                    <img class="middle-story-icon1" src="~/Content/assets/img/phat.jpg" alt="">
+                                    <br>
+                                    <span class="middle-story-text">Phat Tran</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="middle-list-list-story">
+                        <div class="middle-story-item1">
+                            <div class="middle-story-info" style="width: 10rem;">
+                                <img class="middle-story-img" src="~/Content/assets/img/phuong.jpg" alt="Card image cap">
+                                <div class="middle-story-events1">
+                                    <img class="middle-story-icon1" src="~/Content/assets/img/phuong.jpg" alt="">
+                                    <br>
+                                    <span class="middle-story-text">Phuong</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="middle-list-list-story">
+                        <div class="middle-story-item1">
+                            <div class="middle-story-info" style="width: 10rem;">
+                                <img class="middle-story-img" src="~/Content/assets/img/hieu.jpg" alt="Card image cap">
+                                <div class="middle-story-events1">
+                                    <img class="middle-story-icon1" src="~/Content/assets/img/hieu.jpg" alt="">
+                                    <br>
+                                    <p class="middle-story-text">Tan Hieu</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <!--Nhập đăng bài viết-->
+                <div class="middle-list-post">
+                    <div class="middle-list-infoUser">
                         @if (User.Identity.IsAuthenticated)
                         {
                             <div>
-                                <img class="img-accountInfoUser" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
-                            </div>
-                            <div class="accountInfoNameLink">
-                                <span>@GetUsername(int.Parse(User.Identity.Name))</span>
-                                <div>
-                                    <a style="text-decoration: none;" href="@Url.Action("Profiles","Home")">Xem trang cá nhân</a>
-                                </div>
+                                <img class="middle-list-post-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="Card image cap">
                             </div>
                         }
-                    </div>
-                    <div class="accountActivity">
-                        <ul class="accountActivityList">
-                            <li class="accountActivityListItem">
-                                <a class="accountActivityName" href="#">
-                                    <i class="accountIcon fas fa-cog"></i>
-                                    Cài đặt
-                                </a>
-                            </li>
-                            <li class="accountActivityListItem">
-                                <a class="accountActivityName" href="#">
-                                    <i class="accountIcon fas fa-question-circle"></i>
-                                    Giúp đỡ
-                                </a>
-                            </li>
-                            <li class="accountActivityListItem">
-                                <a class="accountActivityName" href="#">
-                                    <i class="accountIcon fas fa-moon"></i>
-                                    Giao diện
-                                </a>
-                            </li>
-                            <li class="accountActivityListItem">
-                                <a class="accountActivityName" href="@Url.Action("Logout","Home")">
-                                    <i class="accountIcon fas fa-sign-out-alt"></i>
-                                    Đăng xuất
-                                </a>
-                            </li>
-                            <li class="accountActivityClose" style="text-align: center;padding:5px 0;font-size: 1.1rem;"><a id="closeSetting" class="accountActivityNameClose" href="#">Đóng</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
-        <!-- End Header -->
-        <!-- Begin Content -->
-        <content>
-            <!-- Begin Left -->
-            <left class="left">
-                <!-- Begin Activity -->
-                <div class="left-list">
-                    <ul class="left-list-activity">
-                        <li style="background-color: #28a745; margin-left:-5px;color:white;border-radius:40px;margin-right:1px;margin-top:20px;margin-bottom:20px;">
-                            <span style="padding-left:20px;">Các Hoạt Động</span>
-                        </li>
-                        <li class="left-list-item">
-                            <a class="link-left-list" href="@Url.Action("Profiles","Home")">
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <img style="width: 40px; height: 40px; border-radius: 50%;" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" />
-                                    <span>@GetUsername(int.Parse(User.Identity.Name))</span>
-                                }
-                            </a>
-                        </li>
-                        <li class="left-list-item">
-                            <a class="link-left-list">
-                                <i class="icon-left-list far fa-newspaper"></i>
-                                Tin mới
-                            </a>
-                        </li>
-                        <li class="left-list-item">
-                            <a class="link-left-list">
-                                <i class="icon-left-list fas fa-user-friends"></i>
-                                Bạn bè
-                            </a>
-                        </li>
-                        <li class="left-list-item">
-                            <a class="link-left-list">
-                                <i class="icon-left-list fas fa-users"></i>
-                                Nhóm
-                            </a>
-                        </li>
-                        <li class="left-list-item">
-                            <a class="link-left-list">
-                                <i class="icon-left-list fas fa-store"></i>
-                                MarketPlace
-                            </a>
-                        </li>
-                        <li class="left-list-item">
-                            <a class="link-left-list">
-                                <i class="icon-left-list fas fa-history"></i>
-                                Kỷ niệm
-                            </a>
-                        </li>
-                        <li class="left-list-item">
-                            <a class="link-left-list">
-                                <i class="icon-left-list fas fa-flag"></i>
-                                Trang
-                            </a>
-                        </li>
-                        <li class="left-list-item">
-                            <a class="link-left-list">See More</a>
-                        </li>
-                        <br>
-                        <!-- Begin Group -->
-                        <li style="border-top: solid 2px rgb(243, 240, 240); background-color: #28a745; margin-left:-5px;color:white;border-radius:40px;margin-right:1px;margin-bottom:20px;">
-                            <span style="padding-left:20px;">Các nhóm</span>
-                        </li>
-                        <li class="left-list-item">
-                            <img class="img-left-list" src="~/Content/assets/img/logofe.jpg" alt="">
-                            <span>Lập trình Front-End</span>
-                        </li>
-                        <li class="left-list-item">
-                            <img class="img-left-list" src="~/Content/assets/img/logoc.png" alt="">
-                            <span>Lập trình C#</span>
-                        </li>
-                        <li class="left-list-item">
-                            <img class="img-left-list" src="~/Content/assets/img/logobackend.png" alt="">
-                            <span>Lập trình Back-End</span>
-                        </li>
-                        <li class="left-list-item">
-                            <img class="img-left-list" src="~/Content/assets/img/logoandroid.png" alt="">
-                            <span>Lập trình Android Studio</span>
-                        </li>
-                        <!-- End Group -->
-                    </ul>
-                </div>
-                <!-- End Activity -->
-            </left>
-            <!-- End Left -->
-            <!-- Begin Middle -->
-            <middle class="middle">
-                <div class="middle-list">
-                    <ul class="middle-list-story">
-                        <li class="middle-list-list-story">
-                            <div class="middle-story-item">
-                                <div class="middle-story-info" style="width: 10rem;">
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                        <img class="middle-story-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="Card image cap">
-                                    }
-                                    <div class="middle-story-events">
-                                        <i class="middle-story-icon fas fa-plus-circle"></i>
-                                        <br>
-                                        <span class="middle-story-text">Đăng story</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="middle-list-list-story">
-                            <div class="middle-story-item1">
-                                <div class="middle-story-info" style="width: 10rem;">
-                                    <img class="middle-story-img" src="~/Content/assets/img/phat.jpg" alt="Card image cap">
-                                    <div class="middle-story-events1">
-                                        <img class="middle-story-icon1" src="~/Content/assets/img/phat.jpg" alt="">
-                                        <br>
-                                        <span class="middle-story-text">Phat Tran</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="middle-list-list-story">
-                            <div class="middle-story-item1">
-                                <div class="middle-story-info" style="width: 10rem;">
-                                    <img class="middle-story-img" src="~/Content/assets/img/phuong.jpg" alt="Card image cap">
-                                    <div class="middle-story-events1">
-                                        <img class="middle-story-icon1" src="~/Content/assets/img/phuong.jpg" alt="">
-                                        <br>
-                                        <span class="middle-story-text">Phuong</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="middle-list-list-story">
-                            <div class="middle-story-item1">
-                                <div class="middle-story-info" style="width: 10rem;">
-                                    <img class="middle-story-img" src="~/Content/assets/img/hieu.jpg" alt="Card image cap">
-                                    <div class="middle-story-events1">
-                                        <img class="middle-story-icon1" src="~/Content/assets/img/hieu.jpg" alt="">
-                                        <br>
-                                        <p class="middle-story-text">Tan Hieu</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-
-                    <!--Nhập đăng bài viết-->
-                    <div class="middle-list-post">
-                        <div class="middle-list-infoUser">
+                        <div class="middle-list-infoUserActivity">
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <div>
-                                    <img class="middle-list-post-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="Card image cap">
+                                    <span style="font-weight: bold;">@GetUsername(int.Parse(User.Identity.Name))</span>
                                 </div>
                             }
-                            <div class="middle-list-infoUserActivity">
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <div>
-                                        <span style="font-weight: bold;">@GetUsername(int.Parse(User.Identity.Name))</span>
-                                    </div>
-                                }
-                                <select style="outline:none;border:none;">
-                                    <option>Công khai</option>
-                                    <option>Chỉ mình tôi</option>
-                                    <option>Bạn bè</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- textArea mặc định để click vào -->
-                        <div class="middle-list-body">
-                            <textarea class="middle-list-text" name="" id="textarea" cols="30" rows="10" placeholder="Hôm nay bạn nghĩ gì"></textarea>
-                        </div>
-                        <div class="middle-list-select">
-                            <div class="middle-list-selectItem">
-                                <i style="color:red;" class="middle-icon fas fa-video"></i>
-                                Livestream
-                            </div>
-                            <div class="middle-list-selectItem">
-                                <i style="color:green;" class="middle-icon fas fa-camera"></i>
-                                Chụp ảnh/video
-                            </div>
-                            <div class="middle-list-selectItem">
-                                <i style="color:yellow;" class="middle-icon far fa-laugh-beam"></i>
-                                Cảm nghĩ của bạn/hoạt động của bạn
-                            </div>
+                            <select style="outline:none;border:none;">
+                                <option>Công khai</option>
+                                <option>Chỉ mình tôi</option>
+                                <option>Bạn bè</option>
+                            </select>
                         </div>
                     </div>
+                    <!-- textArea mặc định để click vào -->
+                    <div class="middle-list-body">
+                        <textarea class="middle-list-text" name="" id="textarea" cols="30" rows="10" placeholder="Hôm nay bạn nghĩ gì"></textarea>
+                    </div>
+                    <div class="middle-list-select">
+                        <div class="middle-list-selectItem">
+                            <i style="color:red;" class="middle-icon fas fa-video"></i>
+                            Livestream
+                        </div>
+                        <div class="middle-list-selectItem">
+                            <i style="color:green;" class="middle-icon fas fa-camera"></i>
+                            Chụp ảnh/video
+                        </div>
+                        <div class="middle-list-selectItem">
+                            <i style="color:yellow;" class="middle-icon far fa-laugh-beam"></i>
+                            Cảm nghĩ của bạn/hoạt động của bạn
+                        </div>
+                    </div>
+                </div>
 
-                    <!--Bài viết đã đăng-->
-                    @using (Html.BeginForm())
+                <!---------------------------------------------------------Bài viết đã đăng------------------------------------------>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <!-- Bài viết đã đăng nên phần này chỉ hiển thị lấy từ DB ra hiển thị  -->
+                    foreach (var item in Model)
                     {
-                        @Html.AntiForgeryToken()
-                        <!-- Bài viết đã đăng nên phần này chỉ hiển thị lấy từ DB ra hiển thị  -->
-                        foreach (var item in Model)
-                        {
-                            <div id="posted" class="middle-list-postedUser">
-                                <div class="middle-list-infoUser">
+                        <div id="posted" class="middle-list-postedUser">
+                            <div class="middle-list-infoUser">
+                                <div>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <img class="middle-list-post-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
+                                    }
+                                </div>
+                                <div class="middle-list-infoUserActivity">
                                     <div>
                                         @if (User.Identity.IsAuthenticated)
                                         {
-                                            <img class="middle-list-post-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
+                                            <span style="font-weight: bold;">@GetUsername(int.Parse(User.Identity.Name))</span>
                                         }
                                     </div>
-                                    <div class="middle-list-infoUserActivity">
-                                        <div>
-                                            @if (User.Identity.IsAuthenticated)
-                                            {
-                                                <span style="font-weight: bold;">@GetUsername(int.Parse(User.Identity.Name))</span>
-                                            }
-                                        </div>
-                                        <div>
-                                            <i class="fas fa-globe-americas"></i>
-                                            <span>@Html.DisplayFor(model => item.CHEDO)</span>
-                                            <span>@Html.DisplayFor(model => item.NGAYDANG)</span>
-                                        </div>
+                                    <div>
+                                        <i class="fas fa-globe-americas"></i>
+                                        <span>@Html.DisplayFor(model => item.CHEDO)</span>
+                                        <div>@Html.DisplayFor(model => item.NGAYDANG)</div>
                                     </div>
                                 </div>
-                                <div class="middle-list-body">
-                                    <div class="middle-list-post-text">
-                                        <span>@Html.DisplayFor(model => item.NOIDUNG)</span>
-                                    </div>
-                                    @*<img class="middle-list-body-post-img" src="~/Content/assets/img/laptop.jpg" alt="">*@
+                            </div>
+                            <div class="middle-list-body">
+                                <div class="middle-list-post-text">
+                                    <span>@Html.DisplayFor(model => item.NOIDUNG)</span>
                                 </div>
-                                <div class="middle-list-UserContact">
-                                    <div class="middle-list-UserContacted">
-                                        <div class="middle-list-contact">
-                                            <i onclick="Like(this)" class="fas fa-heart"></i>
-                                            <span>Thích</span>
-                                        </div>
-                                        <div class="middle-list-contact">
-                                            <a style="text-decoration: none;" href="#">
-                                                <i class="far fa-comment"></i>
-                                                <span>Bình luận</span>
-                                            </a>
-                                        </div>
-                                        <div class="middle-list-contact">
-                                            <a style="text-decoration: none;" href="#">
-                                                <i class="far fa-share-square"></i>
-                                                <span>Chia sẻ</span>
-                                            </a>
-                                        </div>
+                                @*<img class="middle-list-body-post-img" src="~/Content/assets/img/laptop.jpg" alt="">*@
+                            </div>
+                            <div class="middle-list-UserContact">
+                                <div class="middle-list-UserContacted">
+                                    <div class="middle-list-contact">
+                                        <i onclick="Like(this)" class="fas fa-heart"></i>
+                                        <span>Thích</span>
+                                    </div>
+                                    <div class="middle-list-contact">
+                                        <a style="text-decoration: none;" href="#">
+                                            <i class="far fa-comment"></i>
+                                            <span>Bình luận</span>
+                                        </a>
+                                    </div>
+                                    <div class="middle-list-contact">
+                                        <a style="text-decoration: none;" href="#">
+                                            <i class="far fa-share-square"></i>
+                                            <span>Chia sẻ</span>
+                                        </a>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </middle>
+        <!-- End Middle -->
+        <!-- Begin Right -->
+        <right class="right">
+            <div class="right-list">
+                <ul class="right-list-activity">
+                    <li class="right-list-title">
+                        <span style="margin-left:10px;color:white;">Events</span>
+                        <a style="margin-right:10px;color:white;" href="#">See all</a>
+                    </li>
+                    <li class="right-list-item">
+                        <div>
+                            <img class="img-right-list" src="~/Content/assets/img/logo1.png" alt="">
+                        </div>
+                        <div class="right-list-info">
+                            <div>
+                                <span>Social Media</span>
+                            </div>
+                            <div>
+                                <i class="fas fa-map-marker-alt"></i>Willson Tech Park
+                            </div>
+                            <a href="#">More info</a>
+                        </div>
+                    </li>
+                    <li class="right-list-item">
+                        <div>
+                            <img class="img-right-list" src="~/Content/assets/img/logo1.png" alt="">
+                        </div>
+                        <div>
+                            <div>
+                                <span>Social Media</span>
+                            </div>
+                            <div>
+                                <i class="fas fa-map-marker-alt"></i>Willson Tech Park
+                            </div>
+                            <a href="#">More info</a>
+                        </div>
+                    </li>
+                    <li class="right-list-title">
+                        <span style="margin-left:10px;color:white;">Advertisement</span>
+                        <a style="margin-right:10px;color:white;" href="#">Close</a>
+                    </li>
+                    <li class="right-list-item">
+                        <img class="right-list-advertisement" src="~/Content/assets/img/laptop.jpg" alt="">
+                    </li>
+                    <li class="right-list-title">
+                        <span style="margin-left:10px;color:white;">Coversation</span>
+                        <a style="margin-right:10px;color:white;" href="#">Hide chat</a>
+                    </li>
+                    <li class="right-list-item">
+                        <ul class="list-friend">
+                            <!--Đổ dữ liệu JSON ở bên dưới-->
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </right>
+        <!-- End Right -->
+    </content>
+    <!-- End Content -->
+    <!-- Modal TextArea -->
+    <!--Đây là phần để mình đăng bài viết lên và nó insert vào DB -->
+    <div class="modal" id="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tạo bài viết mới</h5>
+                    <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-list-infoUser">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div>
+                                <img class="middle-list-post-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
                             </div>
                         }
-                    }
-                </div>
-            </middle>
-            <!-- End Middle -->
-            <!-- Begin Right -->
-            <right class="right">
-                <div class="right-list">
-                    <ul class="right-list-activity">
-                        <li class="right-list-title">
-                            <span style="margin-left:10px;color:white;">Events</span>
-                            <a style="margin-right:10px;color:white;" href="#">See all</a>
-                        </li>
-                        <li class="right-list-item">
-                            <div>
-                                <img class="img-right-list" src="~/Content/assets/img/logo1.png" alt="">
-                            </div>
-                            <div class="right-list-info">
-                                <div>
-                                    <span>Social Media</span>
-                                </div>
-                                <div>
-                                    <i class="fas fa-map-marker-alt"></i>Willson Tech Park
-                                </div>
-                                <a href="#">More info</a>
-                            </div>
-                        </li>
-                        <li class="right-list-item">
-                            <div>
-                                <img class="img-right-list" src="~/Content/assets/img/logo1.png" alt="">
-                            </div>
-                            <div>
-                                <div>
-                                    <span>Social Media</span>
-                                </div>
-                                <div>
-                                    <i class="fas fa-map-marker-alt"></i>Willson Tech Park
-                                </div>
-                                <a href="#">More info</a>
-                            </div>
-                        </li>
-                        <li class="right-list-title">
-                            <span style="margin-left:10px;color:white;">Advertisement</span>
-                            <a style="margin-right:10px;color:white;" href="#">Close</a>
-                        </li>
-                        <li class="right-list-item">
-                            <img class="right-list-advertisement" src="~/Content/assets/img/laptop.jpg" alt="">
-                        </li>
-                        <li class="right-list-title">
-                            <span style="margin-left:10px;color:white;">Coversation</span>
-                            <a style="margin-right:10px;color:white;" href="#">Hide chat</a>
-                        </li>
-                        <li class="right-list-item">
-                            <ul class="list-friend">
-                                @*<li class="list-group-friend">
-                                    <a class="list-group-friend-name" href="#">
-                                        <img class="list-group-img" src="~/Content/assets/img/phat.jpg" alt="">
-                                        Phat Tran
-                                    </a>
-                                </li>*@
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </right>
-            <!-- End Right -->
-        </content>
-        <!-- End Content -->
-        <!-- Modal TextArea -->
-        <!--Đây là phần để mình đăng bài viết lên và nó insert vào DB -->
-        <div class="modal" id="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Tạo bài viết mới</h5>
-                        <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="modal-list-infoUser">
+                        <div class="middle-list-infoUserActivity">
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <div>
-                                    <img class="middle-list-post-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
+                                    <span style="font-weight: bold;">@GetUsername(int.Parse(User.Identity.Name))</span>
                                 </div>
                             }
-                            <div class="middle-list-infoUserActivity">
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <div>
-                                        <span style="font-weight: bold;">@GetUsername(int.Parse(User.Identity.Name))</span>
-                                    </div>
-                                }
-                                <div>
-                                    <select id="select">
-                                        <option value="Công khai">Công khai</option>
-                                        <option value="Bạn bè">Bạn bè</option>
-                                        <option value="Chỉ mình tôi">Chỉ mình tôi</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <!-- textArea khi click textArea mặc định -->
-                            <textarea class="modal-list-text" name="" id="textarea1" cols="30" rows="10" placeholder="Hôm nay bạn nghĩ gì"></textarea>
-                        </div>
-                        <div class="modal-list-select">
-                            <h5 class="modal-list-text-select">Thêm bài viết</h5>
-                            <div class="middle-list-selectItem">
-                                <a href="@Url.Action("Index", "MeetingZoom")">
-                                    <i style="color:red;" class="middle-icon fas fa-video" title="Livestream"></i>
-                                </a>
-                            </div>
-                            <div class="middle-list-selectItem">
-                                <i style="color:green;" class="middle-icon fas fa-camera" title="Chụp ảnh/video"></i>
-                            </div>
-                            <div class="middle-list-selectItem">
-                                <i style="color:yellow;" class="middle-icon far fa-laugh-beam" title="Hoạt động của bạn"></i>
+                            <div>
+                                <select id="select">
+                                    <option value="Công khai">Công khai</option>
+                                    <option value="Bạn bè">Bạn bè</option>
+                                    <option value="Chỉ mình tôi">Chỉ mình tôi</option>
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" id="btn_dangbai" class="btn_dangbai btn btn-primary">Đăng bài viết</button>
-                        <button type="button" id="close2" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                    <div>
+                        <!-- textArea khi click textArea mặc định -->
+                        <textarea class="modal-list-text" name="" id="textarea1" cols="30" rows="10" placeholder="Hôm nay bạn nghĩ gì"></textarea>
                     </div>
+                    <div class="modal-list-select">
+                        <h5 class="modal-list-text-select">Thêm bài viết</h5>
+                        <div class="middle-list-selectItem">
+                            <a href="@Url.Action("Index", "MeetingZoom")">
+                                <i style="color:red;" class="middle-icon fas fa-video" title="Livestream"></i>
+                            </a>
+                        </div>
+                        <div class="middle-list-selectItem">
+                            <i style="color:green;" class="middle-icon fas fa-camera" title="Chụp ảnh/video"></i>
+                        </div>
+                        <div class="middle-list-selectItem">
+                            <i style="color:yellow;" class="middle-icon far fa-laugh-beam" title="Hoạt động của bạn"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn_dangbai" class="btn_dangbai btn btn-primary">Đăng bài viết</button>
+                    <button type="button" id="close2" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
                 </div>
             </div>
         </div>
-        }
-        <!-- End Modal TextArea -->
-        <!--Begin Chat -->
-        <div class="chat-container">
-            <!--Đổ dữ liệu từ bên _ChatBox.cshtml-->
-        </div>
-        <!-- End Chat -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </div>
+    }
+    <!-- End Modal TextArea -->
+    <!--Begin Chat -->
+    <div class="chat-container">
+        <!--Đổ dữ liệu từ bên _ChatBox.cshtml-->
+    </div>
+    <!-- End Chat -->
+    <!--Sweet Alert-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-        <script src="~/Scripts/modernizr-2.8.3.js"></script>
-        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-        <script src="~/Scripts/jquery.signalR-2.4.2.js"></script>
-        <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.2.js"></script>
+    <script src="~/signalr/hubs"></script>
 
-        <!-- Emoji TextArea -->
-        @*<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    <!-- Emoji TextArea -->
+    @*<script src="https://code.jquery.com/jquery-3.6.0.min.js"
                 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
                 crossorigin="anonymous">
         </script>
         <script src="~/Content/assets/js/emojionearea.min.js"></script>*@
-        <!-- Emoji TextArea -->
-        <script>
-            $(function () {
-                var hub = $.connection.chatHub;
+    <!-- Emoji TextArea -->
 
-                hub.client.broadcastUsersToChat = function (listUsers) {
-                    $('.list-friend').html('');
-                    for (var i = 0; i < listUsers.length; i++) {
-                        let online = listUsers[i].IsOnline ? '<i style="color:lawngreen;" class="fa fa-circle"></i>' : "";
-                        $('.list-friend').append(
-                            '<li class="list-group-friend-' + listUsers[i].UserId + '")>\
-                                                                                                            <a class="list-group-friend-name" onclick="openChatBox(' + listUsers[i].UserId + ')">\
-                                                                                                                <img class="list-group-img" src="/Content/assets/img/'+ listUsers[i].HinhAnh + '" alt="">\
-                                                                                                                '+ listUsers[i].FullName + '\
-                                                                                                                <span class="is-online">'+ online + '</span>\
-                                                                                                            </a>\
-                                                                                                         </li>');
-                    }
-                };
 
-                hub.client.broadcastOnlineUser = function (userId) {
-                    $('.list-friend').find('#UserBox-' + userId + '').find('span[class="is-online"]').html('<i class="fa fa-circle"></i>');
+    <!--JS Chat Real-Time-->
+    <script>
+        $(function () {
+            var hub = $.connection.chatHub;
+
+            hub.client.broadcastUsersToChat = function (listUsers) {
+                $('.list-friend').html('');
+                for (var i = 0; i < listUsers.length; i++) {
+                    let online = listUsers[i].IsOnline ? '<i style="color:lawngreen;" class="fa fa-circle"></i>' : "";
+                    $('.list-friend').append(
+                        '<li class="list-group-friend-' + listUsers[i].UserId + '")>\
+                                                            <a class="list-group-friend-name" onclick="openChatBox(' + listUsers[i].UserId + ')">\
+                                                           <img class="list-group-img" src="/Content/assets/img/'+ listUsers[i].HinhAnh + '" alt="">\
+                                                              '+ listUsers[i].FullName + '\
+                                                            <span class="is-online">'+ online + '</span>\
+                                                            </a>\
+                                                         </li>');
                 }
+            };
 
-                hub.client.broadcastOfflineUser = function (userId) {
-                    $('.list-friend').find('#UserBox-' + userId + '').find('span[class="is-online"]').html('');
+            hub.client.broadcastOnlineUser = function (userId) {
+                $('.list-friend').find('#UserBox-' + userId + '').find('span[class="is-online"]').html('<i class="fa fa-circle"></i>');
+            }
+
+            hub.client.broadcastOfflineUser = function (userId) {
+                $('.list-friend').find('#UserBox-' + userId + '').find('span[class="is-online"]').html('');
+            }
+
+            hub.connection.start().done(function () {
+                hub.server.getUsersToChat();
+            });
+
+            hub.client.broadcastRecieveMessage = function (userId, message) {
+                if ($('#DVChatBox-' + userId).length === 0) {
+                    openChatBox(userId);
+                } else {
+                    $('#DVChatBox-' + userId).find('.messages-list').append('<div class="dvmsg dvmsg-to"><span class="msg">' + message + '</span></div>');
                 }
+                $('#DVChatBox-' + userId).find('.messages-list').scrollTop(999999999999);
+            }
 
-                hub.connection.start().done(function () {
-                    hub.server.getUsersToChat();
-                });
+        });
 
-                hub.client.broadcastRecieveMessage = function (userId, message) {
-                    if ($('#DVChatBox-' + userId).length === 0) {
-                        openChatBox(userId);
+        function openChatBox(toUserId) {
+            $.ajax({
+                url: '/Home/GetChatbox',
+                type: 'POST',
+                datatype: 'JSON',
+                contentType: 'application/json;charset=utf-8;',
+                data: JSON.stringify({ toUserId: toUserId }),
+                async: true,
+                success: function (res) {
+                    if ($('#DVChatBox-' + toUserId).length === 0) {
+                        $('.chat-container').append(res);
                     } else {
-                        $('#DVChatBox-' + userId).find('.messages-list').append('<div class="dvmsg dvmsg-to"><span class="msg">' + message + '</span></div>');
+                        $('.chat-container').find('#DVChatBox-' + toUserId).replaceWith(res);
                     }
-                    $('#DVChatBox-' + userId).find('.messages-list').scrollTop(999999999999);
+                    $('#DVChatBox-' + toUserId).find('.messages-list').scrollTop(999999999999);
                 }
-
             });
+        }
+    </script>
+    <!--JS Chat Real-Time-->
+   
+    
+    <!--JS lặt vặt-->
+    <script>
+        var opening = document.getElementById('accountUser');
+        var open1 = document.getElementById('accountUserSetting');
+        var closing = document.getElementById('closeSetting')
+        var openTextArea = document.getElementById('textarea');
+        var modalObject = document.getElementById('modal');
+        var button2 = document.getElementById('close');
+        var button3 = document.getElementById('close2');
+        var chatUser = document.getElementById('chatUser')
+        var jsChatUser = document.getElementById('js-closechatUser')
+        var listGroupFriend = document.getElementById('listGroupFriend')
+        var closeMenu = document.querySelector('.accountUserSetting');
+        var posrtbaiviet = document.getElementById('btn_dangbai');
 
-            function openChatBox(toUserId) {
-                $.ajax({
-                    url: '/Home/GetChatbox',
-                    type: 'POST',
-                    datatype: 'JSON',
-                    contentType: 'application/json;charset=utf-8;',
-                    data: JSON.stringify({ toUserId: toUserId }),
-                    async: true,
-                    success: function (res) {
-                        if ($('#DVChatBox-' + toUserId).length === 0) {
-                            $('.chat-container').append(res);
-                        } else {
-                            $('.chat-container').find('#DVChatBox-' + toUserId).replaceWith(res);
-                        }
-                        $('#DVChatBox-' + toUserId).find('.messages-list').scrollTop(999999999999);
-                    }
-                });
-            }
-        </script>
-        <script>
-            var opening = document.getElementById('accountUser');
-            var open1 = document.getElementById('accountUserSetting');
-            var closing = document.getElementById('closeSetting')
-            var openTextArea = document.getElementById('textarea');
-            var modalObject = document.getElementById('modal');
-            var button2 = document.getElementById('close');
-            var button3 = document.getElementById('close2');
-            var chatUser = document.getElementById('chatUser')
-            var jsChatUser = document.getElementById('js-closechatUser')
-            var listGroupFriend = document.getElementById('listGroupFriend')
-            var closeMenu = document.querySelector('.accountUserSetting');
-            var posrtbaiviet = document.getElementById('btn_dangbai');
-
-            // khung chat
-            openTextArea.onclick = function () {
-                modalObject.style.display = 'block';
-                /*window.open("CreateNewPost", "Home")*/
-            }
-            // Post bài viết
-            posrtbaiviet.onclick = function () {
-                var emp = $('#textarea1').val();
-                var select = $('#select').val();
-                $.ajax({
-                    url: '/Home/addbaiviet',
-                    type: 'POST',
-                    datatype: 'JSON',
-                    contentType: 'application/json;charset=utf-8;',
-                    data: JSON.stringify({ noidung: emp, chedo: select }),
-                    async: true,
-                    success: function (res) {
-                        if (res == 1)
-                            location.reload();
-                        else
-                            alert('Thêm  không thành công');
-                    }
-                });
-
-            }
-            opening.onclick = function () {
-                accountUserSetting.style.display = 'block';
-            }
-            closing.onclick = function () {
-                accountUserSetting.style.display = 'none';
-            }
-            button2.onclick = function () {
-                modalObject.style.display = 'none';
-            }
-            button3.onclick = function () {
-                modalObject.style.display = 'none';
-            }
-            // Bấm vào nút x để tắt
-            jsChatUser.onclick = function () {
-                chatUser.style.display = 'none';
-            }
-            // Bấm vào ds bạn bè
-            listGroupFriend.onclick = function () {
-                chatUser.style.display = 'block';
-            }
-            closeMenu.onblur = function () {
-                accountUserSetting.style.display = 'none';
-            }
-            // Js emoji
-            $(document).ready(function () {
-                $('#textarea1').emojioneArea({
-                    pickerPosition: 'bottom'
-                });
+        // khung chat
+        openTextArea.onclick = function () {
+            modalObject.style.display = 'block';
+        }
+        // Post bài viết
+        posrtbaiviet.onclick = function () {
+            var emp = $('#textarea1').val();
+            var select = $('#select').val();
+            $.ajax({
+                url: '/Home/addbaiviet',
+                type: 'POST',
+                datatype: 'JSON',
+                contentType: 'application/json;charset=utf-8;',
+                data: JSON.stringify({ noidung: emp, chedo: select }),
+                async: true,
+                success: function (res) {
+                    if (res == 1)
+                        location.reload();
+                    else
+                        alert('Thêm  không thành công');
+                }
             });
-            // Like thả tim
-            function Like(x) {
-                x.classList.toggle('middle-list-reactLove');
-            }
-            function MoModal() {
- 
-                alert("OK")
-            }
-        </script>
+        }
+        opening.onclick = function () {
+            accountUserSetting.style.display = 'block';
+        }
+        closing.onclick = function () {
+            accountUserSetting.style.display = 'none';
+        }
+        button2.onclick = function () {
+            modalObject.style.display = 'none';
+        }
+        button3.onclick = function () {
+            modalObject.style.display = 'none';
+        }
+        // Bấm vào nút x để tắt
+        jsChatUser.onclick = function () {
+            chatUser.style.display = 'none';
+        }
+        // Bấm vào ds bạn bè
+        listGroupFriend.onclick = function () {
+            chatUser.style.display = 'block';
+        }
+        closeMenu.onblur = function () {
+            accountUserSetting.style.display = 'none';
+        }
+        // Js emoji
+        $(document).ready(function () {
+            $('#textarea1').emojioneArea({
+                pickerPosition: 'bottom'
+            });
+        });
+        // Like thả tim
+        function Like(x) {
+            x.classList.toggle('middle-list-reactLove');
+        }
+
+    </script>
+    <!--JS lặt vặt-->
 
 
-        <!-- Chỉnh sửa thong tin khi người dùng mới tạo tài khoản-->
+    <!-- Chỉnh sửa thong tin khi người dùng mới tạo tài khoản-->
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
         <div class="modal" id="modalEditInfo" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Thêm thông tin</h5>
-                        <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="closeModalUpdate" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-control">
-                            @Html.DropDownList("GiOITINH", gender)
+                        <div style="margin-top:10px;margin-bottom:15px;">
+                            <span>Giới tính</span>
+                            @Html.DropDownList("GiOITINH", gender,new { @style="margin-left:10px;" })
                         </div>
-                        <div class="form-control">
-                            <span>Ngày sinh:</span>
-                            <input type="text" />
+                        <div>
+                            <span>Ngày sinh</span>
+                            <input type="text" name="NGAYSINH" />
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="btn_dangbai" class="btn_dangbai btn btn-primary">Lưu thông tin</button>
-                        <button type="button" id="close2" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                        <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+                        <button type="button" id="closeModalUpdate" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Chỉnh sửa thong tin khi người dùng mới tạo tài khoản-->
+    }
+    <script>
+        var closeModalUpdate = document.querySelector("#closeModalUpdate");
 
-    </body>
+        closeModalUpdate.onclick = function () {
+            modalEditInfo.style.display = 'none';
+        }
+    </script>
+    <!-- Chỉnh sửa thong tin khi người dùng mới tạo tài khoản-->
+
+</body>
 </html>
 
 <!--Hàm get tên người dùng khi đăng nhập nó quét userId rồi ra tên người dùng đó -->
