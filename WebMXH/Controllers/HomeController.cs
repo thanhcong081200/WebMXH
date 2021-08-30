@@ -24,11 +24,11 @@ namespace WebMXH.Controllers
             using (MXH_GREENZONEEntities db = new MXH_GREENZONEEntities())
             {
                 List<BAIVIET> lst = new List<BAIVIET>();
-                string iduser = Session["userid"] as string;
+                USERR iduser = Session["user"] as USERR;
                 if (iduser != null)
                 {
-                    int id = int.Parse(iduser);
-                     lst = db.BAIVIET.Where(bv => bv.USERID == id ).ToList();
+                    int id = int.Parse(iduser.USERID.ToString());
+                     lst = db.BAIVIET.Where(bv => bv.USERID == id ).OrderByDescending(p=>p.IDBAIVIET).ToList();
                     
                 }
                 return View(lst);
@@ -44,9 +44,10 @@ namespace WebMXH.Controllers
         [HttpPost]
         public JsonResult addbaiviet(string noidung,BAIVIET baiviet,string chedo)
         {
-            baiviet.USERID = int.Parse(Session["userid"] as string);
+            USERR user = Session["user"] as USERR;
+            baiviet.USERID = user.USERID;
             baiviet.NOIDUNG = noidung;
-            baiviet.NGAYDANG = DateTime.Today;
+            baiviet.NGAYDANG = DateTime.Now;
             baiviet.CHEDO = chedo;
             try
             {
@@ -87,9 +88,10 @@ namespace WebMXH.Controllers
             if (ModelState.IsValid)
             {
                 int userId;
-                if (new AppService().Login(loginData, out userId))
+                USERR user = new AppService().Login(loginData,out userId);
+                if (user != null)
                 {
-                    Session["userid"] = userId.ToString();
+                    Session["user"] = user;
                     FormsAuthentication.RedirectFromLoginPage(userId.ToString(), loginData.RememberMe);
                     return RedirectToAction("Index");
                 }
@@ -175,6 +177,7 @@ namespace WebMXH.Controllers
                 var check = db.USERR.FirstOrDefault(s => s.EMAIL == _user.EMAIL);
                 if (check == null)
                 {
+                    _user.HINHANH = "user.png";
                     db.Configuration.ValidateOnSaveEnabled = false;
                     db.USERR.Add(_user);
                     db.SaveChanges();

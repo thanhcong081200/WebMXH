@@ -129,19 +129,22 @@ body {
     font-size: 18px;
     padding: 10px 20px;
 }
-.left-list-item:hover {
-    text-decoration: none;
-    color: white;
-    background-color: #28a745;
-    cursor: pointer;  
+
+    .left-list-item:hover {
+        text-decoration: none;
+        color: white;
+        background-color: #28a745;
+        cursor: pointer;
+    }
+
+.link-left-list {
+    color: black;
 }
-.link-left-list{
-    color:black;
-}
-.link-left-list:hover {
-    text-decoration: none;
-    color: white;
-}
+
+    .link-left-list:hover {
+        text-decoration: none;
+        color: white;
+    }
 
 .img-left-list {
     width: 40px;
@@ -381,8 +384,8 @@ body {
 
 .right-list-item {
     display: flex;
-    padding-left:20px;
-    padding-right:20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .img-right-list {
@@ -419,6 +422,7 @@ body {
     .list-group-friend-name:hover {
         text-decoration: none;
         color: black;
+        cursor: pointer;
     }
 /* End Right */
 
@@ -703,6 +707,7 @@ body {
     /* padding-top:1rem; */
     background-color: white;
 }
+
 .more-activity {
     position: absolute;
     left: 9%;
@@ -713,13 +718,15 @@ body {
     height: 52px;
     background-color: white;
     border-radius: 20px;
-    z-index:1;
+    z-index: 1;
 }
-.list-activity{
-    display:flex;
-    list-style:none;
-    margin-left:30px;
+
+.list-activity {
+    display: flex;
+    list-style: none;
+    margin-left: 30px;
 }
+
 .item-activity {
     margin-top: 4px;
     width: 150px;
@@ -732,12 +739,14 @@ body {
     outline: none;
     font-size: 18px;
 }
+
     .item-activity:hover {
         background-color: #28a745;
         border-radius: 10px;
         cursor: pointer;
-        color:white;
+        color: white;
     }
+
 .img-block {
     position: relative;
     top: -150px;
@@ -798,6 +807,7 @@ body {
     top: 16%;
     left: 18%;
 }
+
 .info-profile1 {
     padding: 0 16px;
     width: 440px;
@@ -808,6 +818,7 @@ body {
     top: 32%;
     left: 18%;
 }
+
 .info-profile2 {
     padding: 0 16px;
     width: 440px;

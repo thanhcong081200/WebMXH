@@ -17,16 +17,16 @@ namespace WebMXH.Services
             _Context = new MXH_GREENZONEEntities();
         }
 
-        public bool Login(LoginData loginData, out int userId)
+        public USERR Login(LoginData loginData, out int userId)
         {
             userId = 0;
-            var currentUser = _Context.USERR.FirstOrDefault(x => x.SDT == loginData.Username || x.USERNAME == loginData.Username && x.PASSWORD == loginData.Password);
+            USERR currentUser = _Context.USERR.FirstOrDefault(x => x.SDT == loginData.Username || x.USERNAME == loginData.Username && x.PASSWORD == loginData.Password);
             if (currentUser != null)
             {
                 userId = currentUser.USERID;
-                return true;
+                return currentUser;
             }
-            return false;
+            return currentUser;
         }
 
         public List<UserDTO> GetUsersToChat()
