@@ -1,9 +1,8 @@
-﻿@model IEnumerable<WebMXH.Models.USERR>
-
+﻿
 @{
     ViewBag.Title = "Profiles";
 }
-
+@model List<BAIVIET>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -165,7 +164,7 @@
                             }
                         </ul>
                     </div>
-                    </div>
+                </div>
                 <div class="row">
                     <div class="info-profile1">
                         <div class="info-title-profile">
@@ -217,124 +216,65 @@
                         </div>
 
                         <!-- Đổ dữ liệu đăng bài viết -->
-                        <div class="profile-posted">
-                            <div class="middle-list-postedUser">
-                                <div class="middle-list-infoUser">
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                        <div>
-                                            <img class="middle-list-post-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="Card image cap">
-                                        </div>
-                                        <div class="middle-list-infoUserActivity">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            <!-- Bài viết đã đăng nên phần này chỉ hiển thị lấy từ DB ra hiển thị  -->
+                            foreach (var item in Model)
+                            {
+                                <div class="profile-posted">
+                                    <div class="middle-list-postedUser">
+                                        <div class="middle-list-infoUser">
                                             <div>
-                                                <span style="font-weight: bold;">@GetUsername(int.Parse(User.Identity.Name))</span>
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
+                                                    <img class="middle-list-post-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="">
+                                                }
                                             </div>
-                                            <div>
-                                                <i class="fas fa-globe-americas"></i>
-                                                <span>Công khai</span>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
-                                <div class="middle-list-body">
-                                    <div class="middle-list-post-text">
-                                        <span>Hôm nay mới mua được laptop này nè hihi</span>
-                                    </div>
-                                    <img class="middle-list-body-post-img" src="~/Content/assets/img/laptop.jpg" alt="">
-                                </div>
-                                <!-- <div class="middle-list-reaction">
-                                    <div class="middle-list-reactItem">
-                                        <ul class="middle-list-reactItemSelect">
-                                            <li class="middle-list-react middle-list-reactLike"><i class="fas fa-thumbs-up"></i></li>
-                                            <li class="middle-list-react middle-list-reactLove"><i class="fas fa-heart"></i></li>
-                                            <li class="middle-list-react middle-list-reactHaha"><i class="fas fa-laugh-squint"></i></li>
-                                            <li class="middle-list-react middle-list-reactSad"><i class="fas fa-sad-tear"></i></li>
-                                            <li class="middle-list-react middle-list-reactWow"><i class="fas fa-surprise"></i></li>
-                                            <li class="middle-list-react middle-list-reactAngry"><i class="fas fa-angry"></i></li>
-                                        </ul>
-                                    </div>
-                                </div> -->
-                                <div class="middle-list-UserContact">
-                                    <div class="middle-list-UserContacted">
-                                        <div class="middle-list-contact">
-                                            <i onclick="Like(this)" class="fas fa-heart"></i>
-                                            <span>Thích</span>
-                                        </div>
-                                        <div class="middle-list-contact">
-                                            <a style="text-decoration: none;" href="#">
-                                                <i class="far fa-comment"></i>
-                                                <span>Bình luận</span>
-                                            </a>
-                                        </div>
-                                        <div class="middle-list-contact">
-                                            <a style="text-decoration: none;" href="#">
-                                                <i class="far fa-share-square"></i>
-                                                <span>Chia sẻ</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="profile-posted">
-                            <div class="middle-list-postedUser">
-                                <div class="middle-list-infoUser">
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                        <div>
-                                            <img class="middle-list-post-img" src="~/Content/assets/img/@GetImage(int.Parse(User.Identity.Name))" alt="Card image cap">
-                                        </div>
-                                        <div class="middle-list-infoUserActivity">
-                                            <div>
-                                                <span style="font-weight: bold;">@GetUsername(int.Parse(User.Identity.Name))</span>
-                                            </div>
-                                            <div>
-                                                <i class="fas fa-globe-americas"></i>
-                                                <span>Công khai</span>
+                                            <div class="middle-list-infoUserActivity">
+                                                <div>
+                                                    @if (User.Identity.IsAuthenticated)
+                                                    {
+                                                        <span style="font-weight: bold;">@GetUsername(int.Parse(User.Identity.Name))</span>
+                                                    }
+                                                </div>
+                                                <div>
+                                                    <i class="fas fa-globe-americas"></i>
+                                                    <span>@Html.DisplayFor(model => item.CHEDO)</span> -  <span>@Html.DisplayFor(model => item.NGAYDANG)</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    }
-                                </div>
-                                <div class="middle-list-body">
-                                    <div class="middle-list-post-text">
-                                        <span>Hôm nay mới mua được laptop này nè hihi</span>
-                                    </div>
-                                    <img class="middle-list-body-post-img" src="~/Content/assets/img/laptop.jpg" alt="">
-                                </div>
-                                <!-- <div class="middle-list-reaction">
-                                    <div class="middle-list-reactItem">
-                                        <ul class="middle-list-reactItemSelect">
-                                            <li class="middle-list-react middle-list-reactLike"><i class="fas fa-thumbs-up"></i></li>
-                                            <li class="middle-list-react middle-list-reactLove"><i class="fas fa-heart"></i></li>
-                                            <li class="middle-list-react middle-list-reactHaha"><i class="fas fa-laugh-squint"></i></li>
-                                            <li class="middle-list-react middle-list-reactSad"><i class="fas fa-sad-tear"></i></li>
-                                            <li class="middle-list-react middle-list-reactWow"><i class="fas fa-surprise"></i></li>
-                                            <li class="middle-list-react middle-list-reactAngry"><i class="fas fa-angry"></i></li>
-                                        </ul>
-                                    </div>
-                                </div> -->
-                                <div class="middle-list-UserContact">
-                                    <div class="middle-list-UserContacted">
-                                        <div class="middle-list-contact">
-                                            <i onclick="Like(this)" class="fas fa-heart"></i>
-                                            <span>Thích</span>
+                                        <div class="middle-list-body">
+                                            <div class="middle-list-post-text">
+                                                <span>@Html.DisplayFor(model => item.NOIDUNG)</span>
+                                            </div>
+                                            @*<img class="middle-list-body-post-img" src="~/Content/assets/img/laptop.jpg" alt="">*@
                                         </div>
-                                        <div class="middle-list-contact">
-                                            <a style="text-decoration: none;" href="#">
-                                                <i class="far fa-comment"></i>
-                                                <span>Bình luận</span>
-                                            </a>
-                                        </div>
-                                        <div class="middle-list-contact">
-                                            <a style="text-decoration: none;" href="#">
-                                                <i class="far fa-share-square"></i>
-                                                <span>Chia sẻ</span>
-                                            </a>
+                                        <div class="middle-list-UserContact">
+                                            <div class="middle-list-UserContacted">
+                                                <div class="middle-list-contact">
+                                                    <i onclick="Like(this)" class="fas fa-heart"></i>
+                                                    <span>Thích</span>
+                                                </div>
+                                                <div class="middle-list-contact">
+                                                    <a style="text-decoration: none;" href="#">
+                                                        <i class="far fa-comment"></i>
+                                                        <span>Bình luận</span>
+                                                    </a>
+                                                </div>
+                                                <div class="middle-list-contact">
+                                                    <a style="text-decoration: none;" href="#">
+                                                        <i class="far fa-share-square"></i>
+                                                        <span>Chia sẻ</span>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            }
+                        }
+
                     </div>
                 </div>
             </div>

@@ -30,7 +30,7 @@
                         openModal.style.display = "block";
                     }
                     else {
-                        swal("Không cập nhật", "Thông tin bạn hệ thống vẫn giữ lại", "error");
+                        swal("Không cập nhật", "Thông tin bạn hệ thống vẫn giữ lại", "info");
                     }
                 })
         })
@@ -296,7 +296,7 @@
                             </select>
                         </div>
                     </div>
-                    <!-- textArea mặc định để click vào -->
+                    <!-- textArea mặc định để click vào mở MODAL -->
                     <div class="middle-list-body">
                         <textarea class="middle-list-text" name="" id="textarea" cols="30" rows="10" placeholder="Hôm nay bạn nghĩ gì"></textarea>
                     </div>
@@ -340,8 +340,7 @@
                                     </div>
                                     <div>
                                         <i class="fas fa-globe-americas"></i>
-                                        <span>@Html.DisplayFor(model => item.CHEDO)</span>
-                                        <div>@Html.DisplayFor(model => item.NGAYDANG)</div>
+                                        <span>@Html.DisplayFor(model => item.CHEDO)</span> -  <span>@Html.DisplayFor(model=>item.NGAYDANG)</span>
                                     </div>
                                 </div>
                             </div>

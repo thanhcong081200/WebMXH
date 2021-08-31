@@ -804,7 +804,7 @@ body {
     background-color: white;
     border-radius: 20px;
     position: absolute;
-    top: 16%;
+    top: 11%;
     left: 18%;
 }
 
@@ -815,7 +815,7 @@ body {
     border-radius: 20px;
     margin-top: 15px;
     position: absolute;
-    top: 32%;
+    top: 22%;
     left: 18%;
 }
 
@@ -826,7 +826,7 @@ body {
     border-radius: 20px;
     margin-top: 15px;
     position: absolute;
-    top: 73%;
+    top: 50%;
     left: 18%;
 }
 
@@ -866,7 +866,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 25px;
+    margin-top: 24px;
     margin-left: -24%;
     margin-right: -46px;
     background-color: white;

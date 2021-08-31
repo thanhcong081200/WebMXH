@@ -32,10 +32,6 @@ namespace WebMXH.Controllers
                     
                 }
                 return View(lst);
-
-                //db.Entry(user).State = EntityState.Modified;
-                //db.SaveChanges();
-                //return RedirectToAction("Index");
             }
         }
 
@@ -63,14 +59,6 @@ namespace WebMXH.Controllers
             {
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
-        }
-            [HttpGet]
-        public ActionResult XemBaiViet(int id)
-        {
-            using (MXH_GREENZONEEntities db = new MXH_GREENZONEEntities())
-            {
-                return View(db.BAIVIET.Where(x=>x.USERID == id).FirstOrDefault());
-            } 
         }
 
         [HttpGet]
@@ -116,11 +104,21 @@ namespace WebMXH.Controllers
             return RedirectToAction("Login");
         }
 
-        public ActionResult Profiles()
+        public ActionResult Profiles(USERR user)
         {
             using (MXH_GREENZONEEntities db = new MXH_GREENZONEEntities())
             {
-                return View(db.USERR.ToList());
+                db.USERR.ToList();
+                    List<BAIVIET> lst = new List<BAIVIET>();
+                    USERR iduser = Session["user"] as USERR;
+                    if (iduser != null)
+                    {
+                        int id = int.Parse(iduser.USERID.ToString());
+                        lst = db.BAIVIET.Where(bv => bv.USERID == id).OrderByDescending(p => p.IDBAIVIET).ToList();
+
+                    }
+                    return View(lst);
+
             }
         }
 
@@ -150,17 +148,18 @@ namespace WebMXH.Controllers
                     //Sửa thông tin
                         db.Entry(user).State = EntityState.Modified;
                         db.SaveChanges();
-                        return RedirectToAction("EditProfile");
+                        //return RedirectToAction("EditProfile");
 
                     //DropdownList
 
                 }
-                catch
+                catch(Exception ex)
                 {
-                    return View();
-
+                    
                 }
+                return View();
             }
+            
         }
 
         //GET: Register
@@ -185,7 +184,7 @@ namespace WebMXH.Controllers
                     db.Configuration.ValidateOnSaveEnabled = false;
                     db.USERR.Add(_user);
                     db.SaveChanges();
-                    return RedirectToAction("Login");
+                    //return RedirectToAction("Login");
                 }
                 else
                 {
