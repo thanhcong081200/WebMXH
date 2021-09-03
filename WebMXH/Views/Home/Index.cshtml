@@ -1,4 +1,5 @@
-﻿
+﻿@using WebMXH.Models;
+@model dynamic 
 @{
     Layout = null;
     List<SelectListItem> gender = new List<SelectListItem>();
@@ -6,7 +7,7 @@
     gender.Add(new SelectListItem() { Text = "Nữ", Value = "Nữ" });
     USERR user = Session["user"] as USERR;
 }
-@model List<BAIVIET>
+@*@model List<BAIVIET>*@
 @if (user.NGAYSINH == null || user.GIOITINH == null)
 {
     <!--Hàm xác nhận thông tin khi user chưa cung cấp đủ thông tin-->
@@ -322,7 +323,7 @@
                 {
                     @Html.AntiForgeryToken()
                     <!-- Bài viết đã đăng nên phần này chỉ hiển thị lấy từ DB ra hiển thị  -->
-                    foreach (var item in Model)
+                    foreach (BAIVIET item in Model.baiviet)
                     {
                         <div id="posted" class="middle-list-postedUser">
                             <div class="middle-list-infoUser">
@@ -532,12 +533,12 @@
                     let online = listUsers[i].IsOnline ? '<i style="color:lawngreen;" class="fa fa-circle"></i>' : "";
                     $('.list-friend').append(
                         '<li class="list-group-friend-' + listUsers[i].UserId + '")>\
-                                                                            <a class="list-group-friend-name" onclick="openChatBox(' + listUsers[i].UserId + ')">\
-                                                                           <img class="list-group-img" src="/Content/assets/img/'+ listUsers[i].HinhAnh + '" alt="">\
-                                                                              '+ listUsers[i].FullName + '\
-                                                                            <span class="is-online">'+ online + '</span>\
-                                                                            </a>\
-                                                                         </li>');
+                                                                                <a class="list-group-friend-name" onclick="openChatBox(' + listUsers[i].UserId + ')">\
+                                                                               <img class="list-group-img" src="/Content/assets/img/'+ listUsers[i].HinhAnh + '" alt="">\
+                                                                                  '+ listUsers[i].FullName + '\
+                                                                                <span class="is-online">'+ online + '</span>\
+                                                                                </a>\
+                                                                             </li>');
                 }
             };
 
@@ -659,63 +660,82 @@
 
     </script>
     <!--JS lặt vặt-->
-
     <!-- Chỉnh sửa thong tin khi người dùng mới tạo tài khoản-->
 
     <div class="modal" id="modalEditInfo" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Thêm thông tin</h5>
+                    <h5 class="modal-title">Cập nhật thêm thông tin</h5>
                     <button type="button" id="closeModalUpdate" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div id="modal-bodys" class="modal-body">
-                    <div class="form-control">
-                        <span>Username</span>
-                        <input id="username_input" type="text" name="USERNAME" />
+                <div id="modal-bodys" style="overflow-y:scroll;height:320px;" class="modal-body">
+                    <div class="form-group">
+                        <a style="margin-left: 16px; text-transform: uppercase; font-weight: bold; ">Tên đăng nhập</a>
+                        <div class="col-md-10">
+                            @Html.EditorFor(USERR => user.USERNAME, new { htmlAttributes = new { @id = "username_input", @class = "form-control", @style = "width:435;" } })
+                            @Html.ValidationMessageFor(USERR => user.USERNAME, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                    <div class="form-control">
-                        <span>FULLNAME</span>
-                        <input id="fullname_input" type="text" name="FULLNAME" />
+                    <div class="form-group">
+                        <a style="margin-left: 16px; text-transform: uppercase; font-weight: bold; ">Họ và tên</a>
+                        <div class="col-md-10">
+                            @Html.EditorFor(USERR => user.FULLNAME, new { htmlAttributes = new { @id = "fullname_input", @class = "form-control", @style = "width:435;" } })
+                            @Html.ValidationMessageFor(USERR => user.FULLNAME, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                    <div class="form-control">
-                        <span>PASSWORD</span>
-                        <input id="password_input" type="text" name="PASSWORD" />
+
+                    <div class="form-group">
+                        <a style="margin-left: 16px; text-transform: uppercase; font-weight: bold; ">Mật khẩu</a>
+                        <div class="col-md-10">
+                            @Html.EditorFor(USERR => user.PASSWORD, new { htmlAttributes = new { @id = "password_input", @class = "form-control", @style = "width:435;" } })
+                            @Html.ValidationMessageFor(USERR => user.PASSWORD, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                    <div class="form-control">
-                        <span>SDT</span>
-                        <input id="sdt_input" type="text" name="SDT" />
+
+                    <div class="form-group">
+                        <a style="margin-left: 16px; text-transform: uppercase; font-weight: bold; ">Số điện thoại</a>
+                        <div class="col-md-10">
+                            @Html.EditorFor(USERR => user.SDT, new { htmlAttributes = new { @id = "sdt_input", @class = "form-control", @style = "width:435;" } })
+                            @Html.ValidationMessageFor(USERR => user.SDT, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                    <div class="form-control">
-                        <span>EMAIL</span>
-                        <input id="email_input" type="text" name="EMAIL" />
+
+                    <div class="form-group">
+                        <a style="margin-left: 16px; text-transform: uppercase; font-weight: bold; ">Email</a>
+                        <div class="col-md-10">
+                            @Html.EditorFor(USERR => user.EMAIL, new { htmlAttributes = new { @id = "email_input", @class = "form-control", @style = "width:435;" } })
+                            @Html.ValidationMessageFor(USERR => user.EMAIL, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                    <div class="form-control">
-                        <span>HINHANH</span>
-                        <input type="text" name="HINHANH" />
+
+                    <div class="form-group">
+                        <a style="margin-left: 16px; text-transform: uppercase; font-weight: bold; ">Giới tính</a>
+                        <div class="col-md-10">
+                            <select id="select_gioitinh">
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-control">
-                        <span>Ngày sinh</span>
-                        <input id="ngaysinh_input" type="text" name="NGAYSINH" />
-                    </div>
-                    <div class="form-control">
-                        <span>Giới tính</span>
-                        <select id="select_gioitinh">
-                            <option value="Nam">Nam</option>
-                            <option value="Nữ">Nữ</option>
-                        </select>
+
+                    <div class="form-group">
+                        <a style="margin-left: 16px; text-transform: uppercase; font-weight: bold; ">Ngày sinh</a>
+                        <div class="col-md-10">
+                            @Html.EditorFor(USERR => user.NGAYSINH, new { htmlAttributes = new { @id = "ngaysinh_input", @class = "form-control", @style = "width:435;" } })
+                            @Html.ValidationMessageFor(USERR => user.NGAYSINH, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" id="SaveNewInfo" class="btn btn-primary">Lưu thông tin</button>
-                    <button type="button" id="closeModalUpdate" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
                 </div>
             </div>
         </div>
     </div>
-
 
     <script>
         var closeModalUpdate = document.querySelector("#closeModalUpdate");
@@ -742,8 +762,21 @@
                 data: JSON.stringify({ ngaysinh: emp, gioitinh: select, username: username, fullname: fullname, pass: pass, sdt: sdt, email: email }),
                 async: true,
                 success: function (res) {
-                    if (res == 1)
-                        location.reload();
+                    if (res == 1) {
+                        swal({
+                            title: "Thông báo",
+                            text: "Thông tin của bạn cập nhật thành công",
+                            type: "success",
+                            confirmButtonClass: "btn-primary",
+                            confirmButtonText: "OK",
+                            closeOnConfirm: true,
+                        }, function (isConfirm) {
+                            if (isConfirm) {
+                                location.reload();
+                            }
+                        })
+                            
+                    }
                     else
                         alert('Sửa không thành công');
                 }

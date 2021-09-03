@@ -4,7 +4,7 @@
 }
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -48,7 +48,7 @@
                 <tr class="Search">
                     <td><img style="width:40px;height:40px;" src="~/Content/assets/img/@item.HINHANH" /></td>
                     <td>@item.FULLNAME</td>
-                    <td>@item.SDT</td>
+                    <td><button class="btn btn-primary">Kết bạn</button></td>
                 </tr>
             }
         </tbody>
@@ -84,7 +84,7 @@
     var onclickInput = document.querySelector("#Search");
     var table = document.querySelector(".table-div");
 
-    onclickInput.onclick = function () {
+    onclickInput.onchange = function () {
         table.style.display = 'block';
     }
 </script>

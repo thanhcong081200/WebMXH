@@ -10,6 +10,7 @@ using System.Web.Security;
 using WebMXH.Hubs;
 using WebMXH.Models;
 using WebMXH.Services;
+using System.Dynamic;
 
 namespace WebMXH.Controllers
 {
@@ -19,26 +20,39 @@ namespace WebMXH.Controllers
     {
         MXH_GREENZONEEntities data = new MXH_GREENZONEEntities();
 
-        //Xem bài viết
+
         [HttpGet]
-        public ActionResult Index(USERR user)
+        public ActionResult Index()
         {
-            using (MXH_GREENZONEEntities db = new MXH_GREENZONEEntities())
-            {
-
-                List<BAIVIET> lst = new List<BAIVIET>();
-
-                USERR iduser = Session["user"] as USERR;
-                if (iduser != null)
-                {
-                    int id = int.Parse(iduser.USERID.ToString());
-                    lst = db.BAIVIET.Where(bv => bv.USERID == id).OrderByDescending(p => p.IDBAIVIET).ToList();
-
-                }
-                return View(lst);
-            }
+            //Cho 2 hàm mượn vào đây
+            dynamic dy = new ExpandoObject();
+            dy.user = getUser();
+            dy.baiviet = getBaiViet();
+            return View(dy);
         }
-       
+
+        //Mượn hàm USERR
+        public List<USERR> getUser()
+        {
+            List<USERR> user = data.USERR.ToList();
+            return user;
+        }
+
+        //Mượn hàm BAIVIET
+        public List<BAIVIET> getBaiViet()
+        {
+            List<BAIVIET> lst = new List<BAIVIET>();
+
+            USERR iduser = Session["user"] as USERR;
+            if (iduser != null)
+            {
+                int id = int.Parse(iduser.USERID.ToString());
+                lst = data.BAIVIET.Where(bv => bv.USERID == id).OrderByDescending(p => p.IDBAIVIET).ToList();
+
+            }
+            return lst;
+        }
+
         //Đăng bài viết
         [HttpPost]
         public JsonResult addbaiviet(string noidung,BAIVIET baiviet,string chedo)

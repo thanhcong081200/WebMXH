@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebMXH.Models;
+using System.Dynamic;
 
 namespace WebMXH.Controllers
 {
@@ -15,6 +16,26 @@ namespace WebMXH.Controllers
         public ActionResult Index()
         {
             return View(db.BAIVIET.ToList());
+        }
+
+        public ActionResult TwoModel()
+        {
+            dynamic dy = new ExpandoObject();
+            dy.userr = getUser();
+            dy.baiviet = getBaiViet();
+            return View(dy);
+        }
+
+        public List<USERR> getUser()
+        {
+            List<USERR> user = db.USERR.ToList();
+            return user;
+        }
+
+        public List<BAIVIET> getBaiViet()
+        {
+            List<BAIVIET> bv = db.BAIVIET.ToList();
+            return bv;
         }
 
         public ActionResult Search()
