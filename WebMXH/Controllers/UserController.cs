@@ -17,6 +17,11 @@ namespace WebMXH.Controllers
             return View(db.BAIVIET.ToList());
         }
 
+        public ActionResult Search()
+        {
+            return View(db.USERR.ToList());
+        }
+
         // GET: User/Details/5
         public ActionResult Details(int id)
         {

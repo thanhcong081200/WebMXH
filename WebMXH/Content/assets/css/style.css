@@ -803,9 +803,6 @@ body {
     width: 440px;
     background-color: white;
     border-radius: 20px;
-    position: absolute;
-    top: 11%;
-    left: 18%;
 }
 
 .info-profile1 {
@@ -814,9 +811,6 @@ body {
     background-color: white;
     border-radius: 20px;
     margin-top: 15px;
-    position: absolute;
-    top: 22%;
-    left: 18%;
 }
 
 .info-profile2 {
@@ -825,9 +819,6 @@ body {
     background-color: white;
     border-radius: 20px;
     margin-top: 15px;
-    position: absolute;
-    top: 50%;
-    left: 18%;
 }
 
 .list-info-profile {

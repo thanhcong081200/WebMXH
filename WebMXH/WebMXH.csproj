@@ -2055,7 +2055,8 @@
     <Content Include="Views\Home\EditProfile.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
-    <Content Include="Views\Home\CreateNewPost.cshtml" />
+    <Content Include="Views\Partials\EditNewUser.cshtml" />
+    <Content Include="Views\User\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

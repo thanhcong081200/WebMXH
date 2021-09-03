@@ -30,12 +30,13 @@
                         openModal.style.display = "block";
                     }
                     else {
-                        swal("Không cập nhật", "Thông tin bạn hệ thống vẫn giữ lại", "info");
+                        swal("Không cập nhật", "Thông tin bạn hệ thống vẫn giữ lại", "error");
                     }
                 })
         })
     </script>
 }
+
 
 
 <!DOCTYPE html>
@@ -74,7 +75,7 @@
                 </ul>
                 <div class="formSearch">
                     <i class="icon-formSearch fas fa-search"></i>
-                    <input class="input-formSearch" type="text" placeholder="Tìm kiếm">
+                    <input id="inputSearch" class="input-formSearch" type="text" placeholder="Tìm kiếm">
                 </div>
                 <div id="accountUser" class="accountUser" style="padding-right: 20px;">
                     @if (User.Identity.IsAuthenticated)
@@ -340,7 +341,7 @@
                                     </div>
                                     <div>
                                         <i class="fas fa-globe-americas"></i>
-                                        <span>@Html.DisplayFor(model => item.CHEDO)</span> -  <span>@Html.DisplayFor(model=>item.NGAYDANG)</span>
+                                        <span>@Html.DisplayFor(model => item.CHEDO)</span> -  <span>@Html.DisplayFor(model => item.NGAYDANG)</span>
                                     </div>
                                 </div>
                             </div>
@@ -520,8 +521,6 @@
         </script>
         <script src="~/Content/assets/js/emojionearea.min.js"></script>*@
     <!-- Emoji TextArea -->
-
-
     <!--JS Chat Real-Time-->
     <script>
         $(function () {
@@ -533,12 +532,12 @@
                     let online = listUsers[i].IsOnline ? '<i style="color:lawngreen;" class="fa fa-circle"></i>' : "";
                     $('.list-friend').append(
                         '<li class="list-group-friend-' + listUsers[i].UserId + '")>\
-                                                            <a class="list-group-friend-name" onclick="openChatBox(' + listUsers[i].UserId + ')">\
-                                                           <img class="list-group-img" src="/Content/assets/img/'+ listUsers[i].HinhAnh + '" alt="">\
-                                                              '+ listUsers[i].FullName + '\
-                                                            <span class="is-online">'+ online + '</span>\
-                                                            </a>\
-                                                         </li>');
+                                                                            <a class="list-group-friend-name" onclick="openChatBox(' + listUsers[i].UserId + ')">\
+                                                                           <img class="list-group-img" src="/Content/assets/img/'+ listUsers[i].HinhAnh + '" alt="">\
+                                                                              '+ listUsers[i].FullName + '\
+                                                                            <span class="is-online">'+ online + '</span>\
+                                                                            </a>\
+                                                                         </li>');
                 }
             };
 
@@ -585,8 +584,6 @@
         }
     </script>
     <!--JS Chat Real-Time-->
-   
-    
     <!--JS lặt vặt-->
     <script>
         var opening = document.getElementById('accountUser');
@@ -606,6 +603,7 @@
         openTextArea.onclick = function () {
             modalObject.style.display = 'block';
         }
+
         // Post bài viết
         posrtbaiviet.onclick = function () {
             var emp = $('#textarea1').val();
@@ -662,43 +660,94 @@
     </script>
     <!--JS lặt vặt-->
 
-
     <!-- Chỉnh sửa thong tin khi người dùng mới tạo tài khoản-->
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <div class="modal" id="modalEditInfo" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Thêm thông tin</h5>
-                        <button type="button" id="closeModalUpdate" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+
+    <div class="modal" id="modalEditInfo" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm thông tin</h5>
+                    <button type="button" id="closeModalUpdate" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="modal-bodys" class="modal-body">
+                    <div class="form-control">
+                        <span>Username</span>
+                        <input id="username_input" type="text" name="USERNAME" />
                     </div>
-                    <div class="modal-body">
-                        <div style="margin-top:10px;margin-bottom:15px;">
-                            <span>Giới tính</span>
-                            @Html.DropDownList("GiOITINH", gender,new { @style="margin-left:10px;" })
-                        </div>
-                        <div>
-                            <span>Ngày sinh</span>
-                            <input type="text" name="NGAYSINH" />
-                        </div>
+                    <div class="form-control">
+                        <span>FULLNAME</span>
+                        <input id="fullname_input" type="text" name="FULLNAME" />
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Lưu thông tin</button>
-                        <button type="button" id="closeModalUpdate" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                    <div class="form-control">
+                        <span>PASSWORD</span>
+                        <input id="password_input" type="text" name="PASSWORD" />
                     </div>
+                    <div class="form-control">
+                        <span>SDT</span>
+                        <input id="sdt_input" type="text" name="SDT" />
+                    </div>
+                    <div class="form-control">
+                        <span>EMAIL</span>
+                        <input id="email_input" type="text" name="EMAIL" />
+                    </div>
+                    <div class="form-control">
+                        <span>HINHANH</span>
+                        <input type="text" name="HINHANH" />
+                    </div>
+                    <div class="form-control">
+                        <span>Ngày sinh</span>
+                        <input id="ngaysinh_input" type="text" name="NGAYSINH" />
+                    </div>
+                    <div class="form-control">
+                        <span>Giới tính</span>
+                        <select id="select_gioitinh">
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="SaveNewInfo" class="btn btn-primary">Lưu thông tin</button>
+                    <button type="button" id="closeModalUpdate" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
                 </div>
             </div>
         </div>
-    }
+    </div>
+
+
     <script>
         var closeModalUpdate = document.querySelector("#closeModalUpdate");
 
         closeModalUpdate.onclick = function () {
             modalEditInfo.style.display = 'none';
+        }
+
+        //Save thông tin khi user mới tạo tài khoản
+        var Save = document.getElementById('SaveNewInfo');
+        Save.onclick = function () {
+            var emp = $('#ngaysinh_input').val();
+            var select = $('#select_gioitinh').val();
+            var username = $('#username_input').val();
+            var fullname = $('#fullname_input').val();
+            var pass = $('#password_input').val();
+            var sdt = $('#sdt_input').val();
+            var email = $('#email_input').val();
+            $.ajax({
+                url: '/Home/EditNewUser',
+                type: 'POST',
+                datatype: 'JSON',
+                contentType: 'application/json;charset=utf-8;',
+                data: JSON.stringify({ ngaysinh: emp, gioitinh: select, username: username, fullname: fullname, pass: pass, sdt: sdt, email: email }),
+                async: true,
+                success: function (res) {
+                    if (res == 1)
+                        location.reload();
+                    else
+                        alert('Sửa không thành công');
+                }
+            });
         }
     </script>
     <!-- Chỉnh sửa thong tin khi người dùng mới tạo tài khoản-->

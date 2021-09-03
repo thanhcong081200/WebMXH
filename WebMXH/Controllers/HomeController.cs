@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
@@ -18,29 +19,27 @@ namespace WebMXH.Controllers
     {
         MXH_GREENZONEEntities data = new MXH_GREENZONEEntities();
 
+        //Xem bài viết
         [HttpGet]
         public ActionResult Index(USERR user)
         {
             using (MXH_GREENZONEEntities db = new MXH_GREENZONEEntities())
             {
+
                 List<BAIVIET> lst = new List<BAIVIET>();
+
                 USERR iduser = Session["user"] as USERR;
                 if (iduser != null)
                 {
                     int id = int.Parse(iduser.USERID.ToString());
-                     lst = db.BAIVIET.Where(bv => bv.USERID == id ).OrderByDescending(p=>p.IDBAIVIET).ToList();
-                    
+                    lst = db.BAIVIET.Where(bv => bv.USERID == id).OrderByDescending(p => p.IDBAIVIET).ToList();
+
                 }
                 return View(lst);
             }
         }
-
-        [HttpGet]
-        public ActionResult CreateNewPost()
-        {
-            return View();
-        }
-
+       
+        //Đăng bài viết
         [HttpPost]
         public JsonResult addbaiviet(string noidung,BAIVIET baiviet,string chedo)
         {
@@ -61,6 +60,37 @@ namespace WebMXH.Controllers
             }
         }
 
+        //Thêm thông tin khi user mới tạo tài khoản // bug
+        [HttpPost]
+        public JsonResult EditNewUser(DateTime ngaysinh, USERR user, string gioitinh, string username, string fullname, string pass, string sdt, string email)
+        {
+            try
+            {
+                USERR iduser = Session["user"] as USERR;
+                user.USERID = iduser.USERID;
+                if (iduser != null)
+                {
+                    user.USERNAME = username;
+                    user.FULLNAME = fullname;
+                    user.PASSWORD = pass;
+                    user.SDT = sdt;
+                    user.EMAIL = email;
+                    user.HINHANH = "user.png";
+                    user.GIOITINH = gioitinh;
+                    user.NGAYSINH = ngaysinh;
+                    data.Entry(user).State = EntityState.Modified;
+                    data.SaveChanges();
+                }
+                return Json(1, JsonRequestBehavior.AllowGet);
+
+            }
+            catch
+            {
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        //Đăng nhập
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Login()
@@ -72,6 +102,7 @@ namespace WebMXH.Controllers
             return View(new LoginData());
         }
 
+        //Xử lí đăng nhập
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -95,6 +126,7 @@ namespace WebMXH.Controllers
             return View();
         }
 
+        //Đăng xuất
         public ActionResult Logout()
         {
             int userId = int.Parse(User.Identity.Name);
@@ -104,11 +136,12 @@ namespace WebMXH.Controllers
             return RedirectToAction("Login");
         }
 
+        //Thông tin trang cá nhân
         public ActionResult Profiles(USERR user)
         {
             using (MXH_GREENZONEEntities db = new MXH_GREENZONEEntities())
             {
-                db.USERR.ToList();
+                    db.USERR.ToList();
                     List<BAIVIET> lst = new List<BAIVIET>();
                     USERR iduser = Session["user"] as USERR;
                     if (iduser != null)
@@ -122,7 +155,7 @@ namespace WebMXH.Controllers
             }
         }
 
-        // GET: User/Edit/5
+        //Lấy id của người dùng để chỉnh sửa
         public ActionResult EditProfile(int id)
         {
             using (MXH_GREENZONEEntities db = new MXH_GREENZONEEntities())
@@ -131,7 +164,7 @@ namespace WebMXH.Controllers
             }
         }
 
-        // POST: User/Edit/5
+        //Chỉnh sửa thông tin người dùng
         [HttpPost]
         public ActionResult EditProfile(HttpPostedFileBase filename,int id, USERR user)
         {
@@ -148,9 +181,6 @@ namespace WebMXH.Controllers
                     //Sửa thông tin
                         db.Entry(user).State = EntityState.Modified;
                         db.SaveChanges();
-                        //return RedirectToAction("EditProfile");
-
-                    //DropdownList
 
                 }
                 catch(Exception ex)
@@ -162,13 +192,13 @@ namespace WebMXH.Controllers
             
         }
 
-        //GET: Register
+        //Đăng kí tài khoản
         public ActionResult Register()
         {
             return View();
         }
 
-        //POST: Register
+        //Đăng kí tài khoản
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -184,7 +214,6 @@ namespace WebMXH.Controllers
                     db.Configuration.ValidateOnSaveEnabled = false;
                     db.USERR.Add(_user);
                     db.SaveChanges();
-                    //return RedirectToAction("Login");
                 }
                 else
                 {
@@ -195,6 +224,7 @@ namespace WebMXH.Controllers
             return View();
         }
      
+        //Chat user
         [HttpPost]
         public ActionResult GetChatbox(int toUserId)
         {
@@ -202,6 +232,7 @@ namespace WebMXH.Controllers
             return PartialView("~/Views/Partials/_ChatBox.cshtml", chatBoxModel);
         }
 
+        //Gửi tin nhắn
         [HttpPost]
         public ActionResult SendMessage(int toUserId, string message)
         {
