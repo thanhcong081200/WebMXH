@@ -1,5 +1,5 @@
 ﻿@using WebMXH.Models;
-@model dynamic 
+@model dynamic
 @{
     Layout = null;
     List<SelectListItem> gender = new List<SelectListItem>();
@@ -7,36 +7,38 @@
     gender.Add(new SelectListItem() { Text = "Nữ", Value = "Nữ" });
     USERR user = Session["user"] as USERR;
 }
-@*@model List<BAIVIET>*@
-@if (user.NGAYSINH == null || user.GIOITINH == null)
-{
-    <!--Hàm xác nhận thông tin khi user chưa cung cấp đủ thông tin-->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script type="text/javascript">
+@if (user != null)
+    {
+        if (user.NGAYSINH == null || user.GIOITINH == null)
+        {
+        <!--Hàm xác nhận thông tin khi user chưa cung cấp đủ thông tin-->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script type="text/javascript">
         $(document).ready(function () {
-            swal({
-                title: "Thông tin",
-                text: "Thông tin của bạn cung cấp chưa đủ .Bạn có muốn cập nhật thêm không?",
-                type: "info",
-                confirmButtonClass: "btn-primary",
-                showCancelButton: true,
-                confirmButtonText: "Cập nhật",
-                cancelButtonText: "Không cập nhật",
-                closeOnConfirm: true,
-                closeOnCancel: false
-            },
-                function (isConfirm) {
-                    if (isConfirm) {
-                        var openModal = document.querySelector("#modalEditInfo");
-                        openModal.style.display = "block";
-                    }
-                    else {
-                        swal("Không cập nhật", "Thông tin bạn hệ thống vẫn giữ lại", "error");
-                    }
-                })
-        })
-    </script>
-}
+        swal({
+            title: "Thông tin",
+            text: "Thông tin của bạn cung cấp chưa đủ .Bạn có muốn cập nhật thêm không?",
+            type: "info",
+            confirmButtonClass: "btn-primary",
+            showCancelButton: true,
+            confirmButtonText: "Cập nhật",
+            cancelButtonText: "Không cập nhật",
+            closeOnConfirm: true,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+                    var openModal = document.querySelector("#modalEditInfo");
+                    openModal.style.display = "block";
+                }
+                else {
+                    swal("Không cập nhật", "Thông tin bạn hệ thống vẫn giữ lại", "error");
+                }
+            })
+    })
+</script>
+            }
+        }
 
 
 
@@ -533,12 +535,12 @@
                     let online = listUsers[i].IsOnline ? '<i style="color:lawngreen;" class="fa fa-circle"></i>' : "";
                     $('.list-friend').append(
                         '<li class="list-group-friend-' + listUsers[i].UserId + '")>\
-                                                                                <a class="list-group-friend-name" onclick="openChatBox(' + listUsers[i].UserId + ')">\
-                                                                               <img class="list-group-img" src="/Content/assets/img/'+ listUsers[i].HinhAnh + '" alt="">\
-                                                                                  '+ listUsers[i].FullName + '\
-                                                                                <span class="is-online">'+ online + '</span>\
-                                                                                </a>\
-                                                                             </li>');
+                                                                                            <a class="list-group-friend-name" onclick="openChatBox(' + listUsers[i].UserId + ')">\
+                                                                                           <img class="list-group-img" src="/Content/assets/img/'+ listUsers[i].HinhAnh + '" alt="">\
+                                                                                              '+ listUsers[i].FullName + '\
+                                                                                            <span class="is-online">'+ online + '</span>\
+                                                                                            </a>\
+                                                                                         </li>');
                 }
             };
 
@@ -775,7 +777,7 @@
                                 location.reload();
                             }
                         })
-                            
+
                     }
                     else
                         alert('Sửa không thành công');

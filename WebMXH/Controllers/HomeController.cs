@@ -74,7 +74,7 @@ namespace WebMXH.Controllers
             }
         }
 
-        //Thêm thông tin khi user mới tạo tài khoản // bug
+        //Thêm thông tin khi user mới tạo tài khoản 
         [HttpPost]
         public JsonResult EditNewUser(DateTime ngaysinh, USERR user, string gioitinh, string username, string fullname, string pass, string sdt, string email)
         {
@@ -94,6 +94,8 @@ namespace WebMXH.Controllers
                     user.NGAYSINH = ngaysinh;
                     data.Entry(user).State = EntityState.Modified;
                     data.SaveChanges();
+                    Session["user"] = user;
+                    USERR user1 = Session["user"] as USERR;
                 }
                 return Json(1, JsonRequestBehavior.AllowGet);
 
@@ -150,22 +152,50 @@ namespace WebMXH.Controllers
             return RedirectToAction("Login");
         }
 
+        [HttpGet]
         //Thông tin trang cá nhân
-        public ActionResult Profiles(USERR user)
+        public ActionResult Profiles(HttpPostedFileBase filename, USERR user)
         {
-            using (MXH_GREENZONEEntities db = new MXH_GREENZONEEntities())
+            //if (user.HINHANH != null)
+            //{
+            //    var file = Path.GetFileName(filename.FileName);
+            //    var path = Path.Combine(Server.MapPath("~/Content/assets/img"), file);
+            //    filename.SaveAs(path);
+            //    user.HINHANH = file;
+            //}
+            //Cho 2 hàm mượn vào đây
+            dynamic dy = new ExpandoObject();
+            dy.userr = getUser();
+            dy.baiviet = getBaiViet();
+            return View(dy);
+        }
+
+        //Chỉnh sửa thông tin cho user
+        [HttpPost]
+        public JsonResult EditInfoUser(DateTime ngaysinh, USERR user, string gioitinh, string username, string fullname, string pass, string sdt, string email)
+        {
+            try
             {
-                    db.USERR.ToList();
-                    List<BAIVIET> lst = new List<BAIVIET>();
-                    USERR iduser = Session["user"] as USERR;
-                    if (iduser != null)
-                    {
-                        int id = int.Parse(iduser.USERID.ToString());
-                        lst = db.BAIVIET.Where(bv => bv.USERID == id).OrderByDescending(p => p.IDBAIVIET).ToList();
+                USERR iduser = Session["user"] as USERR;
+                user.USERID = iduser.USERID;
+                if (iduser != null)
+                {
+                    user.USERNAME = username;
+                    user.FULLNAME = fullname;
+                    user.PASSWORD = pass;
+                    user.SDT = sdt;
+                    user.EMAIL = email;
+                    user.GIOITINH = gioitinh;
+                    user.NGAYSINH = ngaysinh;
+                    data.Entry(user).State = EntityState.Modified;
+                    data.SaveChanges();
+                }
+                return Json(1, JsonRequestBehavior.AllowGet);
 
-                    }
-                    return View(lst);
-
+            }
+            catch
+            {
+                return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
 
